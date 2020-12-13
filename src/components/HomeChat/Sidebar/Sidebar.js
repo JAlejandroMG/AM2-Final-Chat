@@ -5,7 +5,7 @@ import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { IconButton, Avatar } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
-import SidebarChat from "../SidebarChat/SidebarChat";
+import SidebarChat from "./SidebarChat/SidebarChat";
 
 const Sidebar = () => {
   return (

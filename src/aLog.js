@@ -1,7 +1,14 @@
+//+ Bitácora de actividades
+//} 20201213
+//* Reestructura de componentes
+//  Se agrego el archivo HomeChat y se acomodaron componentes existentes de acuerdo a su anidación en código
+
+
+
 //+ Proyecto final chat en tiempo real React
 
 //{ Objetivo: Crear una aplicación para enviar mensajes en tiempo real usando react, react router, react hooks, redux y firebase.
-//} https://gitlab.com/academlo-fullstack-dev/proyecto-final
+// https://gitlab.com/academlo-fullstack-dev/proyecto-final
 
 
 //{ Requerimientos (obligatorios): 
