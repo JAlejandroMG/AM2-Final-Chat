@@ -1,22 +1,26 @@
 //+ Bitácora de actividades
 //} 20201213
 //* Reestructura de componentes
-//  Se agrego el archivo HomeChat y se acomodaron componentes existentes de acuerdo a su anidación en código
+//* Se agrego el archivo HomeChat y se acomodaron componentes existentes de acuerdo a su anidación en código
+//* Se agregaron los archivos Home, HomeChat, Login y Register
+//* React Router, Route y Switch
+//* Firebase
+//  Register en proceso
+
 
 
 
 //+ Proyecto final chat en tiempo real React
-
 //{ Objetivo: Crear una aplicación para enviar mensajes en tiempo real usando react, react router, react hooks, redux y firebase.
 // https://gitlab.com/academlo-fullstack-dev/proyecto-final
 
 
-//{ Requerimientos (obligatorios): 
-//{ React Hooks
-//{ React Router
-//{ Firebase
+//+ Requerimientos (obligatorios): 
+//* React Hooks
+//* React Router
+//* Firebase
 
-//[ Requerimientos (opcionales):
+//+ Requerimientos (opcionales):
 //[ React redux
 //[ Redux thunk
 //[ Redux logger
@@ -24,8 +28,9 @@
 
 //+ Crear las rutas
 //{ Las rutas tendrás que crearlas usando react router dom
-//{ /login
-//{ /register
+//* /  Adicional para dar acceso al chat sin usar barra de navegación
+//* /login
+//* /register
 //{ /chat (protegida)
 //{ /chat/:id (protegida)
 
@@ -43,7 +48,7 @@
 //} https://academlo-whats.herokuapp.com/api/v1/users 
 
 //+ Register (Firebase)
-//{ Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio una vez que haya registrado su cuenta.
+//{ Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
 
 //+ Validación formulario de registro
 //{ Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
