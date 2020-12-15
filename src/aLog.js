@@ -6,7 +6,10 @@
 //* React Router, Route y Switch
 //* Firebase
 //  Register en proceso
-
+//} 20201214
+//  Register pendiente de validar que la contraseña sea de al menos 6 caracteres de acuerdo a lo requerido por Firebase, además de establecer todos los campos como required
+//* Se eliminó Home y en su ruta se dejó a Login, se el nombre de HomeChat por ChatRoom
+//* Register se validaron campos vacíos, requisito de caracteres y reseteo de inputs
 
 
 
@@ -44,15 +47,17 @@
 //{ Inicio de sesión con Google
 //{ Restablecer contraseña
 //} https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email
+//* ???????????????????????????????????????????????????????????????????????????????
 //{ Enviar los datos de usuario (objeto user) a través de la api con el método POST
+//* ???????????????????????????????????????????????????????????????????????????????
 //} https://academlo-whats.herokuapp.com/api/v1/users 
 
 //+ Register (Firebase)
 //{ Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
 
 //+ Validación formulario de registro
-//{ Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
-//{ Registrar el usuario en firebase con el nombre completo, email y contraseña y agregar una imagen de perfil por defecto
+//* Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
+//* Registrar el usuario en firebase con el nombre completo, email y contraseña y agregar una imagen de perfil por defecto
 //} https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
 
 //+ Chat

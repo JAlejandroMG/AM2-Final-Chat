@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 //* Componentes
-import Home from './components/Home/Home';
-import HomeChat from './components/HomeChat/HomeChat';
+import ChatRoom from './components/ChatRoom/ChatRoom';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 //* React Router
@@ -27,11 +26,10 @@ function App() {
     <div className="app">
       <Router>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={Login} />
+          <Route path="/" exact component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/chat" exact>
-            <HomeChat messages={messages} />
+            <ChatRoom messages={messages} />
           </Route>
           {/* <Route path="/chat/:id" component={HomeChat} messages={messages} /> */}
           <Route path="*" exact component={notFound} />
