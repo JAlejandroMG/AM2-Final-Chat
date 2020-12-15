@@ -6,6 +6,8 @@
 //* React Router, Route y Switch
 //* Firebase
 //  Register en proceso
+//} 20201214
+//  Register pendiente de validar que la contraseña sea de al menos 6 caracteres de acuerdo a lo requerido por Firebase, además de establecer todos los campos como required
 
 
 
@@ -51,8 +53,8 @@
 //{ Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
 
 //+ Validación formulario de registro
-//{ Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
-//{ Registrar el usuario en firebase con el nombre completo, email y contraseña y agregar una imagen de perfil por defecto
+//* Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
+//* Registrar el usuario en firebase con el nombre completo, email y contraseña y agregar una imagen de perfil por defecto
 //} https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
 
 //+ Chat
