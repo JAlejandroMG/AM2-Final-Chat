@@ -3,7 +3,7 @@ import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
 
-function HomeChat({ messages }) {
+function ChatRoom({ messages }) {
    return (
       <div className="app__body">
             <Sidebar />
@@ -12,4 +12,4 @@ function HomeChat({ messages }) {
    );
 }
 
-export default HomeChat;
+export default ChatRoom;
