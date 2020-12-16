@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+//* React Router
+import {useHistory} from 'react-router-dom';
+//* Firebase
 import firebase from '../../firebase/config';
 import {auth} from '../../firebase/config';
 
 
 
-function Register() {
+function Register({ setUser }) {
    //* Estado local para captura de datos en componente Register
    const [inputName, setInputName] = useState("");
+   const [confirmPassword, setConfirmPassword] = useState("");
    //{ Estados que se comparten entre los componentes Register y Login
    const [inputEmail, setInputEmail] = useState("");
    const [inputPassword, setInputPassword] = useState("");
-   const [confirmPassword, setConfirmPassword] = useState("");
-   //! Estado global pendiente de mandar a store con redux
-   const [user, setUser] = useState({});
+   //* Hooks
+   const history = useHistory();
 
 
    //* Registro de usuario en Firebase con email y password
@@ -22,44 +25,17 @@ function Register() {
             auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
                .then(
                   userInfo => {
-                     // console.log(userInfo); // Pendiente en este paso
-                     console.log(userInfo.user.email);
-                     // setUser(userInfo);
                      updateUser();
                      setInputName("");
                      setInputEmail("");
                      setInputPassword("");
                      setConfirmPassword("");
-                     
+                     history.push("/chat");          
                   }
                ).catch( error => {
                   setInputPassword("");
                   setConfirmPassword("");
-                  console.log(error);
                });
-
-         // if((confirmPassword.length > 5) && (inputPassword.length > 5)) {
-         //    e.preventDefault();
-         //    auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
-         //       .then(
-         //          userInfo => {
-         //             // console.log(userInfo); // Pendiente en este paso
-         //             console.log(userInfo.user.email);
-         //             // setUser(userInfo);
-         //             updateUser();
-         //             setInputName("");
-         //             setInputEmail("");
-         //             setInputPassword("");
-         //             setConfirmPassword("");
-         //          }
-         //       ).catch( error => console.log(error));
-         // } else {
-         //    e.preventDefault();
-         //    setInputPassword("");
-         //    setConfirmPassword("");
-         //    alert(`Sorry ${inputName}, your password has less than 6 characters`);
-         // };
-
       } else {
          e.preventDefault();
          setInputPassword("");
@@ -83,10 +59,10 @@ function Register() {
          photoURL
          }).then(() => {
             // console.log(userInfo);
-            const userInfo = firebase.auth().currentUser;
-            setUser(userInfo);
-            console.log(userInfo);
-            console.log(userInfo.displayName);
+            const user = firebase.auth().currentUser;
+            setUser(user);
+            console.log(user);
+            console.log(user.displayName);
          }).catch(error => {
             console.log (`Ha ocurrido un error: ${error.message}`);
          });

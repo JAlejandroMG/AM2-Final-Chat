@@ -8,14 +8,19 @@
 //  Register en proceso
 //} 20201214
 //  Register pendiente de validar que la contraseña sea de al menos 6 caracteres de acuerdo a lo requerido por Firebase, además de establecer todos los campos como required
-//* Se eliminó Home y en su ruta se dejó a Login, se el nombre de HomeChat por ChatRoom
+//* Se eliminó Home y en su ruta se dejó a Login, se cambió el nombre de HomeChat por ChatRoom
 //* Register se validaron campos vacíos, requisito de caracteres y reseteo de inputs
+//} 20201215
+//* Login
+//* Reafactoring de Login y Register
+//* ProtectedRoute de ChatRoom
 
 
 
 //+ Proyecto final chat en tiempo real React
 //{ Objetivo: Crear una aplicación para enviar mensajes en tiempo real usando react, react router, react hooks, redux y firebase.
 // https://gitlab.com/academlo-fullstack-dev/proyecto-final
+
 
 
 //+ Requerimientos (obligatorios): 
@@ -29,31 +34,34 @@
 //[ Redux logger
 
 
+
 //+ Crear las rutas
-//{ Las rutas tendrás que crearlas usando react router dom
-//* /  Adicional para dar acceso al chat sin usar barra de navegación
+//* Las rutas tendrás que crearlas usando react router dom
+//[ /  Adicional para dar acceso al chat sin usar barra de navegación
 //* /login
 //* /register
-//{ /chat (protegida)
-//{ /chat/:id (protegida)
+//* /chat (protegida)
+//* /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
+//] Logout
 
 //+ Firebase
-//{ Crea un nuevo proyecto en firebase y crea una aplicación web para usar el servicio de autenticación con los proveedores (email/password y google). 
-//{ Login (Firebase)
-//{ Crearás el inicio de sesión con un formulario para ingresar el correo electrónico/contraseña y un botón para iniciar sesión con google, en este formulario tendrás que validar que no hayan campos vacíos al iniciar sesión y deberás de mostrar un mensaje de error en caso de que la contraseña sea incorrecta.
+//* Crea un nuevo proyecto en firebase y crea una aplicación web para usar el servicio de autenticación con los proveedores (email/password y google). 
+//* Login (Firebase)
+//* Crearás el inicio de sesión con un formulario para ingresar el correo electrónico/contraseña y un botón para iniciar sesión con google, en este formulario tendrás que validar que no hayan campos vacíos al iniciar sesión y deberás de mostrar un mensaje de error en caso de que la contraseña sea incorrecta.
 
 //+ Validación formulario
-//{ Inicio de sesión con email y contraseña 
-//{ Inicio de sesión con Google
+//* Inicio de sesión con email y contraseña 
+//* Inicio de sesión con Google
 //{ Restablecer contraseña
 //} https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email
 //* ???????????????????????????????????????????????????????????????????????????????
 //{ Enviar los datos de usuario (objeto user) a través de la api con el método POST
+//* Configuración de envío
 //* ???????????????????????????????????????????????????????????????????????????????
 //} https://academlo-whats.herokuapp.com/api/v1/users 
 
 //+ Register (Firebase)
-//{ Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
+//* Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
 
 //+ Validación formulario de registro
 //* Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
@@ -70,6 +78,7 @@
 //{ Al dar click sobre cada componente de conversación dentro del sidebar deberás redireccionar al usuario a la siguiente ruta /chat/:id donde tendrás que sustituir el parámetro :id con el id de la conversación. Tendrás que declarar un estado para guardar el conversationId y actualizarlo con el id de la conversación y con ayuda de useEffect tendrás que agregar a conversationId como dependencia para hacer una petición de tipo GET sobre la siguiente ruta:
 //} https://academlo-whats.herokuapp.com/api/v1/conversations/:uid/messages
 //{ Y tendrás que listar los mensajes en su contenedor.
+
 
 
 //! Este documento se actualizará pronto...

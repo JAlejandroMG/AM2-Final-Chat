@@ -41,7 +41,8 @@ const Chat = ({ messages }) => {
       </div>
 
       <div className="chat__body">
-        {messages.map((message, i) => {
+        {
+        messages.map((message, i) => {
           return (
             <p
               key={i}
@@ -54,7 +55,8 @@ const Chat = ({ messages }) => {
               <span className="chat__timestamp">{message.timestamp}</span>
             </p>
           );
-        })}
+        })
+        }
       </div>
 
       <div className="chat__footer">
