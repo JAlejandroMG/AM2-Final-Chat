@@ -35,9 +35,7 @@ function App() {
           <Route path="/register">
             <Register setUser={setUser} />
           </Route>
-          <ProtectedRoute path="/chat" exact user={user} setUser={setUser}>
-            <ChatRoom messages={messages} />
-          </ProtectedRoute>
+          <ProtectedRoute path="/chat" exact user={user} setUser={setUser} messages={messages} /> {/* setUser en useCallback */}
           {/* <Route path="/chat/:id" component={HomeChat} messages={messages} /> */}
           <Route path="*" exact component={notFound} />
         </Switch>

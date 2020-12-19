@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+//* React Router
+import {useHistory} from 'react-router-dom';
+//* Firebase
+import firebase from '../../../firebase/config';
+//* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
   AttachFile,
@@ -10,8 +15,21 @@ import "./Chat.css";
 import MicIcon from "@material-ui/icons/Mic";
 
 
-const Chat = ({ messages }) => {
+const Chat = ({ messages, setUser }) => {
   const [input, setInput] = useState("");
+  const history = useHistory();
+
+  const logout = async () => {
+    try {
+        await firebase.auth().signOut();
+        setUser(false);
+        console.log("Chat: logout exitoso");  //! Ejecuta después de history.push()
+        // console.log(result);
+        history.push("/");
+    } catch(error) {
+        console.log("Chat: Logout rechazado");
+    }
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -34,7 +52,7 @@ const Chat = ({ messages }) => {
           <IconButton>
             <AttachFile />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={logout}>
             <MoreVert />
           </IconButton>
         </div>
