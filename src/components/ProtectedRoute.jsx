@@ -1,17 +1,23 @@
 import React from "react";
 import { Route } from "react-router-dom";
 //* Components
+import ChatRoom from './ChatRoom/ChatRoom';
 import Login from './Login/Login';
 
 
-export default function ProtectedRoute({ path, user, setUser, children }) {
+export default function ProtectedRoute({ path, user, setUser, children, messages }) {
+
+   console.log("PortectedRoute: user");
+   console.log(user);
+
    return (
       <Route path={path}>
          {
             user ? 
-            (children) :
+            /* (children) : */
+            <ChatRoom messages={messages} user={user} setUser={setUser} /> :
             (
-               <Login setUserFn={setUser} />
+               <Login setUser={setUser} />
             )
          }
       </Route>

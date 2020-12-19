@@ -9,7 +9,8 @@ import {auth} from '../../firebase/config';
 
 function Register({ setUser }) {
    //* Estado local para captura de datos en componente Register
-   const [inputName, setInputName] = useState("");
+   const [inputFirstName, setInputFirstName] = useState("");
+   const [inputLastName, setInputLastName] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
    //{ Estados que se comparten entre los componentes Register y Login
    const [inputEmail, setInputEmail] = useState("");
@@ -26,7 +27,8 @@ function Register({ setUser }) {
                .then(
                   userInfo => {
                      updateUser();
-                     setInputName("");
+                     setInputFirstName("");
+                     setInputLastName("");
                      setInputEmail("");
                      setInputPassword("");
                      setConfirmPassword("");
@@ -40,38 +42,61 @@ function Register({ setUser }) {
          e.preventDefault();
          setInputPassword("");
          setConfirmPassword("");
-         alert(`Sorry ${inputName}, the confirmation of your password doesn't match your password`);
+         alert(`Sorry ${inputFirstName}, the confirmation of your password doesn't match your password`);
       }
    };
 
-   //* Actualización del perfil de usuario en Firebase
-   // https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
-   //* Imagen de perfil por defecto
-   // https://picsum.photos/seed/picsum/200/200
-
-   //* Actualización de nombre completo y perfil de usuario
+   //* Actualización de nombre completo y perfil de usuario en Firebase
    const updateUser = () => {
-      var user = firebase.auth().currentUser;
-      const photoURL = "https://picsum.photos/seed/picsum/200/200"
-
+      const user = firebase.auth().currentUser;
+      const photoURL = "https://i.picsum.photos/id/491/200/200.jpg?hmac=Zi1sOp0NH_d3eOa3qUg8-oDQJWvIkH8UkrAJZ7l-4wg"
+      //https://i.picsum.photos/id/738/200/200.webp?hmac=AaUZJdpXCcpULfGEoQqubLm8Kd0evV4VjwUnuM8BUqI
+      //Thomas Anderson
       user.updateProfile({
-         displayName: inputName,
+         displayName: `${inputFirstName} ${inputLastName}`,
          photoURL
          }).then(() => {
             // console.log(userInfo);
             const user = firebase.auth().currentUser;
             setUser(user);
             console.log(user);
-            console.log(user.displayName);
+            console.log("Register: ", user.displayName);
+            appRegister(user);
          }).catch(error => {
-            console.log (`Ha ocurrido un error: ${error.message}`);
+            console.log (`Register: ha ocurrido un error: ${error.message}`);
          });
+   };
+
+   //* Registro del usuario en la aplicación
+   const appRegister = (user) => {
+      const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/users`;
+      // const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+      const headers = {'Content-Type': 'application/json'};
+      const body = {
+         "firstName": inputFirstName,
+         "lastName": inputLastName,
+         "email": inputEmail,
+         "username": user.displayName,
+         "photoUrl": user.photoURL,
+         "uid": user.uid
+      }
+   
+      fetch(urlRegister, {
+      method: `POST`,
+      headers,
+      body: JSON.stringify(body)
+   })
+
+
    };
 
 
    //* Se guarda la captura de datos del usuario
-   const handleInputNameChange = (e) => {
-      setInputName(e.target.value);
+   const handleInputFirstNameChange = (e) => {
+      setInputFirstName(e.target.value);
+   };
+   const handleInputLastNameChange = (e) => {
+      setInputLastName(e.target.value);
    };
    const handleInputEmailChange = (e) => {
       setInputEmail(e.target.value);
@@ -92,8 +117,11 @@ function Register({ setUser }) {
          <form onSubmit={registerUser} >
             <h2>Register</h2>
                <br/>
-            <label>Name</label>
-            <input type="text" value={inputName} name="name" onChange={(e) => handleInputNameChange(e)} required placeholder="My name"/>
+            <label>First Name</label>
+            <input type="text" value={inputFirstName} name="firstName" onChange={(e) => handleInputFirstNameChange(e)} required placeholder="My first name"/>
+               <br/>
+            <label>Last Name</label>
+            <input type="text" value={inputLastName} name="lastName" onChange={(e) => handleInputLastNameChange(e)} required placeholder="My last name"/>
                <br/>
             <label>Email</label>
             <input type="email" value={inputEmail} name="email" onChange={(e) => handleInputEmailChange(e)} required placeholder="My email"/>

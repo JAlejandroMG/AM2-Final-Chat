@@ -3,11 +3,11 @@ import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
 
-function ChatRoom({ messages }) {
+function ChatRoom({ messages, user, setUser }) {
    return (
       <div className="app__body">
-            <Sidebar />
-            <Chat messages={messages} />
+            <Sidebar user={user} />
+            <Chat messages={messages} setUser={setUser} />
       </div>
    );
 }

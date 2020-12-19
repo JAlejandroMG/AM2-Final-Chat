@@ -7,11 +7,12 @@ import { IconButton, Avatar } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "./SidebarChat/SidebarChat";
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
+  console.log(user);
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar src="" />
+        <Avatar src={user.photoURL} />
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />

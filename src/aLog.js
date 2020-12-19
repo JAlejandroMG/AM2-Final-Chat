@@ -14,6 +14,22 @@
 //* Login
 //* Reafactoring de Login y Register
 //* ProtectedRoute de ChatRoom
+//* / Dar acceso al chat sin usar barra de navegación
+//} 20201216
+//* Reestablecer contraseña
+//* Logout
+//} 20201217
+//* Aclaración de dudas con profe Óscar
+//} 20201218
+//* Login fixed a warning
+//* Enlace de Login a Register
+//* Redireccionamiento después de reestablecer la contraseña
+//! Mensaje de correo enviado al solicitar reestablecer la contraseña (alert temporalmente)
+//! useCallback al momento de hacer fetch a BD de aplicación
+//* Captura del nombre separando firstName lastName
+//* Consumo de API para enviar datos de usuario con método POST
+//* Cambio de sintaxis para enlazar el componente Chat y poder pasarle props
+
 
 
 
@@ -37,12 +53,12 @@
 
 //+ Crear las rutas
 //* Las rutas tendrás que crearlas usando react router dom
-//[ /  Adicional para dar acceso al chat sin usar barra de navegación
+//[ / Dar acceso al chat sin usar barra de navegación
 //* /login
 //* /register
 //* /chat (protegida)
 //* /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
-//] Logout
+//[ Logout
 
 //+ Firebase
 //* Crea un nuevo proyecto en firebase y crea una aplicación web para usar el servicio de autenticación con los proveedores (email/password y google). 
@@ -52,11 +68,12 @@
 //+ Validación formulario
 //* Inicio de sesión con email y contraseña 
 //* Inicio de sesión con Google
-//{ Restablecer contraseña
+//* Restablecer contraseña
 //} https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email
 //* ???????????????????????????????????????????????????????????????????????????????
 //{ Enviar los datos de usuario (objeto user) a través de la api con el método POST
-//* Configuración de envío
+//! ¿EN QUË MOMENTO?
+//! Configuración de envío
 //* ???????????????????????????????????????????????????????????????????????????????
 //} https://academlo-whats.herokuapp.com/api/v1/users 
 
@@ -70,15 +87,26 @@
 
 //+ Chat
 //{ La ruta del chat será una ruta protegida por lo que sólo podrá ser mostrada por los usuarios autenticados. Al cargar la vista del Chat (Componente Chat) se tendrá que consumir la API para obtener las conversaciones del usuario:
-//} GET https://academlo-whats.herokuapp.com/api/v1/conversations/:uid
+//} GET https://academlo-whats.herokuapp.com/api/v1/conversations/:uid //id del usuario
 //{ Tendrás que enviar el siguiente token a través de la cabecera Authorization: Bearer <token> 
 //{ El token es: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
 
 //+ Chat (Messages)
 //{ Al dar click sobre cada componente de conversación dentro del sidebar deberás redireccionar al usuario a la siguiente ruta /chat/:id donde tendrás que sustituir el parámetro :id con el id de la conversación. Tendrás que declarar un estado para guardar el conversationId y actualizarlo con el id de la conversación y con ayuda de useEffect tendrás que agregar a conversationId como dependencia para hacer una petición de tipo GET sobre la siguiente ruta:
-//} https://academlo-whats.herokuapp.com/api/v1/conversations/:uid/messages
+//} https://academlo-whats.herokuapp.com/api/v1/conversations/:uid/messages //id de la conversación
 //{ Y tendrás que listar los mensajes en su contenedor.
 
+//[ ************************************************************************************************************
+//[ ChatRoom
+//{ La ruta del ChatRoom será una ruta protegida por lo que sólo podrá ser mostrada por los usuarios autenticados. Al cargar la vista se tendrá que consumir la API para obtener las conversaciones del usuario:
+//} GET https://academlo-whats.herokuapp.com/api/v1/conversations/:uid //id del usuario
+//{ Tendrás que enviar el siguiente token a través de la cabecera Authorization: Bearer <token> 
+//{ El token es: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+
+//[ SidebarChat
+//{ Dentro del Sidebar se tienen diversas (Salas de) conversaciones, y al dar click sobre una de ellas deberás redireccionar al usuario a la siguiente ruta /chat/:id donde tendrás que sustituir el parámetro :id con el id de la conversación. Tendrás que declarar un estado para guardar el conversationId y actualizarlo con el id de la conversación que fue seleccionada y con ayuda de useEffect tendrás que agregar a conversationId como dependencia para hacer una petición de tipo GET sobre la siguiente ruta:
+//} https://academlo-whats.herokuapp.com/api/v1/conversations/:uid/messages
+//{ Y tendrás que listar los mensajes en su contenedor Chat.
 
 
 //! Este documento se actualizará pronto...

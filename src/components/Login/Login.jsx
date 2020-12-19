@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 //* React Router
-import {useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 //* Firebase
 import firebase from '../../firebase/config';
 import {auth} from '../../firebase/config';
@@ -17,6 +17,7 @@ function Login({ setUser }) {
    const history = useHistory();
 
 
+   //* Al entrar a la aplicación después de montar Login revisa si ya hay usuario loggeado
    useEffect(() => {
       // componentDidMount
       firebase.auth().onAuthStateChanged((user) => {
@@ -37,36 +38,50 @@ function Login({ setUser }) {
       setInputPassword(e.target.value);
    };
    
-   const loginUser = async (e) => {
+   const loginUser = async (e) => { //! Login ejecuta ProtectedRoute 8 veces useCallback
       try {
          e.preventDefault();
          const { user } = await auth.signInWithEmailAndPassword(inputEmail, inputPassword)
          //Para actualizar el estado y redireccionar al usuario a otra pagina
+         console.log("Login: user");
+         console.log(user);
          await setUser(user);
          history.push("/chat");
       } catch (error) {
-         e.preventDefault();
          setInputPassword("");
          //En caso de que las credenciales de acceso sean incorrectas
          console.log("Error en la autenticacion: ", error.message);
-         alert(error.message);
       }
    };
 
    
-   const showGooglePopup = async () => {
+   const showGooglePopup = async () => { //! Login ejecuta ProtectedRoute 8 veces useCallback
       try {
          let { user } = await firebase.auth().signInWithPopup(googleProvider);
          //Para actualizar el estado y redireccionar al usuario a otra pagina
+         console.log(user);
          await setUser(user);
          history.push("/chat");
       } catch (error) {
          //En caso de que las credenciales de acceso sean incorrectas
          console.log("Error en la autenticacion: ", error.message);
-         alert(error.message);
       }
       };
-
+   
+   
+   const resetPassword = () => {
+      // Para redireccionar después de reestablecer la contraseña
+      const actionCodeSettings = {
+         url: `http://localhost:3000/`
+      };
+      //Método de Firebase para reestablecer contraseña con parámetro para redireccionar
+      auth.sendPasswordResetEmail(inputEmail, actionCodeSettings)
+         .then(() => {
+            alert(`Se ha enviado un correo ${inputEmail} para reestablecer la contraseña.`);
+         }).catch((error) => {
+            console.log("Error al solicitar reestablecer la contraseña: ", error.message);
+         });
+   }
 
 
    //* Componente Login
@@ -82,9 +97,15 @@ function Login({ setUser }) {
             <input type="password" value={inputPassword} name="password" onChange={(e) => handleInputPasswordChange(e)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <button type="submit">Login</button>
-               <br />
-            <button type="submit" onClick={showGooglePopup}>Login with Google</button>
          </form>
+               <br />
+            <button onClick={showGooglePopup}>Login with Google</button>
+               <br />
+            <button onClick={resetPassword}>Reset Password</button>
+               <br />
+            <Link to="/register">
+               <button>Register</button>
+            </Link>
       </div>
    );
 }
