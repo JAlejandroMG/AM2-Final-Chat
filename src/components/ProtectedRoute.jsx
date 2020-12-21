@@ -1,16 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 //* Components
 import ChatRoom from './ChatRoom/ChatRoom';
 import Login from './Login/Login';
 
 
-export default function ProtectedRoute({ path, user, setUser, children, messages }) {
-
-   console.log("PortectedRoute: user");
-   console.log(user);
-
-   return (
+export default function ProtectedRoute({ path, user, setUser, children, messages }) {return (
       <Route path={path}>
          {
             user ? 

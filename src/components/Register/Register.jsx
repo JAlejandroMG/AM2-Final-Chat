@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //* React Router
 import {useHistory} from 'react-router-dom';
 //* Firebase
@@ -61,7 +61,7 @@ function Register({ setUser }) {
             setUser(user);
             console.log(user);
             console.log("Register: ", user.displayName);
-            appRegister(user);
+            // appRegister(user);
          }).catch(error => {
             console.log (`Register: ha ocurrido un error: ${error.message}`);
          });
@@ -118,19 +118,19 @@ function Register({ setUser }) {
             <h2>Register</h2>
                <br/>
             <label>First Name</label>
-            <input type="text" value={inputFirstName} name="firstName" onChange={(e) => handleInputFirstNameChange(e)} required placeholder="My first name"/>
+            <input type="text" value={inputFirstName} name="firstName" onChange={handleInputFirstNameChange} required placeholder="My first name"/>
                <br/>
             <label>Last Name</label>
-            <input type="text" value={inputLastName} name="lastName" onChange={(e) => handleInputLastNameChange(e)} required placeholder="My last name"/>
+            <input type="text" value={inputLastName} name="lastName" onChange={handleInputLastNameChange} required placeholder="My last name"/>
                <br/>
             <label>Email</label>
-            <input type="email" value={inputEmail} name="email" onChange={(e) => handleInputEmailChange(e)} required placeholder="My email"/>
+            <input type="email" value={inputEmail} name="email" onChange={handleInputEmailChange} required placeholder="My email"/>
                <br/>
             <label>Password</label>
-            <input type="password" value={inputPassword} name="password" onChange={(e) => handleInputPasswordChange(e)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
+            <input type="password" value={inputPassword} name="password" onChange={handleInputPasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <label>Confirm password</label>
-            <input type="password" value={confirmPassword} name="confirmPassword" onChange={(e) => handleConfirmPasswordChange(e)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
+            <input type="password" value={confirmPassword} name="confirmPassword" onChange={handleConfirmPasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
                <br/>
             <button type="submit">Register</button>
          </form>

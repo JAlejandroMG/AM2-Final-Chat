@@ -42,7 +42,7 @@ const Chat = ({ messages, setUser }) => {
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>Nombre de la sala</h3>
+          <h3>Nombre del Contacto</h3>
           <p>Visto por ultima vez a las... </p>
         </div>
         <div className="chat__headerRight">
