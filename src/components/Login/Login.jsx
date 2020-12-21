@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 //* React Router
 import { Link, useHistory } from 'react-router-dom';
 //* Firebase
@@ -11,10 +11,10 @@ function Login({ setUser }) {
    //{ Estados que se comparten entre los componentes Register y Login
    const [inputEmail, setInputEmail] = useState("");
    const [inputPassword, setInputPassword] = useState("");
-   //* Poveedor
-   const googleProvider = new firebase.auth.GoogleAuthProvider();
    //* Hooks
    const history = useHistory();
+   //* Poveedor
+   const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 
    //* Al entrar a la aplicación después de montar Login revisa si ya hay usuario loggeado
@@ -43,8 +43,8 @@ function Login({ setUser }) {
          e.preventDefault();
          const { user } = await auth.signInWithEmailAndPassword(inputEmail, inputPassword)
          //Para actualizar el estado y redireccionar al usuario a otra pagina
-         console.log("Login: user");
-         console.log(user);
+         // console.log("Login: user");
+         // console.log(user);
          await setUser(user);
          history.push("/chat");
       } catch (error) {
@@ -91,10 +91,10 @@ function Login({ setUser }) {
             <h2>Login</h2>
                <br/>
             <label>Email</label>
-            <input type="email" value={inputEmail} name="email" onChange={(e) => handleInputEmailChange(e)} required placeholder="My email"/>
+            <input type="email" value={inputEmail} name="email" onChange={handleInputEmailChange} required placeholder="My email"/>
                <br/>
             <label>Password</label>
-            <input type="password" value={inputPassword} name="password" onChange={(e) => handleInputPasswordChange(e)} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
+            <input type="password" value={inputPassword} name="password" onChange={handleInputPasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <button type="submit">Login</button>
          </form>

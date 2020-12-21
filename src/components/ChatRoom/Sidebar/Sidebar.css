@@ -53,4 +53,16 @@
   flex: 1;
   background-color: white;
   overflow: scroll;
+  position: relative;
+}
+
+/* Contacts' dropdown menu */
+.dropdown {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+  background: lightgray;
 }

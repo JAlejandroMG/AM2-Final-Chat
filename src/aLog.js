@@ -28,8 +28,12 @@
 //! useCallback al momento de hacer fetch a BD de aplicación
 //* Captura del nombre separando firstName lastName
 //* Consumo de API para enviar datos de usuario con método POST
-//* Cambio de sintaxis para enlazar el componente Chat y poder pasarle props
-
+//* Cambio de sintaxis para enlazar el componente Chat y poder pasarle props //BUSCAR OPCIONES PARA HACERLO DINAMICO
+//} 20201219
+//* SearchDropdown quedó roto...
+//} 20201220
+//* SearchDropdown se integró en el área de SidebarChat
+//* Se paso el estado de contacts (users) y su actualización a Redux, usando React-Redux, Logger y Thunk
 
 
 
@@ -45,9 +49,9 @@
 //* Firebase
 
 //+ Requerimientos (opcionales):
-//[ React redux
-//[ Redux thunk
-//[ Redux logger
+//* React redux
+//* Redux thunk
+//[* Redux logger
 
 
 
