@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 //* Componentes
 import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";

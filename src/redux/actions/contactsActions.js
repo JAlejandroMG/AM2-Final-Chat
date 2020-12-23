@@ -9,14 +9,19 @@ export const getContacts = (contactsArray) => {
 
 // API asíncrona
 export const fetchContacts = (baseURL) => {
-   return async (dispatch, state) => {
-      try{
-         const response = await fetch(baseURL);
-         const contactsArray = await response.json();
-         dispatch(getContacts(contactsArray));
-         return 1;
-      } catch (error) {
-         return 0;
-      }
+   return (dispatch, state) => {
+
+      return new Promise (async(resolve, reject) => {
+         try{
+            const response = await fetch(baseURL);
+            const contactsArray = await response.json();
+            dispatch(getContacts(contactsArray));
+            resolve(true);
+         } catch (error) {
+            alert(`contactsActions: fetchContacts er => ${error.message}`);
+            reject(error.message);
+         }
+      });
+
    };
 };

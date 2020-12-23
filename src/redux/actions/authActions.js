@@ -18,11 +18,12 @@ export const register = (email, password, firstName, lastName) => {
 
       return new Promise (async(resolve, reject) => {
          try{
+            console.log("authActions: register");
             await auth.createUserWithEmailAndPassword(email, password);
             const message = await dispatch(update(firstName, lastName, email));
             resolve(message);
          }catch(error){
-            alert(error.message);
+            alert(`authActions: register er => ${error.message}`);
             reject(error.message);
          }
       });
@@ -35,6 +36,7 @@ const update = (firstName, lastName, email) => {
 
       return new Promise (async(resolve,reject) => {
          try{
+            console.log("authActions: update");
             let user = await firebase.auth().currentUser;
             const photoURL = "https://i.picsum.photos/id/738/200/200.webp?hmac=AaUZJdpXCcpULfGEoQqubLm8Kd0evV4VjwUnuM8BUqI"
             //Thomas Anderson
@@ -47,7 +49,7 @@ const update = (firstName, lastName, email) => {
             const message = await dispatch(appRegister(user, firstName, lastName, email))
             resolve(message);
          }catch(error){
-            alert(error.message);
+            alert(`authActions: update er => ${error.message}`);
             reject(error.message);
          }
       });
@@ -60,6 +62,7 @@ const appRegister = (user, firstName, lastName, email) => {
    
       return new Promise (async(resolve, reject) => {
          try{
+            console.log("authActions: appRegister");
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/users`;
             const headers = {'Content-Type': 'application/json'};
             const body = {
@@ -78,7 +81,7 @@ const appRegister = (user, firstName, lastName, email) => {
             const message = "Bienvenido a la aplicación de Chat"
             resolve(message);
          }catch(error){
-            alert(error.message);
+            alert(`authActions: appRegister er => ${error.message}`);
             reject(error.message);
          }
       });

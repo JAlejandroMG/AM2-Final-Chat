@@ -40,7 +40,7 @@
 //  Commit
 //} 20201223
 //* Register refactoring, all logic has been passed to authActions.
-
+//* Sidebar and contactsActions refactoring
 
 
 //+ Proyecto final chat en tiempo real React

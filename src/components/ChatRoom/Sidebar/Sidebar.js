@@ -21,28 +21,20 @@ const Sidebar = ({ user }) => {
   const dispatch = useDispatch();
 
 
+
   //*Llamada a la API
-  useEffect(() => {
+  useEffect(() => { 
     (async function() {
-      const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
-      const result = await dispatch(fetchContacts(baseURL));
-      // console.log(result);
-      if(result === 1) {
-        alert("Sidebar=>fetchContacts: Se han recibido los contactos correctamente.")
-      } else {
-        alert("Sidebar=>fetchContacts: No se han podido recibir los contactos.")
+      try{
+        const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
+        const message = await dispatch(fetchContacts(baseURL));
+        alert(`Sidebar: useEffect => Se han recibido los contactos correctamente. ${message}`);
+      }catch(error){
+        alert(`Sidebar: useEffect er => ${error.message}`);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);    
-    // email: "pedrofelipeortizb@gmail.com"
-    // firstName: "felipe"
-    // lastName: "ortiz"
-    // photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-    // uid: "queBiC1BcXgaKYMfsvH25JfE2rA2"
-    // username: "felipeortiz"
-    // __v: 0
-    // _id: "5fde0b33f4491800179eec43"  
+  }, []);
 
 
   const showDropdownMenu = () => {

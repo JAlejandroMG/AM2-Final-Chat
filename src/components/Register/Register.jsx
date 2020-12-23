@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from "react";
-//* React Router
-import {useHistory} from 'react-router-dom';
-//* React-Redux
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-//* Actions
-import { register} from '../../redux/actions/authActions';
+import { register } from '../../redux/actions/authActions';
 
 
 function Register({ setUser }) {
@@ -15,7 +12,7 @@ function Register({ setUser }) {
    const emailRef = useRef("");
    const passwordRef = useRef("");
    const confirmPasswordRef = useRef("");
-   //{ Posible mejora
+   //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
    //* React-Redux
@@ -25,7 +22,7 @@ function Register({ setUser }) {
 
    //! SOLO PARA PRUEBAS
    useEffect(() => {
-      console.log(`Register render: ${refContador.current}`);
+      console.log(`Register: render => ${refContador.current}`);
       refContador.current++;
    })
 
@@ -41,16 +38,16 @@ function Register({ setUser }) {
             emailRef.current.value = "";
             passwordRef.current.value = "";
             confirmPasswordRef.current.value = "";
-            alert(message);
+            alert(`Register: registerUser ok => ${message}`);
             history.push("/chat");
          }catch(error){
-            alert(error.message);
+            alert(`Register: registerUser er1 => ${error.message}`);
          };
       } else {
          e.preventDefault();
          passwordRef.current.value = "";
          confirmPasswordRef.current.value = "";
-         alert(`The confirmation of your password doesn't match your password`);
+         alert(`Register: registerUser er2 => The confirmation of your password doesn't match your password`);
       }
    };
 
