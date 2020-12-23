@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 //* React Router
 import { Link, useHistory } from 'react-router-dom';
 //* Firebase
@@ -43,7 +43,6 @@ function Login({ setUser }) {
          e.preventDefault();
          const { user } = await auth.signInWithEmailAndPassword(inputEmail, inputPassword)
          //Para actualizar el estado y redireccionar al usuario a otra pagina
-         // console.log("Login: user");
          console.log(user);
          await setUser(user);
          history.push("/chat");

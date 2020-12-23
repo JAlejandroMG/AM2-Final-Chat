@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 //* Components
 import ChatRoom from './ChatRoom/ChatRoom';
