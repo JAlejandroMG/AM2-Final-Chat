@@ -15,8 +15,9 @@ function Register({ setUser }) {
    const emailRef = useRef("");
    const passwordRef = useRef("");
    const confirmPasswordRef = useRef("");
-   const wellcomeRef = useRef("Esto es una prueba");
-   const showWellcomeRef = useRef(true);
+   //{ Posible mejora
+   // const wellcomeRef = useRef("Esto es una prueba");
+   // const showWellcomeRef = useRef(true);
    //* React-Redux
    const dispatch = useDispatch();
    //* Hooks
@@ -29,7 +30,7 @@ function Register({ setUser }) {
    })
 
 
-   //* Registro de usuario en Firebase con email y password
+   //* Registro de usuario en Firebase y en la aplicación con email y password
    const registerUser = async (e) => {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
@@ -41,7 +42,6 @@ function Register({ setUser }) {
             passwordRef.current.value = "";
             confirmPasswordRef.current.value = "";
             alert(message);
-            wellcomeRef.current = message;
             history.push("/chat");
          }catch(error){
             alert(error.message);
