@@ -21,7 +21,6 @@ export const auth = firebase.auth();
 // Nombre público del proyecto
 // project-478839331781
 
-
 // <!-- The core Firebase JS SDK is always required and must be listed first -->
 // <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
 
