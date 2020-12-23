@@ -37,6 +37,9 @@
 //} 20201221
 //} 20201222
 //* Refactoring en Register se cambió la captura de inputs de useState a useRef con lo que mejora el rendimiento de la app al dejar de renderizar ese componente al capturar los datos de la forma.
+//  Commit
+//} 20201223
+//* Register refactoring, all logic has been passed to authActions.
 
 
 
