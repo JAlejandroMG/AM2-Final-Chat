@@ -11,34 +11,30 @@ import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 import { fetchContacts } from '../../../redux/actions/contactsActions';
 import { useSelector, useDispatch } from 'react-redux';
 
+
 const Sidebar = ({ user }) => {
-  //! Este es un estado LOCAL
+  //{ Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchUser, setSearchUser] = useState("");
-  //! Este estado es de usuario y debe ser GLOBAL
-  // const [contacts, setContacts] = useState(false);
-  // console.log(user);
-
+  //* Estado en Store
   const contacts = useSelector(state => state.contacts)
   const dispatch = useDispatch();
+
+
   //*Llamada a la API
   useEffect(() => {
-    const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
-    
-    dispatch(fetchContacts(baseURL));
-    
-
-    /* const getUsers = async () => {
-      try {
-        const response = await fetch(baseURL);
-        const data = await response.json();
-        await setContacts(data);
-        console.log(data);
-        // await setCurrentPage(requestPage);
-      } catch (error) {
-        console.log(error);
+    (async function() {
+      const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
+      const result = await dispatch(fetchContacts(baseURL));
+      // console.log(result);
+      if(result === 1) {
+        alert("Sidebar=>fetchContacts: Se han recibido los contactos correctamente.")
+      } else {
+        alert("Sidebar=>fetchContacts: No se han podido recibir los contactos.")
       }
-    }; */
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);    
     // email: "pedrofelipeortizb@gmail.com"
     // firstName: "felipe"
     // lastName: "ortiz"
@@ -46,9 +42,7 @@ const Sidebar = ({ user }) => {
     // uid: "queBiC1BcXgaKYMfsvH25JfE2rA2"
     // username: "felipeortiz"
     // __v: 0
-    // _id: "5fde0b33f4491800179eec43"
-    /* getUsers(); */
-  }, []);
+    // _id: "5fde0b33f4491800179eec43"  
 
 
   const showDropdownMenu = () => {
@@ -61,6 +55,7 @@ const Sidebar = ({ user }) => {
     setSearchUser(e.target.value)
     console.log(e.target.value);
   };
+
 
   return (
     <div className="sidebar">
@@ -82,7 +77,7 @@ const Sidebar = ({ user }) => {
         <div className="sidebar__searchContainer">
           <SearchOutlined />
           <input
-            placeholder="Busca o inicia un nuevo chat"
+            placeholder= "Busca o inicia un nuevo chat"
             type="text"
             onFocus={showDropdownMenu}
             onBlur={hideDropdownMenu}

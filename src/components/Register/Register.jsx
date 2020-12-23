@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 //* React Router
 import {useHistory} from 'react-router-dom';
 //* Firebase
@@ -8,41 +8,60 @@ import {auth} from '../../firebase/config';
 
 
 function Register({ setUser }) {
-   //* Estado local para captura de datos en componente Register
-   const [inputFirstName, setInputFirstName] = useState("");
-   const [inputLastName, setInputLastName] = useState("");
-   const [confirmPassword, setConfirmPassword] = useState("");
-   //{ Estados que se comparten entre los componentes Register y Login
-   const [inputEmail, setInputEmail] = useState("");
-   const [inputPassword, setInputPassword] = useState("");
+   // Estado local para captura de datos en componente Register
+   // const [inputFirstName, setInputFirstName] = useState("");
+   // const [inputLastName, setInputLastName] = useState("");
+   // const [confirmPassword, setConfirmPassword] = useState("");
+   // Estados que se comparten entre los componentes Register y Login
+   // const [inputEmail, setInputEmail] = useState("");
+   // const [inputPassword, setInputPassword] = useState("");
    //* Hooks
    const history = useHistory();
+   //* Uso de referencias para captura de datos locales que mejoran rendimiento al no renderizar
+   const refContador = useRef(1); //! SOLO PARA PRUEBAS
+   const firstNameRef = useRef("");
+   const lastNameRef = useRef("");
+   const emailRef = useRef("");
+   const passwordRef = useRef("");
+   const confirmPasswordRef = useRef("");
+
+   //! SOLO PARA PRUEBAS
+   useEffect(() => {
+      console.log(`Register render: ${refContador.current}`);
+      refContador.current++;
+   })
+   /* const showRef = (e) => {
+      e.preventDefault();
+      console.log(firstNameRef.current.value); //Valor en el input
+      console.log(firstNameRef); //Objeto current, propiedad input, con propiedades
+   } */
 
 
    //* Registro de usuario en Firebase con email y password
    const registerUser = (e) => {
-      if(confirmPassword === inputPassword) {
+      if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
-            auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
+            auth.createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
                .then(
                   userInfo => {
                      updateUser();
-                     setInputFirstName("");
-                     setInputLastName("");
-                     setInputEmail("");
-                     setInputPassword("");
-                     setConfirmPassword("");
+                     firstNameRef.current.value = "";
+                     lastNameRef.current.value = "";
+                     emailRef.current.value = "";
+                     passwordRef.current.value = "";
+                     confirmPasswordRef.current.value = "";
                      history.push("/chat");          
                   }
-               ).catch( error => {
-                  setInputPassword("");
-                  setConfirmPassword("");
+               ).catch(error => {
+                  passwordRef.current.value = "";
+                  confirmPasswordRef.current.value = "";
+                  alert(`We've not been able to register you as user due to the following: ${error.message}`);
                });
       } else {
          e.preventDefault();
-         setInputPassword("");
-         setConfirmPassword("");
-         alert(`Sorry ${inputFirstName}, the confirmation of your password doesn't match your password`);
+         passwordRef.current.value = "";
+         confirmPasswordRef.current.value = "";
+         alert(`The confirmation of your password doesn't match your password`);
       }
    };
 
@@ -53,17 +72,14 @@ function Register({ setUser }) {
       //https://i.picsum.photos/id/738/200/200.webp?hmac=AaUZJdpXCcpULfGEoQqubLm8Kd0evV4VjwUnuM8BUqI
       //Thomas Anderson
       user.updateProfile({
-         displayName: `${inputFirstName} ${inputLastName}`,
+         displayName: `${firstNameRef} ${lastNameRef}`,
          photoURL
          }).then(() => {
-            // console.log(userInfo);
             const user = firebase.auth().currentUser;
-            setUser(user);
-            console.log(user);
-            console.log("Register: ", user.displayName);
-            // appRegister(user);
+            setUser(user); //! USER ES ESTADO GLOBAL
+            appRegister(user);
          }).catch(error => {
-            console.log (`Register: ha ocurrido un error: ${error.message}`);
+            alert(`There's been an error: ${error.message}`);
          });
    };
 
@@ -73,9 +89,9 @@ function Register({ setUser }) {
       // const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
       const headers = {'Content-Type': 'application/json'};
       const body = {
-         "firstName": inputFirstName,
-         "lastName": inputLastName,
-         "email": inputEmail,
+         "firstName": firstNameRef,
+         "lastName": lastNameRef,
+         "email": emailRef,
          "username": user.displayName,
          "photoUrl": user.photoURL,
          "uid": user.uid
@@ -92,45 +108,46 @@ function Register({ setUser }) {
 
 
    //* Se guarda la captura de datos del usuario
-   const handleInputFirstNameChange = (e) => {
+   /* const handleInputFirstNameChange = (e) => {
       setInputFirstName(e.target.value);
-   };
-   const handleInputLastNameChange = (e) => {
+   }; */
+   /* const handleInputLastNameChange = (e) => {
       setInputLastName(e.target.value);
-   };
-   const handleInputEmailChange = (e) => {
+   }; */
+   /* const handleInputEmailChange = (e) => {
       setInputEmail(e.target.value);
-   };
-   const handleInputPasswordChange = (e) => {
+   }; */
+   /* const handleInputPasswordChange = (e) => {
       setInputPassword(e.target.value);
-   };
+   }; */
 
    //* Confirmación del password
-   const handleConfirmPasswordChange = (e) => {
+   /* const handleConfirmPasswordChange = (e) => {
       setConfirmPassword(e.target.value);
-   };
+   }; */
 
 
    //* Componente Register
    return (
       <div>
          <form onSubmit={registerUser} >
+         {/* <form onSubmit={showRef}> */}
             <h2>Register</h2>
                <br/>
             <label>First Name</label>
-            <input type="text" value={inputFirstName} name="firstName" onChange={handleInputFirstNameChange} required placeholder="My first name"/>
+            <input type="text" /* value={refFirstName.current} */ name="firstName" ref={firstNameRef} /* onChange={handleInputFirstNameChange} */ required placeholder="My first name"/>
                <br/>
             <label>Last Name</label>
-            <input type="text" value={inputLastName} name="lastName" onChange={handleInputLastNameChange} required placeholder="My last name"/>
+            <input type="text" /* value={inputLastName} */ name="lastName" ref={lastNameRef} /* onChange={handleInputLastNameChange} */ required placeholder="My last name"/>
                <br/>
             <label>Email</label>
-            <input type="email" value={inputEmail} name="email" onChange={handleInputEmailChange} required placeholder="My email"/>
+            <input type="email" /* value={inputEmail} */ name="email" ref={emailRef} /* onChange={handleInputEmailChange} */ required placeholder="My email"/>
                <br/>
             <label>Password</label>
-            <input type="password" value={inputPassword} name="password" onChange={handleInputPasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
+            <input type="password" /* value={inputPassword} */ name="password" ref={passwordRef} /* onChange={handleInputPasswordChange} */ pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <label>Confirm password</label>
-            <input type="password" value={confirmPassword} name="confirmPassword" onChange={handleConfirmPasswordChange} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
+            <input type="password" /* value={confirmPassword} */ name="confirmPassword" ref={confirmPasswordRef} /* onChange={handleConfirmPasswordChange} */ pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
                <br/>
             <button type="submit">Register</button>
          </form>

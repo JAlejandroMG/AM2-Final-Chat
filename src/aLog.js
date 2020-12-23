@@ -34,6 +34,9 @@
 //} 20201220
 //* SearchDropdown se integró en el área de SidebarChat
 //* Se paso el estado de contacts (users) y su actualización a Redux, usando React-Redux, Logger y Thunk
+//} 20201221
+//} 20201222
+//* Refactoring en Register se cambió la captura de inputs de useState a useRef con lo que mejora el rendimiento de la app al dejar de renderizar ese componente al capturar los datos de la forma.
 
 
 
