@@ -44,7 +44,7 @@ function Login({ setUser }) {
          const { user } = await auth.signInWithEmailAndPassword(inputEmail, inputPassword)
          //Para actualizar el estado y redireccionar al usuario a otra pagina
          // console.log("Login: user");
-         // console.log(user);
+         console.log(user);
          await setUser(user);
          history.push("/chat");
       } catch (error) {
