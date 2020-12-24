@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-//* React Router
 import {useHistory} from 'react-router-dom';
-//* Firebase
-import firebase from '../../../firebase/config';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/actions/authActions';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -15,19 +14,19 @@ import "./Chat.css";
 import MicIcon from "@material-ui/icons/Mic";
 
 
-const Chat = ({ messages, setUser }) => {
+const Chat = ({ messages }) => {
   const [input, setInput] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const logout = async () => {
+  const logoutUser = async () => {
     try {
-        await firebase.auth().signOut();
-        setUser(false);
-        console.log("Chat: logout exitoso");  //! Ejecuta después de history.push()
-        // console.log(result);
-        history.push("/");
+      const message = await dispatch(logout());
+      alert(`Chat: logoutUser ok => ${message}`);
+      console.log("Chat: logout exitoso");  //! Ejecuta después de history.push()
+      history.push("/");
     } catch(error) {
-        console.log("Chat: Logout rechazado");
+      alert(`Chat: logoutUser er => ${error}`);
     }
   };
 
@@ -52,7 +51,7 @@ const Chat = ({ messages, setUser }) => {
           <IconButton>
             <AttachFile />
           </IconButton>
-          <IconButton onClick={logout}>
+          <IconButton onClick={logoutUser}>
             <MoreVert />
           </IconButton>
         </div>

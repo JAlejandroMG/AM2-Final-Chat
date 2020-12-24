@@ -3,11 +3,12 @@ import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
 
-const ChatRoom = ({ messages, user, setUser }) => {
+// Es llamado por ProtectedRoute.jsx
+const ChatRoom = ({ messages }) => {
       return (
       <div className="app__body">
-            <Sidebar user={user} />
-            <Chat messages={messages} setUser={setUser} />
+            <Sidebar />
+            <Chat messages={messages} />
       </div>
 )};
 

@@ -4,23 +4,22 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
 
 
-function Register({ setUser }) {
-   //* Uso de referencias para captura de datos locales que mejoran rendimiento al no renderizar
-   const refContador = useRef(1); //! SOLO PARA PRUEBAS
+// Es llamado por App.js
+function Register() {
    const firstNameRef = useRef("");
    const lastNameRef = useRef("");
    const emailRef = useRef("");
    const passwordRef = useRef("");
    const confirmPasswordRef = useRef("");
+   const history = useHistory();
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
-   //* React-Redux
+   //* React-Redux-hooks
    const dispatch = useDispatch();
-   //* Hooks
-   const history = useHistory();
 
    //! SOLO PARA PRUEBAS
+   const refContador = useRef(1);
    useEffect(() => {
       console.log(`Register: render => ${refContador.current}`);
       refContador.current++;
@@ -32,6 +31,7 @@ function Register({ setUser }) {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
          try{
+            console.log("Register: registerUser");
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
             firstNameRef.current.value = "";
             lastNameRef.current.value = "";
@@ -41,6 +41,8 @@ function Register({ setUser }) {
             alert(`Register: registerUser ok => ${message}`);
             history.push("/chat");
          }catch(error){
+            // passwordRef.current.value = ""; //!Cannot set property 'value' of null
+            // confirmPasswordRef.current.value = ""; //!Cannot set property 'value' of null
             alert(`Register: registerUser er1 => ${error.message}`);
          };
       } else {
