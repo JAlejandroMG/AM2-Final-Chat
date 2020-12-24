@@ -3,6 +3,8 @@ import "./SidebarChat.css";
 //* Material
 import { Avatar } from "@material-ui/core";
 
+
+// Es llamado por Sidebar.js
 const SidebarChat = () => {return (
     <div className="sidebarChat">
       <Avatar />

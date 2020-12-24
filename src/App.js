@@ -14,7 +14,6 @@ import {
 
 function App() {
   //! Estado global pendiente de mandar a store con redux
-  const [user, setUser] = useState(false);
   const [messages, setMessages] = useState([]);
 
   //+ Crear las rutas
@@ -29,12 +28,12 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <Login setUser={setUser} />
+            <Login />
           </Route>
           <Route path="/register">
-            <Register setUser={setUser} />
+            <Register />
           </Route>
-          <ProtectedRoute path="/chat" exact user={user} setUser={setUser} messages={messages} /> {/* setUser en useCallback */}
+          <ProtectedRoute path="/chat" exact messages={messages} /> {/* setUser en useCallback */}
           {/* <Route path="/chat/:id" component={HomeChat} messages={messages} /> */}
           <Route path="*" exact component={notFound} />
         </Switch>

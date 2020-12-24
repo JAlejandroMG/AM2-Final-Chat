@@ -1,4 +1,4 @@
-//+ Bitácora de actividades
+//+------------------------- Bitácora de actividades ------------------------+//
 //} 20201213
 //* Reestructura de componentes
 //* Se agrego el archivo HomeChat y se acomodaron componentes existentes de acuerdo a su anidación en código
@@ -40,7 +40,14 @@
 //  Commit
 //} 20201223
 //* Register refactoring, all logic has been passed to authActions.
-//* Sidebar and contactsActions refactoring
+//* Register, authActions and Chatbar cleanup
+//* Sidebar and contactsActions refactoring.
+//  Commit
+//* Quitar de la lista de usuarios al anfitrión.
+//* Login logic has been passed to authActions.
+//} 20201224
+//* Login refactoring, all logic has been passed to authActions.
+
 
 
 //+ Proyecto final chat en tiempo real React

@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import "./Sidebar.css";
 import ChatIcon from "@material-ui/icons/Chat";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
@@ -12,22 +12,33 @@ import { fetchContacts } from '../../../redux/actions/contactsActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-const Sidebar = ({ user }) => {
+// Es llamado por ChatRoom.jsx
+const Sidebar = () => {
   //{ Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchUser, setSearchUser] = useState("");
-  //* Estado en Store
-  const contacts = useSelector(state => state.contacts)
+  const contacts = useSelector(state => state.contacts);
+  const { user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
+
+  //! SOLO PARA PRUEBAS
+  const refContador = useRef(1);
+  useEffect(() => {
+    console.log(`Sidebar: render => ${refContador.current}`);
+    refContador.current++;
+    console.log(user.uid);
+    console.log(contacts); // Requiero el contacts[],uid
+  })
 
 
   //*Llamada a la API
   useEffect(() => { 
     (async function() {
       try{
+        console.log("Sidebar: useEffect");
         const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
-        const message = await dispatch(fetchContacts(baseURL));
+        const message = await dispatch(fetchContacts(baseURL, user.uid));
         alert(`Sidebar: useEffect => Se han recibido los contactos correctamente. ${message}`);
       }catch(error){
         alert(`Sidebar: useEffect er => ${error.message}`);
@@ -44,7 +55,7 @@ const Sidebar = ({ user }) => {
     setShowDropdown(false);
   };
   const handleSearchUser = (e) => {
-    setSearchUser(e.target.value)
+    setSearchUser(e.target.value);
     console.log(e.target.value);
   };
 
@@ -85,7 +96,7 @@ const Sidebar = ({ user }) => {
             contact.username.toLowerCase().includes(searchUser.toLowerCase())
           ).map((contact , i) => {
             return (
-              <SidebarDropdown key={i} photo={contact.photoUrl} fName={contact.firstName} lName={contact.lastName} id={contact._id} />
+              <SidebarDropdown key={i} photo={contact.photoUrl} firstName={contact.firstName} lastName={contact.lastName} id={contact._id} />
             )
           }) :
           <SidebarChat />

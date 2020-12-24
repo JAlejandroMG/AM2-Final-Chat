@@ -9,4 +9,4 @@ export const contactsReducer = (prevState = INITIAL_STATE, action) => {
       default:
          return prevState;
    }
-}
+};
