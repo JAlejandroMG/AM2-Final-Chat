@@ -15,8 +15,9 @@ export const getMessages = (messages) => {
 };
 
 
-//{ Llamada desde SidebarChat.js=>getMessages()
-//*-------------------------- Obtiene los mensajes --------------------------*//
+
+//{ Called from SidebarChat.js => getMessages()
+//*------------------ Messages from a specific conversation -----------------*//
 export const fetchMessages = (baseURL) => {
    return (dispatch) => {
 
@@ -27,7 +28,7 @@ export const fetchMessages = (baseURL) => {
             const messages = await response.json();
             console.log(messages);
             dispatch(getMessages(messages));
-            resolve(true);
+            resolve("Se han recibido los mensajes.");
          } catch (error) {
             alert(`chatActions: fetchMessages er => ${error.message}`);
             reject(error.message);
@@ -37,9 +38,8 @@ export const fetchMessages = (baseURL) => {
    };
 };
 
-
-//{ Llamada desde Sidebar.js=>useEffect()
-//*----------------------- Obtiene las conversaciones -----------------------*//
+//{ Called from Sidebar.js => useEffect()
+//*-------- All the conversations from the user connected to the App --------*//
 export const fetchConversations = (baseURL) => {
    return (dispatch) => {
 
@@ -48,9 +48,8 @@ export const fetchConversations = (baseURL) => {
             console.log("chatActions: fetchConversations");
             const response = await fetch(baseURL);
             const conversations = await response.json();
-            // const contacts = contactsArray.filter(contact => contact.uid !== uid)
             dispatch(getConversations(conversations));
-            resolve(true);
+            resolve("Se han recibido las conversaciones.");
          } catch (error) {
             alert(`chatActions: fetchConversations er => ${error.message}`);
             reject(error.message);

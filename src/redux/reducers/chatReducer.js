@@ -1,6 +1,5 @@
 import * as actions from '../actionTypes';
 
-// const INITIAL_STATE = [];
 const INITIAL_STATE = {
    conversations: [],
    messages: [
@@ -9,7 +8,6 @@ const INITIAL_STATE = {
       ] }
    ]
 }
-// messages[0].messages[0].userId
 
 
 export const chatReducer = (prevState = INITIAL_STATE, action) => {
@@ -17,11 +15,9 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
 
    switch(action.type) {
       case actions.GET_CONVERSATIONS:
-         // return action.payload; //Arreglo de contactos que se recibe del fetch
-         return {...transState, conversations: action.payload};
+         return {...transState, conversations: action.payload}; //Conversations in existance
       case actions.GET_MESSAGES:
-         // return action.payload; //Arreglo de mensajes que se recibe del fetch
-         return {...transState, messages: action.payload};
+         return {...transState, messages: action.payload}; //Messages from a conversation
       default:
          return prevState;
    }

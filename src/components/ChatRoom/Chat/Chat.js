@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Chat.css";
 import { useSelector } from 'react-redux';
 //* Material
@@ -12,13 +12,20 @@ import {
 import MicIcon from "@material-ui/icons/Mic";
 
 
-// Es llamado por ChatRoom.jsx
+//{ Called from ChatRoom.jsx
 const Chat = () => {
   //{ Estado Local
   const [input, setInput] = useState("");
   //{ Estado Global
   const { userApp } = useSelector(state => state.contacts);
   const { messages }  = useSelector(state => state.chat);
+
+  //! SOLO PARA PRUEBAS
+  const refContador = useRef(1);
+  useEffect(() => {
+    console.log(`Chat: render => ${refContador.current}`);
+    refContador.current++;
+  })
   
 
   const sendMessage = async (e) => {
@@ -89,5 +96,6 @@ const Chat = () => {
     </div>
   );
 };
+
 
 export default Chat;

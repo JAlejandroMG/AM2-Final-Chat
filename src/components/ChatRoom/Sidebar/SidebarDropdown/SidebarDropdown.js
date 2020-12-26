@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./SidebarDropdown.css";
 //* Material
 import { Avatar } from "@material-ui/core";
-//*React-Redux
-// import { addConversation } from '../../../redux/actions/chatActions';
-// import { useDispatch } from 'react-redux';
 
 
 // Es llamado por Sidebar.js
 const SidebarDropdown = ({ photo, firstName, lastName, id }) => {
-   //{ Estado Global
-   // const dispatch = useDispatch(); //Para agregar una conversación
+
+   //! SOLO PARA PRUEBAS
+   const refContador = useRef(1);
+   useEffect(() => {
+      console.log(`SidebarDropdown: render => ${refContador.current}`);
+      refContador.current++;
+   })
 
 
    return (

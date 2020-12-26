@@ -4,24 +4,31 @@ import { useDispatch } from 'react-redux';
 import { login, checkActiveSession, resetPassword } from '../../redux/actions/authActions';
 
 
-// Es llamado por App.js, ProtectedRoute.jsx
+//{ Called from App.js, ProtectedRoute.jsx
 function Login() {
    const emailRef = useRef("");
    const passwordRef = useRef("");
    const history = useHistory();
    const dispatch = useDispatch();
 
+   //! SOLO PARA PRUEBAS
+   const refContador = useRef(1);
+   useEffect(() => {
+      console.log(`Login: render => ${refContador.current}`);
+      refContador.current++;
+   })
 
-   //* Al entrar a la aplicación, después de montar, Login revisa si ya hay usuario loggeado
+
+//*----------------- Checks on Firebase if user is connected ----------------*//
    useEffect(() => {
       (async function() {
          try{
-            console.log("Login: useEffect");
+            console.log("Login: useEffect: checkActiveSession");
             const message = await dispatch(checkActiveSession());
-            alert(`Login: useEffect ok => ${message}`);
+            alert(`Login: useEffect: checkActiveSession => ${message}`);
             history.push("/chat");
          }catch(error){
-            alert(`Login: useEffect er => ${error.message}`);
+            alert(`Login: useEffect: checkActiveSession er => ${error.message}`);
          }
       })();
       // eslint-disable-next-line
@@ -51,8 +58,7 @@ function Login() {
          const message = await dispatch(resetPassword(emailRef.current.value, actionCodeSettings));
          emailRef.current.value = "";
          passwordRef.current.value = "";
-         alert(`Login: resetUserPassword ok => ${message}`);
-         // alert(`Se ha enviado un correo ${user.email} para reestablecer la contraseña.`);
+         alert(`Login: resetUserPassword => ${message}`);
       }catch(error){
          alert(`Login: resetUserPassword er => ${error}`);
       }

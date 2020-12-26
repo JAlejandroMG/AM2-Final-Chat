@@ -15,8 +15,9 @@ export const getContacts = (contacts) => {
 };
 
 
-//{ Llamada desde Sidebar.js=>useEffect()
-//*----------- Obtiene los contactos para posibles conversaciones -----------*//
+
+//{ Called from Sidebar.js => useEffect()
+//*------------- All users (contacts) for possible conversations ------------*//
 export const fetchContacts = (baseURL, uid) => {
    return (dispatch) => {
 
@@ -25,13 +26,13 @@ export const fetchContacts = (baseURL, uid) => {
             console.log("contactsActions: fetchContacts");
             const response = await fetch(baseURL);
             const contactsArray = await response.json();
-            // Del arreglo de contactsArray (users) eliminamos al usuario conectado
+            // From contactsArray (users), the user connected to the App is taken off
             const contacts = contactsArray.filter(contact => contact.uid !== uid)
             dispatch(getContacts(contacts));
-            // Del arreglo de contactsArray (users) seleccionamos al usuario conectado
+            // From contactsArray (users), the user connected to the App is the only one left
             const userApp = contactsArray.filter(contact => contact.uid === uid)
             dispatch(getUserApp(userApp));
-            resolve(true);
+            resolve("Se han recibido los contactos correctamente.");
          } catch (error) {
             alert(`contactsActions: fetchContacts er => ${error.message}`);
             reject(error.message);

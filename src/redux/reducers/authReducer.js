@@ -10,7 +10,7 @@ export const authReducer = (prevState = INITIAL_STATE, action) => {
 
    switch(action.type){
       case actions.SET_USER:
-         return {...transState, user: action.payload};
+         return {...transState, user: action.payload}; //User connected to Firebase
       default:
          return prevState;
    };
