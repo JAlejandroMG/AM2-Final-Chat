@@ -11,10 +11,6 @@ export const authReducer = (prevState = INITIAL_STATE, action) => {
    switch(action.type){
       case actions.SET_USER:
          return {...transState, user: action.payload};
-      case "LOGOUT":
-         break;
-      case "CHECK_ACTIVE_SESSION":
-         break;
       default:
          return prevState;
    };

@@ -4,7 +4,7 @@ import {auth} from '../../firebase/config';
 
 
 
-//{ Llamada desde login(),update(),checkActiveSession()
+//{ Llamada desde update(), login(),checkActiveSession(), logout()
 //*---------- Asignación del objeto user con los datos del usuario ----------*//
 const setUser = (user) => {
    return {
@@ -82,23 +82,20 @@ export const login = (provider, email, password) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("authActions: login(email and password)");
+            let message = "";
             if(!provider){
+               console.log("authActions: login(email and password)");
                let {user} = await firebase.auth().signInWithEmailAndPassword(email, password);
                dispatch(setUser(user));
+               message = "Bienvenido a la aplicación de Chat";
             }else{
                console.log("authActions: login(google)");
                let googleProvider = new firebase.auth.GoogleAuthProvider();
                let {user} = await firebase.auth().signInWithPopup(googleProvider);
-               // console.log(user);
                dispatch(setUser(user));
+               // Aunque user.displayName puede ser accesado desde appRegister() se pasa como argumento para poder reutilizar esa función desde aquí y desde update()
+               message = await dispatch(appRegister(user.displayName, "Firebase"))
             }
-            console.log("authActions: login(last part)");
-            const { user } = getState().auth;
-            console.log(user);
-            // Aunque user.displayName puede ser accesado desde appRegister() se pasa como argumento para poder reutilizar esa función desde aquí y desde update()
-            // const message = await dispatch(appRegister(user.displayName, "Firebase"));
-            const message = "Bienvenido a la aplicación de Chat";
             resolve(message);
          }catch(error){
             alert(`authActions: login er => ${error.message}`);
