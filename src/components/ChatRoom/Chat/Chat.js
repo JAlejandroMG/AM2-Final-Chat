@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import {useHistory} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../redux/actions/authActions';
+import "./Chat.css";
+import { useSelector } from 'react-redux';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -10,28 +9,20 @@ import {
   MoreVert,
   SearchOutlined,
 } from "@material-ui/icons";
-import "./Chat.css";
 import MicIcon from "@material-ui/icons/Mic";
 
 
-const Chat = ({ messages }) => {
+// Es llamado por ChatRoom.jsx
+const Chat = () => {
+  //{ Estado Local
   const [input, setInput] = useState("");
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const logoutUser = async () => {
-    try {
-      const message = await dispatch(logout());
-      alert(`Chat: logoutUser ok => ${message}`);
-      console.log("Chat: logout exitoso");  //! Ejecuta después de history.push()
-      history.push("/");
-    } catch(error) {
-      alert(`Chat: logoutUser er => ${error}`);
-    }
-  };
+  //{ Estado Global
+  const { userApp } = useSelector(state => state.contacts);
+  const { messages }  = useSelector(state => state.chat);
+  
 
   const sendMessage = async (e) => {
-    e.preventDefault();
+    e.prevenpptDefault();
 
     setInput("");
   };
@@ -51,7 +42,7 @@ const Chat = ({ messages }) => {
           <IconButton>
             <AttachFile />
           </IconButton>
-          <IconButton onClick={logoutUser}>
+          <IconButton>
             <MoreVert />
           </IconButton>
         </div>
@@ -59,20 +50,22 @@ const Chat = ({ messages }) => {
 
       <div className="chat__body">
         {
-        messages.map((message, i) => {
-          return (
-            <p
-              key={i}
-              className={`chat__message ${
-                message.received && "chat__reciever"
-              }`}
-            >
-              <span className="chat__name">{message.name}</span>
-              {message.message}
-              <span className="chat__timestamp">{message.timestamp}</span>
-            </p>
-          );
-        })
+          messages[0].messages[0].userId ?
+          messages[0].messages.map((message, i) => {
+            return (
+              <p
+                key={i}
+                className={`chat__message ${
+                  message.received && "chat__reciever"
+                } ${ message.userId === userApp[0]._id && "background" }`}
+              >
+                <span className="chat__name">{message.name}</span>
+                {message.message}
+                <span className="chat__timestamp">{message.timestamp}</span>
+              </p>
+            );
+          }) :
+          <h1>Bienvenda, bienvenide, bienvenidi, bienvenido, bienvenidu</h1>
         }
       </div>
 

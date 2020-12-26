@@ -44,9 +44,17 @@
 //* Sidebar and contactsActions refactoring.
 //  Commit
 //* Quitar de la lista de usuarios al anfitrión.
-//* Login logic has been passed to authActions.
+//* Login=>loginUser refactring logic regarding authorization has been passed to authActions.
 //} 20201224
-//* Login refactoring, all logic has been passed to authActions.
+//* Login refactoring, all logic regarding authorization has been passed to authActions.
+//* Chat refactoring, all logic regarding authorization has been passed to authActions.
+//  Commit
+//} 20201225
+//* Fixed appRegister call from login in authActions
+//* Added conversations shown in SidebarChat
+//* Changed logout from Chat to Sidebar
+//* Added messages shown in Chat
+//  Commit
 
 
 

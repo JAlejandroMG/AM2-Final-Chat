@@ -1,19 +1,19 @@
 .sidebarDropdown {
-   display: flex;
-   padding: 20px;
-   cursor: pointer;
-   border-radius: 1px solid #f6f6f6;
- }
- .sidebarDropdown:hover {
-   background-color: #ebebeb;
- }
- 
- .sidebarDropdown__info > h2 {
-   font-size: 16px;
-   margin-bottom: 8px;
- }
- 
- .sidebarDropdown__info {
-   margin-left: 15px;
- }
- 
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 1px solid #f6f6f6;
+}
+
+.sidebarDropdown:hover {
+  background-color: #ebebeb;
+}
+
+.sidebarDropdown__info > h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.sidebarDropdown__info {
+  margin-left: 15px;
+}
