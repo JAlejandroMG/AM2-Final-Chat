@@ -14,7 +14,7 @@ import SidebarChat from "./SidebarChat/SidebarChat";
 import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 
 
-// Es llamado por ChatRoom.jsx
+//{ Called from ChatRoom.jsx
 const Sidebar = () => {
   //{ Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
@@ -25,8 +25,6 @@ const Sidebar = () => {
   const { contacts } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
   const history = useHistory();
-
-
   
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
@@ -38,30 +36,29 @@ const Sidebar = () => {
   })
 
 
-//*---------------------------- Llamada a la API ----------------------------*//
+//*-------------------------------- API call --------------------------------*//
   useEffect(() => {
-    //*-------------------------------- Contactos -------------------------------*//
+    //*-------------------------------- Contacts --------------------------------*//
     (async function() {
       try{
-        // console.log(conversations);
-        console.log("Sidebar: useEffect: Contacts");
+        console.log("Sidebar: useEffect: contacts");
         const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
         const message = await dispatch(fetchContacts(baseURL, user.uid));
         getConversations();
-        alert(`Sidebar: useEffect: Contacts => Se han recibido los contactos correctamente. ${message}`);
+        alert(`Sidebar: useEffect: contacts => ${message}`);
       }catch(error){
-        alert(`Sidebar: useEffect: Contacts er => ${error.message}`);
+        alert(`Sidebar: useEffect: contacts er => ${error.message}`);
       }
     })();
     //*------------------------------ Conversations -----------------------------*//
     const getConversations = async() => {
       try{
-        console.log("Sidebar: useEffect: Conversations");
+        console.log("Sidebar: useEffect: getConversations");
         const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${user.uid}/conversations`;
         const message = await dispatch(fetchConversations(baseURL));
-        alert(`Sidebar: useEffect: Conversations => Se han recibido las conversaciones. ${message}`);
+        alert(`Sidebar: useEffect: getConversations => ${message}`);
       }catch(error){
-        alert(`Sidebar: useEffect: Conversations er => ${error.message}`);
+        alert(`Sidebar: useEffect: getConversations er => ${error.message}`);
       }
     };
 
@@ -71,12 +68,12 @@ const Sidebar = () => {
 
   const logoutUser = async () => {
     try {
+      console.log("Sidebar: logoutUser")
       const message = await dispatch(logout());
-      alert(`Chat: logoutUser ok => ${message}`);
-      console.log("Chat: logout exitoso");  //! Ejecuta después de history.push()
+      alert(`Sidebar: logoutUser => ${message}`);
       history.push("/");
     } catch(error) {
-      alert(`Chat: logoutUser er => ${error}`);
+      alert(`Sidebar: logoutUser er => ${error}`);
     }
   };
 

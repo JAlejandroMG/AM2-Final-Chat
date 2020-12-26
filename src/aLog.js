@@ -55,7 +55,16 @@
 //* Changed logout from Chat to Sidebar
 //* Added messages shown in Chat
 //  Commit
-
+//! CORREGIR
+//! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
+//] Pendientes
+//  Formato a las páginas de Login Register y 404
+//  Opcional homologar la imágen de todas las páginas
+//  Dirigir las conversaciones a /chat/:id
+//  Crear conversaciones
+//  Eliminar conversaciones
+//  Crear mensajes
+//  Eliminar mensajes
 
 
 //+ Proyecto final chat en tiempo real React
@@ -68,7 +77,6 @@
 //* React Hooks
 //* React Router
 //* Firebase
-
 //+ Requerimientos (opcionales):
 //* React redux
 //* Redux thunk
@@ -82,7 +90,7 @@
 //* /login
 //* /register
 //* /chat (protegida)
-//* /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
+//! /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
 //[ Logout
 
 //+ Firebase
@@ -94,13 +102,9 @@
 //* Inicio de sesión con email y contraseña 
 //* Inicio de sesión con Google
 //* Restablecer contraseña
-//} https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email
-//* ???????????????????????????????????????????????????????????????????????????????
-//{ Enviar los datos de usuario (objeto user) a través de la api con el método POST
-//! ¿EN QUË MOMENTO?
-//! Configuración de envío
-//* ???????????????????????????????????????????????????????????????????????????????
-//} https://academlo-whats.herokuapp.com/api/v1/users 
+//* https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email
+//* Enviar los datos de usuario (objeto user) a través de la api con el método POST
+//* https://academlo-whats.herokuapp.com/api/v1/users 
 
 //+ Register (Firebase)
 //* Crear un formulario de registro y validar que no haya campos vacíos y redireccionar al usuario al inicio (¿Login o al Chat?) una vez que haya registrado su cuenta.
@@ -108,7 +112,7 @@
 //+ Validación formulario de registro
 //* Formulario con los campos de nombre completo, email, contraseña y confirmación de contraseña.
 //* Registrar el usuario en firebase con el nombre completo, email y contraseña y agregar una imagen de perfil por defecto
-//} https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
+//* https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
 
 //+ Chat
 //{ La ruta del chat será una ruta protegida por lo que sólo podrá ser mostrada por los usuarios autenticados. Al cargar la vista del Chat (Componente Chat) se tendrá que consumir la API para obtener las conversaciones del usuario:
@@ -132,6 +136,7 @@
 //{ Dentro del Sidebar se tienen diversas (Salas de) conversaciones, y al dar click sobre una de ellas deberás redireccionar al usuario a la siguiente ruta /chat/:id donde tendrás que sustituir el parámetro :id con el id de la conversación. Tendrás que declarar un estado para guardar el conversationId y actualizarlo con el id de la conversación que fue seleccionada y con ayuda de useEffect tendrás que agregar a conversationId como dependencia para hacer una petición de tipo GET sobre la siguiente ruta:
 //} https://academlo-whats.herokuapp.com/api/v1/conversations/:uid/messages
 //{ Y tendrás que listar los mensajes en su contenedor Chat.
+
 
 
 //! Este documento se actualizará pronto...

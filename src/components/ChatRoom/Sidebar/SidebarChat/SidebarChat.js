@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./SidebarChat.css";
-//*React-Redux
 import { useDispatch } from 'react-redux';
 import { fetchMessages } from '../../../../redux/actions/chatActions';
 //* Material
 import { Avatar } from "@material-ui/core";
 
 
-// Es llamado por Sidebar.js
+//{ Called from Sidebar.js
 const SidebarChat = ({ photo, userName, conversationId }) => {
   const dispatch = useDispatch();
+
+  //! SOLO PARA PRUEBAS
+  const refContador = useRef(1);
+  useEffect(() => {
+    console.log(`SidebarChat: render => ${refContador.current}`);
+    refContador.current++;
+  })
 
 
   const getMessages = async(conversationId) => {
@@ -18,7 +24,7 @@ const SidebarChat = ({ photo, userName, conversationId }) => {
       // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
       const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fe15a225901e80017f682d3/messages`;
       const message = await dispatch(fetchMessages(baseURL));
-      alert(`SidebarChat: getMessages => Se han recibido los mensajes. ${message}`);
+      alert(`SidebarChat: getMessages => ${message}`);
     }catch(error){
       alert(`SidebarChat: getMessages er => ${error.message}`);
     }

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
 
 
-// Es llamado por App.js
+//{ Called from App.js
 function Register() {
    const firstNameRef = useRef("");
    const lastNameRef = useRef("");
@@ -12,11 +12,10 @@ function Register() {
    const passwordRef = useRef("");
    const confirmPasswordRef = useRef("");
    const history = useHistory();
+   const dispatch = useDispatch();
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
-   //* React-Redux-hooks
-   const dispatch = useDispatch();
 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
@@ -26,7 +25,7 @@ function Register() {
    })
 
 
-   //* Registro de usuario en Firebase y en la aplicación con email y password
+//*---------------- Registers user in Firebas and in the App ----------------*//
    const registerUser = async (e) => {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
@@ -38,7 +37,7 @@ function Register() {
             emailRef.current.value = "";
             passwordRef.current.value = "";
             confirmPasswordRef.current.value = "";
-            alert(`Register: registerUser ok => ${message}`);
+            alert(`Register: registerUser => ${message}`);
             history.push("/chat");
          }catch(error){
             // passwordRef.current.value = ""; //!Cannot set property 'value' of null
