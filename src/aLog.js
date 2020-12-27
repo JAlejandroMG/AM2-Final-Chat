@@ -54,11 +54,12 @@
 //* Added conversations shown in SidebarChat
 //* Changed logout from Chat to Sidebar
 //* Added messages shown in Chat
+//} 20201226
+//* Formato a las páginas de Login Register
 //  Commit
 //! CORREGIR
 //! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
 //] Pendientes
-//  Formato a las páginas de Login Register y 404
 //  Opcional homologar la imágen de todas las páginas
 //  Dirigir las conversaciones a /chat/:id
 //  Crear conversaciones
