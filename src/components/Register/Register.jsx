@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
 
+//Styles CSS
+import './Register.css';
 
 //{ Called from App.js
 function Register() {
@@ -56,25 +58,25 @@ function Register() {
    //* Componente Register
    return (
       <div>
-         <form onSubmit={registerUser} >
-            <h2>Register</h2>
+         <form className="formRegister" onSubmit={registerUser} >
+            <h2 className="titleRegister">Register</h2>
                <br/>
             <label>First Name</label>
-            <input type="text" name="firstName" ref={firstNameRef} required placeholder="My first name"/>
+            <input className="inputRegister" type="text" name="firstName" ref={firstNameRef} required placeholder="My first name"/>
                <br/>
             <label>Last Name</label>
-            <input type="text" name="lastName" ref={lastNameRef} required placeholder="My last name"/>
+            <input className="inputRegister" type="text" name="lastName" ref={lastNameRef} required placeholder="My last name"/>
                <br/>
             <label>Email</label>
-            <input type="email" name="email" ref={emailRef} required placeholder="My email"/>
+            <input className="inputRegister" type="email" name="email" ref={emailRef} required placeholder="My email"/>
                <br/>
             <label>Password</label>
-            <input type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
+            <input className="inputRegister" type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <label>Confirm password</label>
-            <input type="password" name="confirmPassword" ref={confirmPasswordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
+            <input className="inputRegister" type="password" name="confirmPassword" ref={confirmPasswordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Confirm password"/>
                <br/>
-            <button type="submit">Register</button>
+            <button className="buttonRegister" type="submit">Register</button>
          </form>
       </div>
    );

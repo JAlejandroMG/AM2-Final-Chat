@@ -3,6 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login, checkActiveSession, resetPassword } from '../../redux/actions/authActions';
 
+//Styles CSS Login
+import './Login.css';
+
 
 //{ Called from App.js, ProtectedRoute.jsx
 function Login() {
@@ -68,25 +71,27 @@ function Login() {
    //* Componente Login
    return (
       <div>
-         <form onSubmit={(e) => loginUser(e, "")} >
-            <h2>Login</h2>
+         <form className="formLogin" onSubmit={(e) => loginUser(e, "")} >
+            <h2 className="titleLogin">Login</h2>
                <br/>
             <label>Email</label>
-            <input type="email" name="email" ref={emailRef} placeholder="My email" required/>
+            <input className="inputLogin" type="email" name="email" ref={emailRef} placeholder="My email" required/>
                <br/>
             <label>Password</label>
-            <input type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
+            <input className="inputLogin" type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
-            <button type="submit">Login</button>
-         </form>
-               <br />
-            <button onClick={(e) => loginUser(e, "google")}>Login with Google</button>
-               <br />
-            <button onClick={resetUserPassword}>Reset Password</button>
+            <button className="buttonLogin" type="submit">Login</button>
+            <br />
+            <button className="buttonResetPassword" onClick={resetUserPassword}>Reset Password</button>
+               
+            <br />
+            <button className="buttonLogin"onClick={(e) => loginUser(e, "google")}>Login with Google</button>
                <br />
             <Link to="/register">
-               <button>Register</button>
+               <button className="buttonRegister">Register</button>
             </Link>
+         </form>
+           
       </div>
    );
 }
