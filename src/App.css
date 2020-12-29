@@ -2,7 +2,8 @@
   display: grid;
   place-items: center;
   height: 100vh;
-  background-color: #dadadd;
+  background-image: url('https://www.wearemarketing.com/media/cache/dynamic/rc/Hq1HtaOj//uploads/media/default/0001/21/c7b375b10b31a5d662bc36185291e6bfceeacf20.jpeg');
+  background-size: cover;
 }
 .app__body {
   display: flex;

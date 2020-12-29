@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:600,700&display=swap');
+
+.formRegister {
+    
+    background: rgba(0, 0, 0, 0.4);
+    padding: 100px 100px;
+    border-radius: 15px;
+}
+
+.titleRegister{
+    color: #fff;
+    font-family: Nunito, Roboto, Arial, sans-serif;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    color: #fff;
+    font-family: Nunito, Roboto, Arial, sans-serif;
+    font-size: 20px; 
+}
+
+.inputRegister{
+
+    margin-bottom: 10px;
+	padding: 15px;
+	font-size: 1rem;
+	font-family: Nunito, sans-serif;
+	color: #000;
+    border-radius: 5px;
+    width: 100%;
+
+}
+
+
+.buttonRegister{
+ 
+    background: #71a7ff;
+}

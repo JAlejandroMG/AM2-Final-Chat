@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:600,700&display=swap');
+
+.formLogin {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 100px 100px;
+    border-radius: 15px;
+}
+
+
+.titleLogin{
+    color: #fff;
+    font-family: Nunito, Roboto, Arial, sans-serif;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputLogin {
+    margin-bottom: 10px;
+	padding: 15px;
+	font-size: 1rem;
+	font-family: Nunito, sans-serif;
+	color: #000;
+    border-radius: 5px;
+    width: 100%;
+}
+
+label {
+    color: #fff;
+    font-family: Nunito, Roboto, Arial, sans-serif;
+    font-size: 20px; 
+}
+
+button {
+    padding: .75rem 1.25rem;
+    margin-top: 15px;
+    border-radius: 15px;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: .1rem;
+    transition: all .3s;
+    cursor: pointer;
+    
+}
+        
+.buttonLogin{
+    background: #25d366;
+} 
+
+.buttonResetPassword {
+   padding: 5px;
+   color: #fff;
+   background: none;
+   text-decoration: underline;
+}
+
+.buttonRegister{
+    background: #71a7ff;
+}
