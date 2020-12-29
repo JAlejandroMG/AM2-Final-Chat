@@ -56,7 +56,7 @@ function Register() {
    //* Componente Register
    return (
       <div>
-         <form onSubmit={registerUser} >
+         <form onSubmit={registerUser}>
             <h2>Register</h2>
                <br/>
             <label>First Name</label>

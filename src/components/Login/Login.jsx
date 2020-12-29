@@ -78,7 +78,7 @@ function Login() {
             <input type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
                <br/>
             <button type="submit">Login</button>
-         </form>
+
                <br />
             <button onClick={(e) => loginUser(e, "google")}>Login with Google</button>
                <br />
@@ -87,6 +87,9 @@ function Login() {
             <Link to="/register">
                <button>Register</button>
             </Link>
+
+         </form>               
+            
       </div>
    );
 }

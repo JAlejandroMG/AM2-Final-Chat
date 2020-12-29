@@ -22,7 +22,7 @@ const Sidebar = () => {
   //{ Estado Global
   const { user } = useSelector(state => state.auth);
   const { conversations } = useSelector(state => state.chat);
-  const { contacts } = useSelector(state => state.contacts);
+  const { contacts, userApp } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
   const history = useHistory();
   
@@ -130,8 +130,9 @@ const Sidebar = () => {
             )
           }) :
           conversations.map((conversation, i) => {
+            const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
             return (
-              <SidebarChat key={i} photo={conversation.info.photoUrl} userName={conversation.info.username} conversationId={conversation._id} />
+              <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
             )
           })          
         }

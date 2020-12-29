@@ -35,6 +35,7 @@
 
 .chat__message {
   position: relative;
+  cursor: pointer;
   font-size: 16px;
   padding: 10px;
   width: fit-content;
@@ -42,9 +43,15 @@
   background-color: #fbeddf;
   margin-bottom: 30px;
 }
+.chat__message:hover {
+  background-color: #cec1b3;
+}
 
 .background {
   background: #e8c29c;
+}
+.background:hover {
+  background: #bf9b75;
 }
 
 .chat__timestamp {
@@ -91,4 +98,8 @@
 .chat__footer > .MuiSvgIcon-root {
   padding: 10px;
   color: gray;
+}
+
+.hide {
+  display: none;
 }
