@@ -70,7 +70,7 @@ export const checkActiveSession = () => {
 //{ Called from Login.jsx => loginUser()
 //*----------------------- App login through Firebase -----------------------*//
 export const login = (provider, email, password) => {
-   return (dispatch, getState) => {
+   return (dispatch) => {
 
       return new Promise (async(resolve, reject) => {
          try{
@@ -172,8 +172,8 @@ const update = (firstName, lastName) => {
                });
             user = await firebase.auth().currentUser;
             dispatch(setUser(user));
-            // const message = await dispatch(appRegister(firstName, lastName));
-            const message = "Bienvenido a la aplicación de Chat";
+            const message = await dispatch(appRegister(firstName, lastName));
+            // const message = "Bienvenido a la aplicación de Chat";
             resolve(message);
          }catch(error){
             alert(`authActions: update er => ${error.message}`);

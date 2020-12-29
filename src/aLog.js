@@ -46,8 +46,8 @@
 //* Quitar de la lista de usuarios al anfitrión.
 //* Login=>loginUser refactring logic regarding authorization has been passed to authActions.
 //} 20201224
-//* Login refactoring, all logic regarding authorization has been passed to authActions.
-//* Chat refactoring, all logic regarding authorization has been passed to authActions.
+//* Login refactoring, all logic regarding authorization has been passed to authActions
+//* Chat refactoring, all logic regarding authorization has been passed to authActions
 //  Commit
 //} 20201225
 //* Fixed appRegister call from login in authActions
@@ -57,15 +57,25 @@
 //} 20201226
 //* Formato a las páginas de Login Register
 //  Commit
+//} 20201225
+//* Project status revision
+//} 20201226
+//* Code revision
+//} 20201227
+//* Other conversation's user's photo and name are shown in chat
+//* Message creation enabled
+//* Fixed a Sidebar bug, photo and name on conversation now shows other user
+
 //! CORREGIR
 //! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
 //] Pendientes
 //  Opcional homologar la imágen de todas las páginas
 //  Dirigir las conversaciones a /chat/:id
+//  Presentar los datos del usuario en las conversaciones
 //  Crear conversaciones
 //  Eliminar conversaciones
-//  Crear mensajes
 //  Eliminar mensajes
+//  Loader
 
 
 //+ Proyecto final chat en tiempo real React

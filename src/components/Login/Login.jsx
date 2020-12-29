@@ -90,8 +90,7 @@ function Login() {
             <Link to="/register">
                <button className="buttonRegister">Register</button>
             </Link>
-         </form>
-           
+       </form>
       </div>
    );
 }

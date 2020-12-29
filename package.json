@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
     "firebase": "^8.2.0",
+    "luxon": "^1.25.0",
     "pusher-js": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
