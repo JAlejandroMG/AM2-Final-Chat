@@ -28,14 +28,6 @@ export const chatUser = (user) => {
    };
 };
 
-/* {
-	"userId": "5fdd9238774450001755805d",
-  "conversationId": "5fe15a225901e80017f682d3",
-  "message": "What's up dude!!",
-  "timestamp": "1608338000",
-  "received": false
-} */
-
 
 
 //{ Called from Chat.js => sendMessage()
@@ -89,6 +81,8 @@ export const fetchConversations = (baseURL) => {
             console.log("chatActions: fetchConversations");
             const response = await fetch(baseURL);
             const conversations = await response.json();
+            console.log(conversations);
+            alert("Aquí andamos");
             dispatch(getConversations(conversations));
             resolve("Se han recibido las conversaciones.");
          } catch (error) {

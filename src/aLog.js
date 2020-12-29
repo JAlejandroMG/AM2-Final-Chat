@@ -65,6 +65,8 @@
 //* Other conversation's user's photo and name are shown in chat
 //* Message creation enabled
 //* Fixed a Sidebar bug, photo and name on conversation now shows other user
+//} 20201228
+//} 20201229
 
 //! CORREGIR
 //! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
