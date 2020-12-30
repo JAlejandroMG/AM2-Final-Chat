@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../../redux/actions/chatActions';
@@ -14,7 +14,7 @@ import MicIcon from "@material-ui/icons/Mic";
 
 
 //{ Called from ChatRoom.jsx
-const Chat = () => {
+const Chat = memo(() => {
   const [deleteMessageShow, setDeleteMessageShow] = useState(false);
   const messageRef = useRef("");
   const dispatch = useDispatch();
@@ -112,7 +112,7 @@ const Chat = () => {
       </div>
     </div>
   );
-};
+});
 
 
 export default Chat;
