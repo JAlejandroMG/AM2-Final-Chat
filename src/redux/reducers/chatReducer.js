@@ -10,7 +10,7 @@ const INITIAL_STATE = {
    ],
    chatUser: [
       {
-         photoUrl: " ",
+         photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg",
          username: false
       }
    ]
@@ -22,16 +22,15 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
 
    switch(action.type) {
       case actions.GET_CONVERSATIONS:
-         // const conversationsAdded = {...transState, conversations: action.payload}; //Conversations in existance
-         // const conversationsObj = conversationsAdded.conversations
-         // const selectedProperty = {selectedConversation: false};
-         // const addedPropertyConversations = [];
-         // conversationsObj.map(conversation => {
-         //    const returnedObj = Object.assign(conversation, selectedProperty); //Agregamos propiedad
-         //    addedPropertyConversations.push(returnedObj)
-         // });
-         // return {...transState, conversations:addedPropertyConversations}
-         return {...transState, conversations: action.payload}
+         const addedPropertyConversations = [];
+         const addedProperty = {conversationSelected: false};
+         const conversationsObj = action.payload;
+         conversationsObj.map(conversation => {
+            const addingProperty = Object.assign(conversation, addedProperty);
+            addedPropertyConversations.push(addingProperty);
+            return true
+         });
+         return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
       case actions.CONVERSATION_ID:
          return {...transState, conversationId: action.payload}; //Conversation's id
       case actions.GET_MESSAGES:
