@@ -4,7 +4,10 @@ const INITIAL_STATE = {
    conversations: [],
    conversationId: false,
    messages: [
-      { _id: false }
+      {
+         _id: false,
+        messages: []
+      }
    ],
    chatUser: [
       {
