@@ -66,7 +66,7 @@ const Chat = memo(() => {
       {
         messages[0]._id ?
         <Message /> :
-        <div className="chat__body">          
+        <div className="chat__body">
           <h1>Bienvenda, bienvenide, bienvenidi, bienvenido, bienvenidu</h1>
         </div>
       }
