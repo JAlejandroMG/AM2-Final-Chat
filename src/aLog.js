@@ -57,16 +57,25 @@
 //} 20201226
 //* Formato a las páginas de Login Register
 //  Commit
-//} 20201225
 //* Project status revision
-//} 20201226
-//* Code revision
 //} 20201227
+//* Code revision
+//} 20201228
 //* Other conversation's user's photo and name are shown in chat
 //* Message creation enabled
 //* Fixed a Sidebar bug, photo and name on conversation now shows other user
-//} 20201228
 //} 20201229
+//* Added: property {conversationSelected: false} to conversations chatReducer
+//  commit
+//* Added: memo to Chat, Sidebar and SidebarChat
+//* Added: double click to conversations
+//} 20201229
+//* Added: property {messageSelected: false} to messages chatReducer
+//} 20201230
+//* Added: showing a new conversation without messages
+//* Added: component Message.js
+//  commit
+
 
 //! CORREGIR
 //! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
