@@ -4,9 +4,10 @@ const INITIAL_STATE = {
    conversations: [],
    conversationId: false,
    messages: [
-      { messages: [
-         { userId: false}
-      ] }
+      {
+         _id: false,
+        messages: []
+      }
    ],
    chatUser: [
       {
@@ -23,18 +24,26 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
    switch(action.type) {
       case actions.GET_CONVERSATIONS:
          const addedPropertyConversations = [];
-         const addedProperty = {conversationSelected: false};
+         const addedPropertyConversation = {conversationSelected: false};
          const conversationsObj = action.payload;
          conversationsObj.map(conversation => {
-            const addingProperty = Object.assign(conversation, addedProperty);
-            addedPropertyConversations.push(addingProperty);
+            const addingPropertyConversation = Object.assign(conversation, addedPropertyConversation);
+            addedPropertyConversations.push(addingPropertyConversation);
             return true
          });
          return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
       case actions.CONVERSATION_ID:
          return {...transState, conversationId: action.payload}; //Conversation's id
       case actions.GET_MESSAGES:
-         return {...transState, messages: action.payload}; //Messages from a conversation
+         const addedPropertyMessages = [];
+         const addedPropertyMessage = {messageSelected: false};
+         const messagesObj = action.payload;
+         messagesObj[0].messages.forEach(message => {
+            const addingPropertyMessage = Object.assign(message, addedPropertyMessage);
+            addedPropertyMessages.push(addingPropertyMessage);
+         });
+         messagesObj[0].messages = addedPropertyMessages
+         return {...transState, messages: messagesObj}; //Messages from a conversation
       case actions.CHAT_USER:
          return {...transState, chatUser: action.payload}; //User chatting with the userApp
       default:

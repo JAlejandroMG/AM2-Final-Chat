@@ -70,7 +70,7 @@ const Chat = memo(() => {
 
       <div className="chat__body">
         {
-          messages[0].messages[0].userId ?
+          messages[0]._id ?
           messages[0].messages.map((message, i) => {
             return (
               <p
