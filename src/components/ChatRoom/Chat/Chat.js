@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
+import Message from './Message/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../../redux/actions/chatActions';
 //* Material
@@ -15,10 +16,8 @@ import MicIcon from "@material-ui/icons/Mic";
 
 //{ Called from ChatRoom.jsx
 const Chat = memo(() => {
-  const [deleteMessageShow, setDeleteMessageShow] = useState(false);
   const messageRef = useRef("");
   const dispatch = useDispatch();
-  const { userApp } = useSelector(state => state.contacts);
   const { chatUser, messages }  = useSelector(state => state.chat);
 
   //! SOLO PARA PRUEBAS
@@ -43,9 +42,6 @@ const Chat = memo(() => {
     }
   };
 
-  const handledeleteMessageShow = () => {
-    setDeleteMessageShow(!deleteMessageShow);
-  };
   
   return (
     <div className="chat">
@@ -67,39 +63,17 @@ const Chat = memo(() => {
           </IconButton>
         </div>
       </div>
-
-      <div className="chat__body">
-        {
-          messages[0].messages[0].userId ?
-          messages[0].messages.map((message, i) => {
-            return (
-              <p
-                key={i}
-                className={`chat__message ${
-                  message.received && "chat__reciever"
-                } ${ (message.userId === userApp[0]._id) && "background" }`}
-                onClick={() => handledeleteMessageShow()}
-              >
-                <span className="chat__name">{message.name}</span>
-                {message.message}
-                <span className="chat__timestamp">{message.timestamp}</span>
-                <br/>
-                <span className={`${deleteMessageShow ? "delete-message" : "hide"}`}>Eliminar mensaje</span>
-              </p>
-            );
-          }) :
+      {
+        messages[0]._id ?
+        <Message /> :
+        <div className="chat__body">          
           <h1>Bienvenda, bienvenide, bienvenidi, bienvenido, bienvenidu</h1>
-        }
-      </div>
-
+        </div>
+      }
       <div className="chat__footer">
         <InsertEmoticon />
         <form onSubmit={sendMessage}>
           <input
-            /* value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-            }} */
             ref={messageRef}
             type="text"
             placeholder="Escribe un mensaje"

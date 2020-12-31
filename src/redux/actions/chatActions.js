@@ -65,7 +65,7 @@ export const addMessage = (newMessage) => {
             });
             alert("Saliendo de crear mensaje");
             // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
-            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fe15a225901e80017f682d3/messages`;
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
             alert("Llamando a fetchMessages");
             dispatch(fetchMessages(baseURL, getState().chat.conversationId));
             alert("Saliendo de hacer fetchMessages");
@@ -111,6 +111,7 @@ export const fetchMessages = (baseURL, id) => {
             dispatch(conversationId(id));
             const response = await fetch(baseURL);
             const messages = await response.json();
+            console.log(messages);
             const userId = messages[0].members.filter( member => member !== getState().contacts.userApp[0]._id)
             const user = getState().contacts.contacts.filter(contact => contact._id === userId[0]);
             dispatch(chatUser(user));

@@ -4,9 +4,10 @@ const INITIAL_STATE = {
    conversations: [],
    conversationId: false,
    messages: [
-      { messages: [
-         { userId: false}
-      ] }
+      {
+         _id: false,
+         messages: []
+      }
    ],
    chatUser: [
       {
@@ -25,10 +26,9 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          const addedPropertyConversations = [];
          const addedProperty = {conversationSelected: false};
          const conversationsObj = action.payload;
-         conversationsObj.map(conversation => {
+         conversationsObj.forEach(conversation => {
             const addingProperty = Object.assign(conversation, addedProperty);
             addedPropertyConversations.push(addingProperty);
-            return true
          });
          return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
       case actions.CONVERSATION_ID:
