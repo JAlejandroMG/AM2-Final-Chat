@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef, memo } from "react";
 import "./Sidebar.css";
 import {useHistory} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,7 @@ import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 
 
 //{ Called from ChatRoom.jsx
-const Sidebar = () => {
+const Sidebar = memo(() => {
   //{ Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchUser, setSearchUser] = useState("");
@@ -36,7 +36,6 @@ const Sidebar = () => {
   })
 
 
-//*-------------------------------- API call --------------------------------*//
   useEffect(() => {
     //*-------------------------------- Contacts --------------------------------*//
     (async function() {
@@ -139,6 +138,25 @@ const Sidebar = () => {
       </div>
     </div>
   );
-};
+});
+
+
+/* "_id": "5fe7f16d31407c0017d860bf",
+    "members": [
+      "5fe7e8e631407c0017d860b5",
+      "5fe7e8f531407c0017d860b6"
+    ],
+*/
+
+/* {
+  "_id": "5fe7fa9731407c0017d860c2",
+  "members": [
+    "5fe7ee9531407c0017d860bb",
+    "5fe7f7cf31407c0017d860c0"
+  ],
+  "__v": 0,
+  "membersObj": [],
+  "info": {}
+} */
 
 export default Sidebar;
