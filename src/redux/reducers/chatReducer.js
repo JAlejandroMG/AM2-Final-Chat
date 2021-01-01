@@ -6,7 +6,7 @@ const INITIAL_STATE = {
    messages: [
       {
          _id: false,
-        messages: []
+         messages: []
       }
    ],
    chatUser: [

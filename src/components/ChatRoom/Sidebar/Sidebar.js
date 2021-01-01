@@ -129,10 +129,16 @@ const Sidebar = memo(() => {
             )
           }) :
           conversations.map((conversation, i) => {
-            const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
-            return (
-              <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
-            )
+            if(conversation.membersObj) {
+              const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
+              return (
+                <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
+              )
+            } else {
+              return (
+                <SidebarChat />
+              )
+            }
           })          
         }
       </div>

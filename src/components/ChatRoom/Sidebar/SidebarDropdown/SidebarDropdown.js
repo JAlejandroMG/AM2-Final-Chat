@@ -32,7 +32,7 @@ const SidebarDropdown = ({ photo, firstName, lastName, id }) => {
          <Avatar src={photo} />
          <div className="sidebarDropdown__info">
             <h2>{`${firstName} ${lastName}`}</h2>
-            <p>Último mensaje</p>
+            {/* <p>Último mensaje</p> */}
          </div>
       </div>
    );
