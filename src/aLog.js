@@ -75,6 +75,16 @@
 //* Added: showing a new conversation without messages
 //* Added: component Message.js
 //  commit
+//* Added: filter to own conversations in Sidebar
+//* Added: dinamyc id to fetch messages in SidebarChat
+//} 20201231
+//* Conversation creation enabled
+//  commit
+//* Added conversation id on url
+//  commit
+
+//{ Seleccionar mensajes y conversación para poder eliminar, loader, estilo, menu de logout
+//[ Marcar visto
 
 
 //! CORREGIR
@@ -162,3 +172,81 @@
 
 
 //! Este documento se actualizará pronto...
+
+
+
+
+//! LOADER
+//{HTML
+/* 
+<div id="startup">
+   <svg class="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+      <circle class="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+   </svg>
+</div>
+*/
+//{CSS
+/* 
+#startup {
+              width: 100%;
+              height: 100%;
+              position: fixed;
+              background-color: #EEEEEE;
+              -moz-user-select: none;
+              -webkit-user-select: none;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              display: -webkit-box;
+              display: -webkit-flex;
+              -webkit-align-items: center;
+              -webkit-justify-content: center;
+          }
+          .spinner-container {
+              -webkit-animation: rotate 2s linear infinite;
+                      animation: rotate 2s linear infinite;
+              z-index: 2;
+          }
+          .spinner-container .path {
+              stroke-dasharray: 1,150; // 1%, 101% circumference
+              stroke-dashoffset: 0;
+              stroke: rgba(27, 154, 89, 0.7);
+              stroke-linecap: round;
+              -webkit-animation: dash 1.5s ease-in-out infinite;
+                      animation: dash 1.5s ease-in-out infinite;
+          }
+          @keyframes rotate {
+              100% { transform: rotate(360deg); }
+          }
+          @-webkit-keyframes rotate{
+              100% { -webkit-transform: rotate(360deg); }
+          }
+          @keyframes dash {
+              0% {
+                  stroke-dasharray: 1,150;  // 1%, 101% circumference
+                  stroke-dashoffset: 0;
+              }
+              50% {
+                  stroke-dasharray: 90,150; // 70%, 101% circumference
+                  stroke-dashoffset: -35;   // 25% circumference
+              }
+              100% {
+                  stroke-dasharray: 90,150; // 70%, 101% circumference
+                  stroke-dashoffset: -124;  // -99% circumference
+              }
+          }
+          @-webkit-keyframes dash {
+              0% {
+                  stroke-dasharray: 1,150;  // 1%, 101% circumference
+                  stroke-dashoffset: 0;
+              }
+              50% {
+                  stroke-dasharray: 90,150; // 70%, 101% circumference
+                  stroke-dashoffset: -35;   // 25% circumference
+              }
+              100% {
+                  stroke-dasharray: 90,150; // 70%, 101% circumference
+                  stroke-dashoffset: -124;  // -99% circumference
+              }
+          }
+*/
