@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './components/Register/Register';
+import ChatRoom from './components/ChatRoom/ChatRoom';
+import PrivateChatRoom from './components/ChatRoom/PrivateChatRoom';
 
 
 function App() {
@@ -22,7 +24,12 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <ProtectedRoute path="/chat" />
+          <ProtectedRoute path="/chat"  exact>
+            <ChatRoom />
+          </ProtectedRoute>
+          <Route path="/chat/:id">
+            <PrivateChatRoom />
+          </Route>
           {/* <Route path="/chat/:id" component={HomeChat} messages={messages} /> */}
           <Route path="*" exact component={notFound} />
         </Switch>

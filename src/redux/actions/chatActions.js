@@ -64,8 +64,8 @@ export const addMessage = (newMessage) => {
                body: JSON.stringify(body)
             });
             alert("Saliendo de crear mensaje");
-            // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
-            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
+            // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
             alert("Llamando a fetchMessages");
             dispatch(fetchMessages(baseURL, getState().chat.conversationId));
             alert("Saliendo de hacer fetchMessages");

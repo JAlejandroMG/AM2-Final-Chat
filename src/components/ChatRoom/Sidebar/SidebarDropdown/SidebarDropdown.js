@@ -16,7 +16,7 @@ const SidebarDropdown = ({ photo, firstName, lastName, id }) => {
 
 
    return (
-      <div className="sidebarDropdown" /* onClick={() => addConversation(id)} */>
+      <div className="sidebarDropdown" onClick={() => alert("Hola!")}>
          <Avatar src={photo} />
          <div className="sidebarDropdown__info">
             <h2>{`${firstName} ${lastName}`}</h2>

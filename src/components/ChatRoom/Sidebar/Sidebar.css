@@ -54,6 +54,7 @@
   background-color: white;
   overflow: scroll;
   position: relative;
+  text-decoration: none;
 }
 
 /* Contacts' dropdown menu */
