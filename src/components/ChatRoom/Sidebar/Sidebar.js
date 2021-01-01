@@ -112,7 +112,7 @@ const Sidebar = memo(() => {
             placeholder="Busca o inicia un chat"
             type="text"
             onFocus={showDropdownMenu}
-            onBlur={hideDropdownMenu}
+            // onBlur={hideDropdownMenu}
             onChange={handleSearchUser}
             value={searchUser}
           />

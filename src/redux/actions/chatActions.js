@@ -79,6 +79,43 @@ export const addMessage = (newMessage) => {
    };
 };
 
+//{ Called from Chat.js => sendMessage()
+//* Add conversation
+// Fetch para agregar conversaciones
+// Mandar llamar a fetchConversations
+
+export const  addConversation = (id) =>{
+   return (dispatch, getState) => {
+      return new Promise (async(resolve, reject) => {
+         try {
+            console.log("chatActions: addConversation");
+            const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/conversations`;
+            const headers = {'Content-Type': 'application/json'};
+            const body = {
+               "members": [getState().contacts.userApp[0]._id, id]
+            };
+            alert("Entrando a fetch");
+            await fetch(urlRegister, {
+               method: `POST`,
+               headers,
+               body: JSON.stringify(body)
+            });
+            alert("Saliendo de crear conversación");
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/5fed3094794c290017d822b0/conversations`;
+            alert("Llamando a fetchConversations");
+            dispatch(fetchConversations(baseURL));
+            alert("Saliendo de hacer fetchConversations");
+            resolve("Se ha agregado una nueva conversación");
+         }catch(error) {
+            alert(`chatActions: addConversation er => ${error.conversation}`);
+            reject(error.conversation);
+         }
+      });
+
+   }
+}
+
+
 //{ Called from Sidebar.js => useEffect()
 //*-------- All the conversations from the user connected to the App --------*//
 export const fetchConversations = (baseURL) => {
