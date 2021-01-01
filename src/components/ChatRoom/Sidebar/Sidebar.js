@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useRef, memo } from "react";
 import "./Sidebar.css";
-import {useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchConversations } from '../../../redux/actions/chatActions';
 import { fetchContacts } from '../../../redux/actions/contactsActions';
@@ -14,7 +14,7 @@ import SidebarChat from "./SidebarChat/SidebarChat";
 import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 
 
-//{ Called from ChatRoom.jsx
+//{ Called from ChatRoom.jsx, PrivateChatRoom.jsx
 const Sidebar = memo(() => {
   //{ Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
@@ -80,9 +80,9 @@ const Sidebar = memo(() => {
   const showDropdownMenu = () => {
     setShowDropdown(true);
   };
-  const hideDropdownMenu = () => {
+  /* const hideDropdownMenu = () => {
     setShowDropdown(false);
-  };
+  }; */
   const handleSearchUser = (e) => {
     setSearchUser(e.target.value);
     console.log(e.target.value);
@@ -112,7 +112,7 @@ const Sidebar = memo(() => {
             placeholder="Busca o inicia un chat"
             type="text"
             onFocus={showDropdownMenu}
-            onBlur={hideDropdownMenu}
+            // onBlur={hideDropdownMenu}
             onChange={handleSearchUser}
             value={searchUser}
           />
@@ -129,11 +129,17 @@ const Sidebar = memo(() => {
             )
           }) :
           conversations.map((conversation, i) => {
+            const myconversation = conversation.members.find( member => member === userApp[0]._id);
             if(conversation.membersObj) {
-              const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
-              return (
-                <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
-              )
+                if(myconversation) {
+                  const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
+                  return (
+                    <Link to={`/chat/${conversation._id}`}>
+                      <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
+                    </Link>
+                  )
+                }
+              return true;
             } else {
               return (
                 <SidebarChat />
