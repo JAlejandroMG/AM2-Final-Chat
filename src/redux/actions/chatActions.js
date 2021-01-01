@@ -65,7 +65,7 @@ export const addMessage = (newMessage) => {
             });
             alert("Saliendo de crear mensaje");
             // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
-            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fe15a225901e80017f682d3/messages`;
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
             alert("Llamando a fetchMessages");
             dispatch(fetchMessages(baseURL, getState().chat.conversationId));
             alert("Saliendo de hacer fetchMessages");
@@ -78,6 +78,43 @@ export const addMessage = (newMessage) => {
 
    };
 };
+
+//{ Called from Chat.js => sendMessage()
+//* Add conversation
+// Fetch para agregar conversaciones
+// Mandar llamar a fetchConversations
+
+export const  addConversation = (id) =>{
+   return (dispatch, getState) => {
+      return new Promise (async(resolve, reject) => {
+         try {
+            console.log("chatActions: addConversation");
+            const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/conversations`;
+            const headers = {'Content-Type': 'application/json'};
+            const body = {
+               "members": [getState().contacts.userApp[0]._id, id]
+            };
+            alert("Entrando a fetch");
+            await fetch(urlRegister, {
+               method: `POST`,
+               headers,
+               body: JSON.stringify(body)
+            });
+            alert("Saliendo de crear conversación");
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/5fed3094794c290017d822b0/conversations`;
+            alert("Llamando a fetchConversations");
+            dispatch(fetchConversations(baseURL));
+            alert("Saliendo de hacer fetchConversations");
+            resolve("Se ha agregado una nueva conversación");
+         }catch(error) {
+            alert(`chatActions: addConversation er => ${error.conversation}`);
+            reject(error.conversation);
+         }
+      });
+
+   }
+}
+
 
 //{ Called from Sidebar.js => useEffect()
 //*-------- All the conversations from the user connected to the App --------*//
@@ -111,6 +148,7 @@ export const fetchMessages = (baseURL, id) => {
             dispatch(conversationId(id));
             const response = await fetch(baseURL);
             const messages = await response.json();
+            console.log(messages);
             const userId = messages[0].members.filter( member => member !== getState().contacts.userApp[0]._id)
             const user = getState().contacts.contacts.filter(contact => contact._id === userId[0]);
             dispatch(chatUser(user));
