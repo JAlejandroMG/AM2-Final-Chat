@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import Login from './Login/Login';
 
 
+
 //{ Called from App.js
-export default function ProtectedRoute({ path, children}) {
+function ProtectedRoute({ path, children}) {
    const { user } = useSelector(state => state.auth);
 
    //! SOLO PARA PRUEBAS
@@ -25,3 +26,7 @@ export default function ProtectedRoute({ path, children}) {
       </Route>
    );
 };
+
+
+
+export default ProtectedRoute;

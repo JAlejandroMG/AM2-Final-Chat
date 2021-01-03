@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
-import Message from './Message/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../../redux/actions/chatActions';
+import Message from './Message/Message';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
   AttachFile,
   InsertEmoticon,
   MoreVert,
-  SearchOutlined,
+  SearchOutlined
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
+
 
 
 //{ Called from ChatRoom.jsx, PrivateChatRoom.jsx
@@ -30,15 +31,16 @@ const Chat = memo(() => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    alert("sendMessage preventDefault");
+    // alert("sendMessage preventDefault"); //! SOLO PARA PRUEBAS
     try {
-      console.log("Chat: sendMessage");
+      console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
       console.log(messageRef.current.value);
-      const message = await dispatch(addMessage(messageRef.current.value));
+      // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
+      await dispatch(addMessage(messageRef.current.value));
       messageRef.current.value = "";
-      alert(`Chat: sendMessage => ${message}`);
+      // alert(`Chat: sendMessage => ${message}`); //! SOLO PARA PRUEBAS
     } catch(error) {
-      alert(`Chat: sendMessage er => ${error}`);
+      alert(`Chat: sendMessage er => ${error.message}`); //! MENSAJE ERROR
     }
   };
 
@@ -87,6 +89,7 @@ const Chat = memo(() => {
     </div>
   );
 });
+
 
 
 export default Chat;

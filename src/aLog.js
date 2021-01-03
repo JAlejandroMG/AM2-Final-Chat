@@ -82,21 +82,23 @@
 //  commit
 //* Added conversation id on url
 //  commit
+//} 20210101
+//* Reset chat and contacts state after logout
+//* Cleaning up code
+//} 20210102
+//* Cleaning up code
+//* Status changed to messageSelected
+//  commit
 
-//{ Seleccionar mensajes y conversación para poder eliminar, loader, estilo, menu de logout
 //[ Marcar visto
-
-
-//! CORREGIR
-//! En SidebarChat getMessages() modificar baseURL una vez que el endpoint Get Conversations solo me de las conversaciones del usuario cuyo id se manda en la petición
 //] Pendientes
 //  Opcional homologar la imágen de todas las páginas
-//  Dirigir las conversaciones a /chat/:id
 //  Presentar los datos del usuario en las conversaciones
-//  Crear conversaciones
 //  Eliminar conversaciones
 //  Eliminar mensajes
 //  Loader
+//  Menú de logout
+
 
 
 //+ Proyecto final chat en tiempo real React

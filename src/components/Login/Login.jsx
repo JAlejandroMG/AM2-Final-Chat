@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login, checkActiveSession, resetPassword } from '../../redux/actions/authActions';
 
-//Styles CSS Login
-import './Login.css';
 
 
 //{ Called from App.js, ProtectedRoute.jsx
@@ -13,6 +12,10 @@ function Login() {
    const passwordRef = useRef("");
    const history = useHistory();
    const dispatch = useDispatch();
+   //[Pendiente...
+   // const wellcomeRef = useRef("Esto es una prueba");
+   // const showWellcomeRef = useRef(true);
+
 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
@@ -26,12 +29,12 @@ function Login() {
    useEffect(() => {
       (async function() {
          try{
-            console.log("Login: useEffect: checkActiveSession");
+            console.log("Login: useEffect: checkActiveSession"); //! SOLO PARA PRUEBAS
             const message = await dispatch(checkActiveSession());
-            alert(`Login: useEffect: checkActiveSession => ${message}`);
+            alert(`Login: useEffect: checkActiveSession => ${message}`); //! BIENVENIDA
             history.push("/chat");
          }catch(error){
-            alert(`Login: useEffect: checkActiveSession er => ${error.message}`);
+            alert(`Login: useEffect: checkActiveSession er => ${error}`); //! MENSAJE ERROR
          }
       })();
       // eslint-disable-next-line
@@ -41,29 +44,29 @@ function Login() {
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
-         console.log("Login: loginUser");
+         console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
          emailRef.current.value = "";
          passwordRef.current.value = "";
-         alert(`Login: loginUser ok => ${message}`);
+         alert(`Login: loginUser => ${message}`); //! BIENVENIDA
          history.push("/chat");
       }catch(error) {
          // passwordRef.current.value = ""; //!Cannot set property 'value' of null
-         alert(`Login: loginUser er => ${error.message}`);
+         alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
       }
    };
    
 
    const resetUserPassword = async() => {
       try{
-         console.log("Login: resetUserPassword");
+         console.log("Login: resetUserPassword"); //! SOLO PARA PRUEBAS
          const actionCodeSettings = { url: `http://localhost:3000/` };
          const message = await dispatch(resetPassword(emailRef.current.value, actionCodeSettings));
          emailRef.current.value = "";
          passwordRef.current.value = "";
-         alert(`Login: resetUserPassword => ${message}`);
+         alert(`Login: resetUserPassword => ${message}`); //! CORREO ENVIADO PARA REESTABLECER CONTRASEÑA
       }catch(error){
-         alert(`Login: resetUserPassword er => ${error}`);
+         alert(`Login: resetUserPassword er => ${error.message}`); //! MENSAJE ERROR
       }
    };
 
@@ -90,9 +93,11 @@ function Login() {
             <Link to="/register">
                <button className="buttonRegister">Register</button>
             </Link>
-       </form>
+         </form>
       </div>
    );
 }
+
+
 
 export default Login;
