@@ -22,6 +22,23 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
    const transState = JSON.parse(JSON.stringify(prevState));
 
    switch(action.type) {
+      case actions.RESET_CHAT_REDUCER:
+         return {
+            conversations: [],
+            conversationId: false,
+            messages: [
+               {
+                  _id: false,
+                  messages: []
+               }
+            ],
+            chatUser: [
+               {
+                  photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg",
+                  username: false
+               }
+            ]
+         };
       case actions.GET_CONVERSATIONS:
          const addedPropertyConversations = [];
          const addedPropertyConversation = {conversationSelected: false};

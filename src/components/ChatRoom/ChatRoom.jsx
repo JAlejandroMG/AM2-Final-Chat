@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
+import Sidebar from "./Sidebar/Sidebar";
+
+
 
 //{ Called from ProtectedRoute.jsx
 const ChatRoom = () => {
@@ -13,12 +15,14 @@ const ChatRoom = () => {
    })
 
 
-      return (
-            <div className="app__body">
-                  <Sidebar />
-                  <Chat />
-            </div>
-      )
+   return (
+      <div className="app__body">
+            <Sidebar />
+            <Chat />
+      </div>
+   )
 };
+
+
 
 export default ChatRoom;

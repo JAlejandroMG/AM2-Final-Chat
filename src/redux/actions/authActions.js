@@ -1,13 +1,15 @@
 import * as actions from '../actionTypes';
 import firebase from '../../firebase/config';
 import {auth} from '../../firebase/config';
+import { resetChatReducer } from './chatActions';
+import { resetContactsReducer } from './contactsActions';
 
 const setUser = (user) => {
    return {
       type: actions.SET_USER,
       payload: user
-   }
-}
+   };
+};
 
 
 
@@ -18,7 +20,7 @@ const appRegister = (firstName, lastName) => {
    
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("authActions: appRegister");
+            console.log("authActions: appRegister"); //! SOLO PARA PRUEBAS
             const { user } = await getState().auth;
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/users`;
             const headers = {'Content-Type': 'application/json'};
@@ -35,11 +37,9 @@ const appRegister = (firstName, lastName) => {
                headers,
                body: JSON.stringify(body)
             });
-            const message = "Bienvenido a la aplicación de Chat";
-            resolve(message);
+            resolve("Bienvenido a la aplicación de Chat");
          }catch(error){
-            alert(`authActions: appRegister er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 
@@ -52,13 +52,12 @@ export const checkActiveSession = () => {
    return (dispatch) => {
       
       return new Promise (async(resolve, reject) => {
-         console.log("authActions: checkActiveSession");
+         console.log("authActions: checkActiveSession"); //! SOLO PARA PRUEBAS
          await firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                dispatch(setUser(user));
-               resolve("El usuario esta conectado.");
+               resolve("Bienvenido a la aplicación de Chat");
             } else {
-               alert(`authActions: checkActiveSession er => "El usuario no esta conectado."`);
                reject("El usuario no esta conectado.");
             }
          });
@@ -74,23 +73,23 @@ export const login = (provider, email, password) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            const message = "Bienvenido a la aplicación de Chat";
             if(!provider){
-               console.log("authActions: login(email and password)");
+               console.log("authActions: login(email and password)"); //! SOLO PARA PRUEBAS
                let {user} = await firebase.auth().signInWithEmailAndPassword(email, password);
                dispatch(setUser(user));
+               resolve("Bienvenido a la aplicación de Chat");
             }else{
-               console.log("authActions: login(google)");
+               console.log("authActions: login(google)"); //! SOLO PARA PRUEBAS
                let googleProvider = new firebase.auth.GoogleAuthProvider();
                let {user} = await firebase.auth().signInWithPopup(googleProvider);
                dispatch(setUser(user));
                // Aunque user.displayName puede ser accesado desde appRegister() se pasa como argumento para poder reutilizar esa función desde aquí y desde update()
-               await dispatch(appRegister(user.displayName, "Firebase"))
+               //const message = await dispatch(appRegister(user.displayName, "Firebase")); //! CAMBIAR PARA PRODUCCION
+               const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
+               resolve(message);
             }
-            resolve(message);
          }catch(error){
-            alert(`authActions: login er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 
@@ -104,13 +103,14 @@ export const logout = () => {
 
       return new Promise(async(resolve, reject) => {
          try{
-            console.log("authActions: logout");
+            console.log("authActions: logout"); //! SOLO PARA PRUEBAS
             await firebase.auth().signOut();
             dispatch(setUser(false));
-            resolve("Logout exitoso");
+            dispatch(resetChatReducer());
+            dispatch(resetContactsReducer());
+            resolve("Esperamos verte pronto de vuelta");
          }catch(error){
-            alert(`authActions: logout er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
       
@@ -129,8 +129,7 @@ export const register = (email, password, firstName, lastName) => {
             const message = await dispatch(update(firstName, lastName));
             resolve(message);
          }catch(error){
-            alert(`authActions: register er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 
@@ -143,13 +142,12 @@ export const resetPassword = (email, actionCodeSettings) => {
    return() => {
 
       return new Promise (async(resolve, reject) => {
-         console.log("authActions: resetPassword");
+         console.log("authActions: resetPassword"); //! SOLO PARA PRUEBAS
          await auth.sendPasswordResetEmail(email, actionCodeSettings)
          .then(() => {
             resolve("Se ha enviado un correo para reestablecer la contraseña.");
          }).catch((error) => {
-            alert(`authActions: resetPassword er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          });
       });
 
@@ -163,7 +161,7 @@ const update = (firstName, lastName) => {
 
       return new Promise (async(resolve,reject) => {
          try{
-            console.log("authActions: update");
+            console.log("authActions: update"); //! SOLO PARA PRUEBAS
             let user = await firebase.auth().currentUser;
             const photoURL = "https://i.picsum.photos/id/564/200/200.jpg?hmac=uExb18W9rplmCwAJ9SS5NVsLaurpaCTCBuHZdhsW25I";
             await user.updateProfile({
@@ -172,12 +170,11 @@ const update = (firstName, lastName) => {
                });
             user = await firebase.auth().currentUser;
             dispatch(setUser(user));
-            const message = await dispatch(appRegister(firstName, lastName));
-            // const message = "Bienvenido a la aplicación de Chat";
+            // const message = await dispatch(appRegister(firstName, lastName)); //! CAMBIAR PARA PRODUCCION
+            const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
             resolve(message);
          }catch(error){
-            alert(`authActions: update er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 

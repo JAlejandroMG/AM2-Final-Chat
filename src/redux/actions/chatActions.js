@@ -1,10 +1,16 @@
 import * as actions from '../actionTypes';
 
+export const resetChatReducer = () => {
+   return {
+      type: actions.RESET_CHAT_REDUCER
+   };
+};
+
 export const getConversations = (conversations) => {
    return {
       type: actions.GET_CONVERSATIONS,
       payload: conversations
-   }
+   };
 };
 
 export const conversationId = (id) => {
@@ -18,7 +24,7 @@ export const getMessages = (messages) => {
    return {
       type: actions.GET_MESSAGES,
       payload: messages
-   }
+   };
 };
 
 export const chatUser = (user) => {
@@ -32,14 +38,12 @@ export const chatUser = (user) => {
 
 //{ Called from Chat.js => sendMessage()
 //* Add message to the conversation
-// Fetch para agregar mensajes
-// Mandar llamar a fetchMessages
 export const addMessage = (newMessage) => {
    return(dispatch, getState) => {
 
       return new Promise (async(resolve, reject) => {
          try {
-            console.log("chatActions: addMessage");
+            console.log("chatActions: addMessage"); //! SOLO PARA PRUEBAS
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/messages`;
             const headers = {'Content-Type': 'application/json'};
             const body = {
@@ -49,22 +53,17 @@ export const addMessage = (newMessage) => {
                "timestamp": Date.now(),
                "received": false
             };
-            alert("Entrando a fetch");
             await fetch(urlRegister, {
                method: `POST`,
                headers,
                body: JSON.stringify(body)
             });
-            alert("Saliendo de crear mensaje");
             const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
             // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
-            alert("Llamando a fetchMessages");
-            dispatch(fetchMessages(baseURL, getState().chat.conversationId));
-            alert("Saliendo de hacer fetchMessages");
+            await dispatch(fetchMessages(baseURL, getState().chat.conversationId));
             resolve("Se ha agregado un nuevo mensaje");
          }catch(error){
-            alert(`chatActions: addMessage er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 
@@ -73,34 +72,26 @@ export const addMessage = (newMessage) => {
 
 //{ Called from Chat.js => sendMessage()
 //* Add conversation
-// Fetch para agregar conversaciones
-// Mandar llamar a fetchConversations
-
 export const  addConversation = (id) =>{
    return (dispatch, getState) => {
       return new Promise (async(resolve, reject) => {
          try {
-            console.log("chatActions: addConversation");
+            console.log("chatActions: addConversation"); //! SOLO PARA PRUEBAS
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/conversations`;
             const headers = {'Content-Type': 'application/json'};
             const body = {
                "members": [getState().contacts.userApp[0]._id, id]
             };
-            alert("Entrando a fetch");
             await fetch(urlRegister, {
                method: `POST`,
                headers,
                body: JSON.stringify(body)
             });
-            alert("Saliendo de crear conversación");
             const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/5fed3094794c290017d822b0/conversations`;
-            alert("Llamando a fetchConversations");
-            dispatch(fetchConversations(baseURL));
-            alert("Saliendo de hacer fetchConversations");
-            resolve("Se ha agregado una nueva conversación");
+            const message = await dispatch(fetchConversations(baseURL));
+            resolve(message);
          }catch(error) {
-            alert(`chatActions: addConversation er => ${error.conversation}`);
-            reject(error.conversation);
+            reject(error);
          }
       });
 
@@ -115,7 +106,7 @@ export const fetchConversations = (baseURL) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("chatActions: fetchConversations");
+            console.log("chatActions: fetchConversations"); //! SOLO PARA PRUEBAS
             const response = await fetch(baseURL);
             const conversations = await response.json();
             console.log(conversations);
@@ -123,8 +114,7 @@ export const fetchConversations = (baseURL) => {
             dispatch(getConversations(conversations));
             resolve("Se han recibido las conversaciones.");
          } catch (error) {
-            alert(`chatActions: fetchConversations er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 
@@ -138,7 +128,7 @@ export const fetchMessages = (baseURL, id) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("chatActions: fetchMessages");
+            console.log("chatActions: fetchMessages"); //! SOLO PARA PRUEBAS
             dispatch(conversationId(id));
             const response = await fetch(baseURL);
             const messages = await response.json();
@@ -149,8 +139,7 @@ export const fetchMessages = (baseURL, id) => {
             dispatch(getMessages(messages));
             resolve("Se han recibido los mensajes.");
          } catch (error) {
-            alert(`chatActions: fetchMessages er => ${error.message}`);
-            reject(error.message);
+            reject(error);
          }
       });
 

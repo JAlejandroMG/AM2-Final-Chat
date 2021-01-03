@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import './Register.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
 
-//Styles CSS
-import './Register.css';
+
 
 //{ Called from App.js
 function Register() {
@@ -32,19 +32,19 @@ function Register() {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
          try{
-            console.log("Register: registerUser");
+            console.log("Register: registerUser"); //! SOLO PARA PRUEBAS
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
             firstNameRef.current.value = "";
             lastNameRef.current.value = "";
             emailRef.current.value = "";
             passwordRef.current.value = "";
             confirmPasswordRef.current.value = "";
-            alert(`Register: registerUser => ${message}`);
+            alert(`Register: registerUser => ${message}`); //! EL USUARIO HA SIDO REGISTRADO
             history.push("/chat");
          }catch(error){
             // passwordRef.current.value = ""; //!Cannot set property 'value' of null
             // confirmPasswordRef.current.value = ""; //!Cannot set property 'value' of null
-            alert(`Register: registerUser er1 => ${error.message}`);
+            alert(`Register: registerUser er1 => ${error.message}`); //! MENSAJE ERROR
          };
       } else {
          e.preventDefault();

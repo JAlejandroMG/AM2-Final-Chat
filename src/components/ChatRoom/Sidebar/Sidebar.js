@@ -2,24 +2,26 @@ import { React, useState, useEffect, useRef, memo } from "react";
 import "./Sidebar.css";
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchConversations } from '../../../redux/actions/chatActions';
-import { fetchContacts } from '../../../redux/actions/contactsActions';
 import { logout } from '../../../redux/actions/authActions';
+import { fetchContacts } from '../../../redux/actions/contactsActions';
+import { fetchConversations } from '../../../redux/actions/chatActions';
+import SidebarChat from "./SidebarChat/SidebarChat";
+import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
+//* Material
 import ChatIcon from "@material-ui/icons/Chat";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { IconButton, Avatar } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
-import SidebarChat from "./SidebarChat/SidebarChat";
-import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
+
 
 
 //{ Called from ChatRoom.jsx, PrivateChatRoom.jsx
 const Sidebar = memo(() => {
-  //{ Estado Local
+  //* Estado Local
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchUser, setSearchUser] = useState("");
-  //{ Estado Global
+  //* Estado Global
   const { user } = useSelector(state => state.auth);
   const { conversations } = useSelector(state => state.chat);
   const { contacts, userApp } = useSelector(state => state.contacts);
@@ -31,20 +33,23 @@ const Sidebar = memo(() => {
   useEffect(() => {
     console.log(`Sidebar: render => ${refContador.current}`);
     refContador.current++;
-    // console.log(user.uid);
-    // console.log(contacts); // Requiero el contacts[],uid
   })
+  //! SOLO PARA PRUEBAS
+  useEffect(() => {
+    console.log(searchUser);
+  }, [searchUser])
 
 
   useEffect(() => {
     //*-------------------------------- Contacts --------------------------------*//
     (async function() {
       try{
-        console.log("Sidebar: useEffect: contacts");
+        console.log("Sidebar: useEffect: contacts"); //! SOLO PARA PRUEBAS
         const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
-        const message = await dispatch(fetchContacts(baseURL, user.uid));
+        await dispatch(fetchContacts(baseURL, user.uid));
+        // const message = await dispatch(fetchContacts(baseURL, user.uid));
         getConversations();
-        alert(`Sidebar: useEffect: contacts => ${message}`);
+        // alert(`Sidebar: useEffect: contacts => ${message}`);//! SOLO PARA PRUEBAS
       }catch(error){
         alert(`Sidebar: useEffect: contacts er => ${error.message}`);
       }
@@ -52,10 +57,11 @@ const Sidebar = memo(() => {
     //*------------------------------ Conversations -----------------------------*//
     const getConversations = async() => {
       try{
-        console.log("Sidebar: useEffect: getConversations");
+        console.log("Sidebar: useEffect: getConversations"); //! SOLO PARA PRUEBAS
         const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${user.uid}/conversations`;
-        const message = await dispatch(fetchConversations(baseURL));
-        alert(`Sidebar: useEffect: getConversations => ${message}`);
+        await dispatch(fetchConversations(baseURL));
+        // const message = await dispatch(fetchConversations(baseURL));
+        // alert(`Sidebar: useEffect: getConversations => ${message}`); //! SOLO PARA PRUEBAS
       }catch(error){
         alert(`Sidebar: useEffect: getConversations er => ${error.message}`);
       }
@@ -67,12 +73,12 @@ const Sidebar = memo(() => {
 
   const logoutUser = async () => {
     try {
-      console.log("Sidebar: logoutUser")
-      const message = await dispatch(logout());
-      alert(`Sidebar: logoutUser => ${message}`);
+      console.log("Sidebar: logoutUser"); //! SOLO PARA PRUEBAS
+      const message = await dispatch(logout()); //authActions.js
+      alert(`Sidebar: logoutUser => ${message}`); //! DESPEDIDA
       history.push("/");
     } catch(error) {
-      alert(`Sidebar: logoutUser er => ${error}`);
+      alert(`Sidebar: logoutUser er => ${error.message}`);
     }
   };
 
@@ -134,7 +140,7 @@ const Sidebar = memo(() => {
                 if(myconversation) {
                   const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
                   return (
-                    <Link to={`/chat/${conversation._id}`}>
+                    <Link key={i} to={`/chat/${conversation._id}`}>
                       <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} />
                     </Link>
                   )
@@ -142,7 +148,7 @@ const Sidebar = memo(() => {
               return true;
             } else {
               return (
-                <SidebarChat />
+                <SidebarChat key={i} />
               )
             }
           })          
@@ -153,22 +159,5 @@ const Sidebar = memo(() => {
 });
 
 
-/* "_id": "5fe7f16d31407c0017d860bf",
-    "members": [
-      "5fe7e8e631407c0017d860b5",
-      "5fe7e8f531407c0017d860b6"
-    ],
-*/
-
-/* {
-  "_id": "5fe7fa9731407c0017d860c2",
-  "members": [
-    "5fe7ee9531407c0017d860bb",
-    "5fe7f7cf31407c0017d860c0"
-  ],
-  "__v": 0,
-  "membersObj": [],
-  "info": {}
-} */
 
 export default Sidebar;
