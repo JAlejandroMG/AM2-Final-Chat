@@ -8,6 +8,7 @@ const Message = memo(() => {
    const [localMessages, setLocalMessages] = useState([]);
    const { userApp } = useSelector(state => state.contacts);
    const { chatUser, messages }  = useSelector(state => state.chat);
+   
 
    //! SOLO PARA PRUEBAS + USANDO
    const refContador = useRef(1);
@@ -56,3 +57,5 @@ const Message = memo(() => {
 
 
 export default Message;
+
+
