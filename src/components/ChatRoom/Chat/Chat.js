@@ -9,7 +9,8 @@ import {
   AttachFile,
   InsertEmoticon,
   MoreVert,
-  SearchOutlined
+  SearchOutlined,
+  DeleteOutline
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
@@ -54,6 +55,9 @@ const Chat = memo(() => {
           <p>{`Visto por ultima vez a las...`}</p>
         </div>
         <div className="chat__headerRight">
+          <IconButton>
+            <DeleteOutline />
+          </IconButton>
           <IconButton>
             <SearchOutlined />
           </IconButton>
