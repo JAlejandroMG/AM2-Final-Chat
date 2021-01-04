@@ -102,16 +102,16 @@ const Sidebar = memo(() => {
         <Avatar src={user.photoURL} />
         <div className="sidebar__headerRight">
           <IconButton>
-          <MeetingRoomOutlined />
-          </IconButton>
-          <IconButton>
             <DonutLargeIcon />
           </IconButton>
           <IconButton>
             <ChatIcon />
-          </IconButton>
+          {/* </IconButton>
           <IconButton onClick={logoutUser}>
-            <MoreVertIcon />
+            <MoreVertIcon /> */}
+          </IconButton>
+          <IconButton>
+          <MeetingRoomOutlined onClick={logoutUser} />
           </IconButton>
         </div>
       </div>
