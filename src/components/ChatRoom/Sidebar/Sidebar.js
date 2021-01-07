@@ -106,9 +106,6 @@ const Sidebar = memo(() => {
           </IconButton>
           <IconButton>
             <ChatIcon />
-          {/* </IconButton>
-          <IconButton onClick={logoutUser}>
-            <MoreVertIcon /> */}
           </IconButton>
           <IconButton>
           <MeetingRoomOutlined onClick={logoutUser} />
