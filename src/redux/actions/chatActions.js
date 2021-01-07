@@ -70,6 +70,25 @@ export const addMessage = (newMessage) => {
    };
 };
 
+export const deleteMessage = (idMessagesSelected) => {
+   return(dispatch, getState) =>{
+      return new Promise (async(resolve, reject) =>{
+         try {
+            console.log("chatActions: deleteMessage"); //! SOLO PARA PRUEBAS
+            idMessagesSelected.forEach( async (id) => {
+               const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/messages/${id}`;
+               await fetch(urlDelete); 
+            });
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().messages[0]._id}/messages`;
+            const message = await dispatch(fetchMessages(baseURL));
+            resolve("Se ha eliminado el mensaje");
+         }catch(error){
+            reject(error);
+         }  
+      });
+   }
+}
+
 //{ Called from Chat.js => sendMessage()
 //* Add conversation
 export const  addConversation = (id) =>{
