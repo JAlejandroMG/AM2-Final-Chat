@@ -7,6 +7,9 @@
 .sidebarChat:hover {
   background-color: #ebebeb;
 }
+.sidebarChat-selected {
+  background-color: #ebebeb;
+}
 
 .sidebarChat__info > h2 {
   font-size: 16px;

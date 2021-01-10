@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { /* useEffect, useRef, */ memo } from "react";
 import "./SidebarChat.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMessages } from '../../../../redux/actions/chatActions';
+import { useDispatch } from 'react-redux';
+import { fetchMessages, isAtLeastOneConversationSelected, selectConversation } from '../../../../redux/actions/chatActions';
 //* Material
 import { Avatar } from "@material-ui/core";
 
 
 
 //{ Called from Sidebar.js
-const SidebarChat = memo(({ photo, userName, conversationId }) => {
+const SidebarChat = memo(({ photo, userName, conversationId, conversationSelected}) => {
   const dispatch = useDispatch();
-  const { conversations } = useSelector(state => state.chat);
-
+/* 
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
   useEffect(() => {
     console.log(`SidebarChat: render => ${refContador.current}`);
     refContador.current++;
   })
+   */
 
 
   let incomingMessages;
@@ -27,10 +27,9 @@ const SidebarChat = memo(({ photo, userName, conversationId }) => {
     incomingMessages = setTimeout(
       async() => {
         try{
-          console.log("SidebarChat: getMessages"); //! SOLO PARA PRUEBAS
+          // console.log("SidebarChat: getMessages"); //! SOLO PARA PRUEBAS
           const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
           await dispatch(fetchMessages(baseURL, conversationId));
-          // const message = await dispatch(fetchMessages(baseURL, conversationId));
           // alert(`SidebarChat: getMessages => ${message}`); //! SOLO PARA PRUEBAS
         }catch(error){
           alert(`SidebarChat: getMessages er => ${error.message}`); //! MENSAJE ERROR
@@ -38,15 +37,16 @@ const SidebarChat = memo(({ photo, userName, conversationId }) => {
       }, 1000);
   };
 
-  const selectConversation = (conversationId) => { //! FALTA FUNCIONALIDAD
+  const handleDeleteConversationShow = (conversationPosition) => { //! FALTA FUNCIONALIDAD
     clearTimeout(incomingMessages);
-    console.log(conversationId); //! SOLO PARA PRUEBAS
-    console.log(conversations); //! SOLO PARA PRUEBAS
+    // Toggle para seleccionar conversación
+    dispatch(selectConversation(conversationPosition));
+    dispatch(isAtLeastOneConversationSelected());
   };
 
 
   return (
-    <div className="sidebarChat" onClick={() => getMessages(conversationId)} onDoubleClick={() => selectConversation(conversationId)}>
+    <div className={`sidebarChat ${conversationSelected && "sidebarChat-selected"}`} onClick={() => getMessages(conversationId)} onDoubleClick={() => handleDeleteConversationShow(conversationId)}>
       <Avatar src={photo} />
       <div className="sidebarChat__info">
         <h2>{userName}</h2>

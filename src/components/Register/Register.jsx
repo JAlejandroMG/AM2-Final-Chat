@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { /* useEffect, */ useRef } from "react";
 import './Register.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -18,13 +18,14 @@ function Register() {
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
-
+/* 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
    useEffect(() => {
       console.log(`Register: render => ${refContador.current}`);
       refContador.current++;
    })
+    */
 
 
 //*---------------- Registers user in Firebas and in the App ----------------*//
@@ -32,7 +33,7 @@ function Register() {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
          try{
-            console.log("Register: registerUser"); //! SOLO PARA PRUEBAS
+            // console.log("Register: registerUser"); //! SOLO PARA PRUEBAS
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
             firstNameRef.current.value = "";
             lastNameRef.current.value = "";

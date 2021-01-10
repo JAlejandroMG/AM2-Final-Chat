@@ -95,13 +95,19 @@
 //* Fixed: messageSelected, Added: scrollToLastMessage in Chat
 //* Added: delete messages
 //  commit
+//} 20210109
+//* Changed focus search user from input to Chat Icon
+//* Fixed not showing messages when deleting in bulk
+//* Added conversationSelected functionality
+//* Added showing Delete icon for delete conversation functionality
+//* Added delete conversations5ffb69710622870017ecffb9
+//* Added clear messages after deleting conversation(s)
+//* Reviewing and cleaning up code
+//  commit
 
 //[ Marcar visto
 //] Pendientes
 //  Opcional homologar la imágen de todas las páginas 404
-//  Presentar los datos del usuario en las conversaciones
-//  Eliminar conversaciones
-//  Bug muestra algunos mensajes eliminados entre más cantidad de mensajes se borren al mismo tiempo
 //  Loader
 
 

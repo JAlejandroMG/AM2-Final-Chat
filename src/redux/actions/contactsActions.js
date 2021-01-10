@@ -1,8 +1,11 @@
 import * as actions from '../actionTypes';
 
-export const resetContactsReducer = () => {
+
+
+export const getContacts = (contacts) => {
    return {
-      type: actions.RESET_CONTACTS_REDUCER
+      type: actions.GET_CONTACTS,
+      payload: contacts
    };
 };
 
@@ -13,10 +16,9 @@ export const getUserApp = (userApp) => {
    };
 };
 
-export const getContacts = (contacts) => {
+export const resetContactsReducer = () => {
    return {
-      type: actions.GET_CONTACTS,
-      payload: contacts
+      type: actions.RESET_CONTACTS_REDUCER
    };
 };
 

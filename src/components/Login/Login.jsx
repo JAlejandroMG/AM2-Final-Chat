@@ -15,21 +15,21 @@ function Login() {
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
-
-
+/* 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
    useEffect(() => {
       console.log(`Login: render => ${refContador.current}`);
       refContador.current++;
    })
+    */
 
 
 //*----------------- Checks on Firebase if user is connected ----------------*//
    useEffect(() => {
       (async function() {
          try{
-            console.log("Login: useEffect: checkActiveSession"); //! SOLO PARA PRUEBAS
+            // console.log("Login: useEffect: checkActiveSession"); //! SOLO PARA PRUEBAS
             const message = await dispatch(checkActiveSession());
             alert(`Login: useEffect: checkActiveSession => ${message}`); //! BIENVENIDA
             history.push("/chat");
@@ -40,11 +40,10 @@ function Login() {
       // eslint-disable-next-line
    }, []);
 
-
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
-         console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
+         // console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
          emailRef.current.value = "";
          passwordRef.current.value = "";
@@ -56,10 +55,9 @@ function Login() {
       }
    };
    
-
    const resetUserPassword = async() => {
       try{
-         console.log("Login: resetUserPassword"); //! SOLO PARA PRUEBAS
+         // console.log("Login: resetUserPassword"); //! SOLO PARA PRUEBAS
          const actionCodeSettings = { url: `http://localhost:3000/` };
          const message = await dispatch(resetPassword(emailRef.current.value, actionCodeSettings));
          emailRef.current.value = "";

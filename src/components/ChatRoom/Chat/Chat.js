@@ -7,8 +7,8 @@ import { Avatar, IconButton } from "@material-ui/core";
 import {
   /* AttachFile, */
   InsertEmoticon,
-  MoreVert,
-  /* SearchOutlined, */
+  /* MoreVert,
+  SearchOutlined, */
   DeleteOutline
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
@@ -22,19 +22,20 @@ const Chat = memo(() => {
   const dispatch = useDispatch();
   const { userApp } = useSelector(state => state.contacts);
   const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
-
-
+/* 
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
   useEffect(() => {
     console.log(`Chat: render => ${refContador.current}`);
     refContador.current++;
   });
+ */
+
 
   useEffect(() => {
     if(scrollChatBody) {
       if(messages[0].messages[0]){
-        console.log("Chat=>useEffect Dentro del if")
+        // console.log("Chat=>useEffect Dentro del if")
         const scroll = scrollRef.current;
         scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
         dispatch(scrollToLastMessage());
@@ -46,7 +47,7 @@ const Chat = memo(() => {
   const sendMessage = async (e) => {
     e.preventDefault();
     try {
-      console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
+      // console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
       // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
       await dispatch(addMessage(messageRef.current.value));
       messageRef.current.value = "";
@@ -58,32 +59,28 @@ const Chat = memo(() => {
     }
   };
 
-  const handleDeleteMessageShow = async (i, id) => {
+  const handleDeleteMessageShow = async (i) => {
     // Toggle para seleccionar mensaje
     dispatch(selectMessage(i));
     dispatch(isAtLeastOneMessageSelected());
   };
 
-  const removeMessage = async() => {
-    try{      
-      const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
-      messages[0].messages.forEach( message =>{
-          if(message.messageSelected === true){
-            idMessagesSelected.push(message._id)
-          }
-      });
-      await dispatch(deleteMessage(idMessagesSelected));
-      // const message = await dispatch(deleteMessage(idMessagesSelected)); //! SOLO PARA PRUEBAS
-
-      const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
-      // console.log("INICIO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
-      await dispatch(fetchMessages(baseURL, conversationId));
-      // console.log("TERMINO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
-
-      // alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
-    }catch(error){
-      alert(`Chat: removeMessage er => ${error.message}`);
-    }
+  const removeMessage = () => {
+    messages[0].messages.forEach( async(message) =>{
+      try{
+        const messagesLastPosition = messages[0].messages.length - 1;
+        if(message.messageSelected === true){
+          await dispatch(deleteMessage(message._id));
+        }
+        if(message._id === messages[0].messages[messagesLastPosition]._id){
+          const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
+          await dispatch(fetchMessages(baseURL, conversationId));
+        };
+        // alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS    
+      }catch(error){
+        alert(`Chat: removeMessage er => ${error.message}`);
+      }
+    });
   };
 
 
@@ -106,20 +103,18 @@ const Chat = memo(() => {
           </IconButton>
           <IconButton>
             <AttachFile/>
-          </IconButton> */}
+          </IconButton>
           <IconButton>
             <MoreVert />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
       {
-        messages[0]._id
-        ?
+        messages[0]._id ?
 
         <div ref={scrollRef} className="chat__body">
           {
-            messages[0].messages[0]
-            ?
+            messages[0].messages[0] ?
 
             messages[0].messages.map((message, i) => {
               return (
@@ -132,7 +127,7 @@ const Chat = memo(() => {
                       ${ (message.userId !== userApp[0]._id & message.messageSelected) && "chat__message-selected" }
                       ${ message.received && "chat__reciever" }`
                     }               
-                    onClick={() => handleDeleteMessageShow(i, message._id)}
+                    onClick={() => handleDeleteMessageShow(i)}
                   >
                     <span className="chat__name">{message.name}</span>
                     {message.message}
@@ -141,14 +136,20 @@ const Chat = memo(() => {
                   </p>
               );
             })
+
             :
-            <h1>{`Estas por iniciar una conversación con ${chatUser[0].username}`}</h1>
+            <div>
+              <h2>{`Estas por iniciar una conversación con`}</h2>
+              <h2>{`${chatUser[0].username}`}</h2>
+            </div>
           }
         </div>
         
         :
         <div className="chat__body">          
-          <h1>Bienvenida, bienvenide, bienvenidi, bienvenido, bienvenidu</h1>
+          <h2>Hola!</h2>
+          <h1>{`${userApp[0].username}`}</h1>
+          <h2>Te damos una cordial bienvenida al Chat.</h2>
         </div>
       }
       <div className="chat__footer">
