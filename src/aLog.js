@@ -93,13 +93,15 @@
 //* Last message added it's shown
 //} 20210109
 //* Fixed: messageSelected, Added: scrollToLastMessage in Chat
+//* Added: delete messages
+//  commit
 
 //[ Marcar visto
 //] Pendientes
 //  Opcional homologar la imágen de todas las páginas 404
 //  Presentar los datos del usuario en las conversaciones
 //  Eliminar conversaciones
-//  Eliminar mensajes
+//  Bug muestra algunos mensajes eliminados entre más cantidad de mensajes se borren al mismo tiempo
 //  Loader
 
 

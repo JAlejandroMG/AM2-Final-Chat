@@ -1,7 +1,7 @@
-import React, { useState,useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, deleteMessage, scrollToLastMessage, selectMessage } from '../../../redux/actions/chatActions';
+import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage } from '../../../redux/actions/chatActions';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -20,9 +20,8 @@ const Chat = memo(() => {
   const messageRef = useRef("");
   const scrollRef = useRef();
   const dispatch = useDispatch();
-  const [atLeastOneMessageSelected, setAtLeastOneMessageSelected] = useState(false);
   const { userApp } = useSelector(state => state.contacts);
-  const { chatUser, messages, scrollChatBody }  = useSelector(state => state.chat);
+  const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
 
 
   //! SOLO PARA PRUEBAS
@@ -48,7 +47,6 @@ const Chat = memo(() => {
     e.preventDefault();
     try {
       console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
-      // console.log(messageRef.current.value);
       // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
       await dispatch(addMessage(messageRef.current.value));
       messageRef.current.value = "";
@@ -62,16 +60,8 @@ const Chat = memo(() => {
 
   const handleDeleteMessageShow = async (i, id) => {
     // Toggle para seleccionar mensaje
-    dispatch(selectMessage(i))
-    // messages[0].messages[i].messageSelected = !messages[0].messages[i].messageSelected; //!REDUCER
-
-
-    let isAtLeastOneMessageSelected = false;
-    isAtLeastOneMessageSelected = messages[0].messages.some(message => {
-      return message.messageSelected === true
-    });
-    // console.log(isAtLeastOneMessageSelected);
-    isAtLeastOneMessageSelected ? setAtLeastOneMessageSelected(true) : setAtLeastOneMessageSelected(false);
+    dispatch(selectMessage(i));
+    dispatch(isAtLeastOneMessageSelected());
   };
 
   const removeMessage = async() => {
@@ -82,15 +72,15 @@ const Chat = memo(() => {
             idMessagesSelected.push(message._id)
           }
       });
-      alert("Chat=>removeMessage: Terminé forEach")
-      console.log(idMessagesSelected);
-      // await dispatch(deleteMessage(idMessagesSelected));
-      const message = await dispatch(deleteMessage(idMessagesSelected)); //! SOLO PARA PRUEBAS
-      if(messages[0].messages[0]){
-        const scroll = scrollRef.current;
-        scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
-      }
-      alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
+      await dispatch(deleteMessage(idMessagesSelected));
+      // const message = await dispatch(deleteMessage(idMessagesSelected)); //! SOLO PARA PRUEBAS
+
+      const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
+      // console.log("INICIO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
+      await dispatch(fetchMessages(baseURL, conversationId));
+      // console.log("TERMINO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
+
+      // alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
     }catch(error){
       alert(`Chat: removeMessage er => ${error.message}`);
     }
@@ -106,7 +96,7 @@ const Chat = memo(() => {
           <p>{`Visto por ultima vez a las...`}</p>
         </div>
         <div className="chat__headerRight">
-          {atLeastOneMessageSelected && 
+          {messages[0].atLeastOneMessageSelected && 
             <IconButton onClick={removeMessage}>
               <DeleteOutline/>
             </IconButton>

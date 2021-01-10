@@ -47,6 +47,12 @@ export const selectMessage = (id) => {
    };
 };
 
+export const isAtLeastOneMessageSelected = () => {
+   return {
+      type: actions.IS_AT_LEAST_ONE_MESSAGE_SELECTED
+   };
+};
+
 
 
 //{ Called from Chat.js => sendMessage()
@@ -90,26 +96,27 @@ export const deleteMessage = (idMessagesSelected) => {
       return new Promise (async(resolve, reject) =>{
          try {
             console.log("chatActions: deleteMessage"); //! SOLO PARA PRUEBAS
-            idMessagesSelected.forEach( async (id) =>{
+            await idMessagesSelected.forEach( async (id) =>{
                try{
                   console.log(id);
                   const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/messages/${id}`;
-
-                  // https://academlo-whats.herokuapp.com/api/v1/messages/5ff72b9b67c5d3001727ccf4
-
+                  // console.log("INICIO DELETE DE MENSAJES!!!"); //! SOLO PARA PRUEBAS
                   await fetch(urlDelete, {
                      method: `DELETE`,
                   });
-                  alert("chatActions=>deleteMessage: Mandó eliminar mensaje")
+                  // console.log("TERMINO DELETE DE MENSAJES!!!"); //! SOLO PARA PRUEBAS
+                  // alert("chatActions=>deleteMessage: Mandó eliminar mensaje")
+                  return true;
                }catch(error){
                   alert(`chatActions: fetch(urlDelete) er => ${error.message}`);
+                  return error;
                }
             });
 
-            console.log(getState().chat.conversationId);
+            // console.log(getState().chat.conversationId);
 
-            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
-            await dispatch(fetchMessages(baseURL, getState().chat.conversationId));
+            /* const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
+            await dispatch(fetchMessages(baseURL, getState().chat.conversationId)); */
             resolve("Se ha(n) eliminado el(los) mensaje(s)");
          }catch(error){
             reject(error);

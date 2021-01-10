@@ -12,10 +12,10 @@ const INITIAL_STATE = {
    messages: [
       {
          _id: false,
+         atLeastOneMessageSelected: false,
          messages: []
       }
-   ],
-   scrollChatBody: true
+   ]
 };
 
 
@@ -25,21 +25,24 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
    switch(action.type) {
       case actions.RESET_CHAT_REDUCER:
          return {
-            conversations: [],
-            conversationId: false,
-            messages: [
-               {
-                  _id: false,
-                  messages: []
-               }
-            ],
             chatUser: [
                {
                   photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg",
                   username: false
                }
-            ]
+            ],
+            conversationId: false,
+            conversations: [],
+            messages: [
+               {
+                  _id: false,
+                  atLeastOneMessageSelected: false,
+                  messages: []
+               }
+            ],
+            scrollChatBody: true,
          };
+
       case actions.GET_CONVERSATIONS:
          const addedPropertyConversations = [];
          const addedPropertyConversation = {conversationSelected: false};
@@ -47,7 +50,7 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          conversationsObj.map(conversation => {
             const addingPropertyConversation = Object.assign(conversation, addedPropertyConversation);
             addedPropertyConversations.push(addingPropertyConversation);
-            return true
+            return true;
          });
          return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
 
@@ -73,6 +76,16 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
 
       case actions.SELECT_MESSAGE:
          transState.messages[0].messages[action.payload].messageSelected = !transState.messages[0].messages[action.payload].messageSelected
+         return transState;
+
+      case actions.IS_AT_LEAST_ONE_MESSAGE_SELECTED:
+         let isAtLeastOneMessageSelected = false;
+         isAtLeastOneMessageSelected = transState.messages[0].messages.some(message => {
+            return message.messageSelected === true
+         });
+         isAtLeastOneMessageSelected ?
+         transState.messages[0].atLeastOneMessageSelected = true :
+         transState.messages[0].atLeastOneMessageSelected = false;
          return transState;
 
       default:
