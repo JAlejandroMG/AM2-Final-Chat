@@ -1,8 +1,7 @@
 import React, { useState,useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage } from '../../../redux/actions/chatActions';
-import { deleteMessage } from '../../../redux/actions/chatActions';
+import { addMessage, deleteMessage, scrollToLastMessage, selectMessage } from '../../../redux/actions/chatActions';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -14,33 +13,47 @@ import {
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
+
+
 //{ Called from ChatRoom.jsx, PrivateChatRoom.jsx
 const Chat = memo(() => {
   const messageRef = useRef("");
+  const scrollRef = useRef();
   const dispatch = useDispatch();
-  const [localMessages, setLocalMessages] = useState([]);
   const [atLeastOneMessageSelected, setAtLeastOneMessageSelected] = useState(false);
   const { userApp } = useSelector(state => state.contacts);
-  const { chatUser, messages }  = useSelector(state => state.chat);
+  const { chatUser, messages, scrollChatBody }  = useSelector(state => state.chat);
+
 
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
   useEffect(() => {
     console.log(`Chat: render => ${refContador.current}`);
     refContador.current++;
-    setLocalMessages(messages[0].messages);
-  })
-  
+  });
+
+  useEffect(() => {
+    if(scrollChatBody) {
+      if(messages[0].messages[0]){
+        console.log("Chat=>useEffect Dentro del if")
+        const scroll = scrollRef.current;
+        scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
+        dispatch(scrollToLastMessage());
+      }
+    }
+    // eslint-disable-next-line
+  }, [messages[0].messages[0]]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    // alert("sendMessage preventDefault"); //! SOLO PARA PRUEBAS
     try {
       console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
-      console.log(messageRef.current.value);
+      // console.log(messageRef.current.value);
       // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
       await dispatch(addMessage(messageRef.current.value));
       messageRef.current.value = "";
+      const scroll = scrollRef.current;
+      scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
       // alert(`Chat: sendMessage => ${message}`); //! SOLO PARA PRUEBAS
     } catch(error) {
       alert(`Chat: sendMessage er => ${error.message}`); //! MENSAJE ERROR
@@ -49,31 +62,39 @@ const Chat = memo(() => {
 
   const handleDeleteMessageShow = async (i, id) => {
     // Toggle para seleccionar mensaje
-    messages[0].messages[i].messageSelected = !messages[0].messages[i].messageSelected;
+    dispatch(selectMessage(i))
+    // messages[0].messages[i].messageSelected = !messages[0].messages[i].messageSelected; //!REDUCER
+
+
     let isAtLeastOneMessageSelected = false;
     isAtLeastOneMessageSelected = messages[0].messages.some(message => {
-       return message.messageSelected === true
+      return message.messageSelected === true
     });
-    console.log(isAtLeastOneMessageSelected);
+    // console.log(isAtLeastOneMessageSelected);
     isAtLeastOneMessageSelected ? setAtLeastOneMessageSelected(true) : setAtLeastOneMessageSelected(false);
- };
+  };
 
- const removeMessage = async () => {
-    try{
-      
+  const removeMessage = async() => {
+    try{      
       const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
-      messages[0].messages.forEach(message =>{
-        if(message.messageSelected === true){
-          idMessagesSelected.push(message._id)
-          console.log(idMessagesSelected);
-        }
-      })
-      await dispatch(deleteMessage(idMewssagesSelected));
-      
+      messages[0].messages.forEach( message =>{
+          if(message.messageSelected === true){
+            idMessagesSelected.push(message._id)
+          }
+      });
+      alert("Chat=>removeMessage: Terminé forEach")
+      console.log(idMessagesSelected);
+      // await dispatch(deleteMessage(idMessagesSelected));
+      const message = await dispatch(deleteMessage(idMessagesSelected)); //! SOLO PARA PRUEBAS
+      if(messages[0].messages[0]){
+        const scroll = scrollRef.current;
+        scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
+      }
+      alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
     }catch(error){
       alert(`Chat: removeMessage er => ${error.message}`);
     }
- };
+  };
 
 
   return (
@@ -85,14 +106,16 @@ const Chat = memo(() => {
           <p>{`Visto por ultima vez a las...`}</p>
         </div>
         <div className="chat__headerRight">
-          <IconButton>
-           {atLeastOneMessageSelected && <DeleteOutline onClick={removeMessage} />} 
-          </IconButton>
+          {atLeastOneMessageSelected && 
+            <IconButton onClick={removeMessage}>
+              <DeleteOutline/>
+            </IconButton>
+          } 
           {/* <IconButton>
-            <SearchOutlined />
+            <SearchOutlined/>
           </IconButton>
           <IconButton>
-            <AttachFile />
+            <AttachFile/>
           </IconButton> */}
           <IconButton>
             <MoreVert />
@@ -100,36 +123,58 @@ const Chat = memo(() => {
         </div>
       </div>
       {
-        messages[0]._id ?
+        messages[0]._id
+        ?
 
-
-        // <Message /> 
-
-        <div className="chat__body">
+        <div ref={scrollRef} className="chat__body">
           {
-            messages[0].messages[0] ?
+            messages[0].messages[0]
+            ?
+
             messages[0].messages.map((message, i) => {
               return (
-              <p
-                  key={i}
-                  className={`chat__message ${
-                    message.received && "chat__reciever"
-                  } ${ (message.userId === userApp[0]._id) && "background" }`}
-                  onClick={() => handleDeleteMessageShow(i, message._id)}
-              >
-                  <span className="chat__name">{message.name}</span>
-                  {message.message}
-                  <span className="chat__timestamp">{message.timestamp}</span>
-                  <br/>
-                  {/* <span className={`${message.messageSelected ? "delete-message" : "hide"}`}>Eliminar mensaje</span> */}
-              </p>
+                (message.userId === userApp[0]._id) ?                  
+
+                  <p
+                    key={i}
+                    className={
+                      `chat__message
+                      own-chat__message
+                      ${ message.received && "chat__reciever" }
+                      ${ message.messageSelected && "own-chat__message-selected" }`
+                    }               
+                    onClick={() => handleDeleteMessageShow(i, message._id)}
+                  >
+                    <span className="chat__name">{message.name}</span>
+                    {message.message}
+                    <span className="chat__timestamp">{message.timestamp}</span>
+                    <br/>
+                  </p>
+                  
+                  :
+                  <p
+                    key={i}
+                    className={
+                      `chat__message
+                      ${ message.received && "chat__reciever" }
+                      ${ message.messageSelected && "chat__message-selected" }`
+                    }               
+                    onClick={() => handleDeleteMessageShow(i, message._id)}
+                  >
+                    <span className="chat__name">{message.name}</span>
+                    {message.message}
+                    <span className="chat__timestamp">{message.timestamp}</span>
+                    <br/>
+                  </p>
               );
-            }) :
+            })
+
+            :
             <h1>{`Estas por iniciar una conversación con ${chatUser[0].username}`}</h1>
           }
         </div>
         
-         :
+        :
         <div className="chat__body">          
           <h1>Bienvenida, bienvenide, bienvenidi, bienvenido, bienvenidu</h1>
         </div>
