@@ -74,6 +74,7 @@ const Chat = memo(() => {
     isAtLeastOneMessageSelected ? setAtLeastOneMessageSelected(true) : setAtLeastOneMessageSelected(false);
   };
 
+<<<<<<< HEAD
   const removeMessage = async() => {
     try{      
       const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
@@ -91,6 +92,20 @@ const Chat = memo(() => {
         scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
       }
       alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
+=======
+ const removeMessage = async () => {
+    try{
+      
+      // const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
+      // messages[0].messages.forEach(message =>{
+      //   if(message.messageSelected === true){
+      //     idMessagesSelected.push(message._id)
+      //     console.log(idMessagesSelected);
+      //   }
+      // })
+      // await dispatch(deleteMessage(idMewssagesSelected));
+      
+>>>>>>> f474a54 (Comments idMessagesSelected)
     }catch(error){
       alert(`Chat: removeMessage er => ${error.message}`);
     }
