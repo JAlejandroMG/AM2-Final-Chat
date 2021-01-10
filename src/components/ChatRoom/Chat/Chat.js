@@ -61,14 +61,14 @@ const Chat = memo(() => {
  const removeMessage = async () => {
     try{
       
-      const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
-      messages[0].messages.forEach(message =>{
-        if(message.messageSelected === true){
-          idMessagesSelected.push(message._id)
-          console.log(idMessagesSelected);
-        }
-      })
-      await dispatch(deleteMessage(idMewssagesSelected));
+      // const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
+      // messages[0].messages.forEach(message =>{
+      //   if(message.messageSelected === true){
+      //     idMessagesSelected.push(message._id)
+      //     console.log(idMessagesSelected);
+      //   }
+      // })
+      // await dispatch(deleteMessage(idMewssagesSelected));
       
     }catch(error){
       alert(`Chat: removeMessage er => ${error.message}`);
