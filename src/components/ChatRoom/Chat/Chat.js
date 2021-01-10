@@ -123,31 +123,14 @@ const Chat = memo(() => {
 
             messages[0].messages.map((message, i) => {
               return (
-                (message.userId === userApp[0]._id) ?                  
-
                   <p
                     key={i}
                     className={
                       `chat__message
-                      own-chat__message
-                      ${ message.received && "chat__reciever" }
-                      ${ message.messageSelected && "own-chat__message-selected" }`
-                    }               
-                    onClick={() => handleDeleteMessageShow(i, message._id)}
-                  >
-                    <span className="chat__name">{message.name}</span>
-                    {message.message}
-                    <span className="chat__timestamp">{message.timestamp}</span>
-                    <br/>
-                  </p>
-                  
-                  :
-                  <p
-                    key={i}
-                    className={
-                      `chat__message
-                      ${ message.received && "chat__reciever" }
-                      ${ message.messageSelected && "chat__message-selected" }`
+                      ${ message.userId === userApp[0]._id && "own-chat__message"}
+                      ${ (message.userId === userApp[0]._id & message.messageSelected) && "own-chat__message-selected" }
+                      ${ (message.userId !== userApp[0]._id & message.messageSelected) && "chat__message-selected" }
+                      ${ message.received && "chat__reciever" }`
                     }               
                     onClick={() => handleDeleteMessageShow(i, message._id)}
                   >
@@ -158,7 +141,6 @@ const Chat = memo(() => {
                   </p>
               );
             })
-
             :
             <h1>{`Estas por iniciar una conversación con ${chatUser[0].username}`}</h1>
           }
