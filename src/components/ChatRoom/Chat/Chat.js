@@ -74,7 +74,6 @@ const Chat = memo(() => {
     isAtLeastOneMessageSelected ? setAtLeastOneMessageSelected(true) : setAtLeastOneMessageSelected(false);
   };
 
-<<<<<<< HEAD
   const removeMessage = async() => {
     try{      
       const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
@@ -92,20 +91,6 @@ const Chat = memo(() => {
         scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
       }
       alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
-=======
- const removeMessage = async () => {
-    try{
-      
-      // const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
-      // messages[0].messages.forEach(message =>{
-      //   if(message.messageSelected === true){
-      //     idMessagesSelected.push(message._id)
-      //     console.log(idMessagesSelected);
-      //   }
-      // })
-      // await dispatch(deleteMessage(idMewssagesSelected));
-      
->>>>>>> f474a54 (Comments idMessagesSelected)
     }catch(error){
       alert(`Chat: removeMessage er => ${error.message}`);
     }
@@ -148,31 +133,14 @@ const Chat = memo(() => {
 
             messages[0].messages.map((message, i) => {
               return (
-                (message.userId === userApp[0]._id) ?                  
-
                   <p
                     key={i}
                     className={
                       `chat__message
-                      own-chat__message
-                      ${ message.received && "chat__reciever" }
-                      ${ message.messageSelected && "own-chat__message-selected" }`
-                    }               
-                    onClick={() => handleDeleteMessageShow(i, message._id)}
-                  >
-                    <span className="chat__name">{message.name}</span>
-                    {message.message}
-                    <span className="chat__timestamp">{message.timestamp}</span>
-                    <br/>
-                  </p>
-                  
-                  :
-                  <p
-                    key={i}
-                    className={
-                      `chat__message
-                      ${ message.received && "chat__reciever" }
-                      ${ message.messageSelected && "chat__message-selected" }`
+                      ${ message.userId === userApp[0]._id && "own-chat__message"}
+                      ${ (message.userId === userApp[0]._id & message.messageSelected) && "own-chat__message-selected" }
+                      ${ (message.userId !== userApp[0]._id & message.messageSelected) && "chat__message-selected" }
+                      ${ message.received && "chat__reciever" }`
                     }               
                     onClick={() => handleDeleteMessageShow(i, message._id)}
                   >
@@ -183,7 +151,6 @@ const Chat = memo(() => {
                   </p>
               );
             })
-
             :
             <h1>{`Estas por iniciar una conversación con ${chatUser[0].username}`}</h1>
           }
