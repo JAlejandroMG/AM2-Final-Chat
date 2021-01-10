@@ -46,11 +46,18 @@
 .chat__message:hover {
   background-color: #cec1b3;
 }
-
-.background {
-  background: #e8c29c;
+.chat__message-selected {
+  background-color: #cec1b3;
 }
-.background:hover {
+
+.own-chat__message {
+  background: #e8c29c;
+  margin-left: 60%;
+}
+.own-chat__message:hover {
+  background: #bf9b75;
+}
+.own-chat__message-selected {
   background: #bf9b75;
 }
 

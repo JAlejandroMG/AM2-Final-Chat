@@ -10,7 +10,7 @@ import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 //* Material
 import ChatIcon from "@material-ui/icons/Chat";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+// import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { IconButton, Avatar } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
 import { MeetingRoomOutlined } from "@material-ui/icons";
@@ -107,8 +107,8 @@ const Sidebar = memo(() => {
           <IconButton>
             <ChatIcon />
           </IconButton>
-          <IconButton>
-          <MeetingRoomOutlined onClick={logoutUser} />
+          <IconButton onClick={logoutUser}>
+          <MeetingRoomOutlined/>
           </IconButton>
         </div>
       </div>

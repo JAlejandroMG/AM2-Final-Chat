@@ -1,22 +1,9 @@
 import * as actions from '../actionTypes';
 
-export const resetChatReducer = () => {
-   return {
-      type: actions.RESET_CHAT_REDUCER
-   };
-};
-
 export const getConversations = (conversations) => {
    return {
       type: actions.GET_CONVERSATIONS,
       payload: conversations
-   };
-};
-
-export const conversationId = (id) => {
-   return {
-      type: actions.CONVERSATION_ID,
-      payload: id
    };
 };
 
@@ -31,6 +18,32 @@ export const chatUser = (user) => {
    return {
       type: actions.CHAT_USER,
       payload: user
+   };
+};
+
+export const conversationId = (id) => {
+   return {
+      type: actions.CONVERSATION_ID,
+      payload: id
+   };
+};
+
+export const resetChatReducer = () => {
+   return {
+      type: actions.RESET_CHAT_REDUCER
+   };
+};
+
+export const scrollToLastMessage = () => {
+   return {
+      type: actions.SCROLL_TO_LAST_MESSAGE
+   };
+};
+
+export const selectMessage = (id) => {
+   return {
+      type: actions.SELECT_MESSAGE,
+      payload: id
    };
 };
 
@@ -70,18 +83,34 @@ export const addMessage = (newMessage) => {
    };
 };
 
+//{ Called from Chat.js => removeMessage()
+//* Delete message(s) from the conversation
 export const deleteMessage = (idMessagesSelected) => {
    return(dispatch, getState) =>{
       return new Promise (async(resolve, reject) =>{
          try {
             console.log("chatActions: deleteMessage"); //! SOLO PARA PRUEBAS
-            idMessagesSelected.forEach( async (id) => {
-               const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/messages/${id}`;
-               await fetch(urlDelete); 
+            idMessagesSelected.forEach( async (id) =>{
+               try{
+                  console.log(id);
+                  const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/messages/${id}`;
+
+                  // https://academlo-whats.herokuapp.com/api/v1/messages/5ff72b9b67c5d3001727ccf4
+
+                  await fetch(urlDelete, {
+                     method: `DELETE`,
+                  });
+                  alert("chatActions=>deleteMessage: Mandó eliminar mensaje")
+               }catch(error){
+                  alert(`chatActions: fetch(urlDelete) er => ${error.message}`);
+               }
             });
-            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().messages[0]._id}/messages`;
-            const message = await dispatch(fetchMessages(baseURL));
-            resolve("Se ha eliminado el mensaje");
+
+            console.log(getState().chat.conversationId);
+
+            const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
+            await dispatch(fetchMessages(baseURL, getState().chat.conversationId));
+            resolve("Se ha(n) eliminado el(los) mensaje(s)");
          }catch(error){
             reject(error);
          }  
@@ -89,7 +118,7 @@ export const deleteMessage = (idMessagesSelected) => {
    }
 }
 
-//{ Called from Chat.js => sendMessage()
+//{ Called from SidebarDropdown.js => sendConversation()
 //* Add conversation
 export const  addConversation = (id) =>{
    return (dispatch, getState) => {
@@ -107,8 +136,8 @@ export const  addConversation = (id) =>{
                body: JSON.stringify(body)
             });
             const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/5fed3094794c290017d822b0/conversations`;
-            const message = await dispatch(fetchConversations(baseURL));
-            resolve(message);
+            await dispatch(fetchConversations(baseURL));
+            resolve("Se ha agregado una conversación");
          }catch(error) {
             reject(error);
          }
@@ -129,7 +158,6 @@ export const fetchConversations = (baseURL) => {
             const response = await fetch(baseURL);
             const conversations = await response.json();
             console.log(conversations);
-            alert("Aquí andamos");
             dispatch(getConversations(conversations));
             resolve("Se han recibido las conversaciones.");
          } catch (error) {

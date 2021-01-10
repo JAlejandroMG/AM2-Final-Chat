@@ -89,15 +89,18 @@
 //* Cleaning up code
 //* Status changed to messageSelected
 //  commit
+//} 20210107
+//* Last message added it's shown
+//} 20210109
+//* Fixed: messageSelected, Added: scrollToLastMessage in Chat
 
 //[ Marcar visto
 //] Pendientes
-//  Opcional homologar la imágen de todas las páginas
+//  Opcional homologar la imágen de todas las páginas 404
 //  Presentar los datos del usuario en las conversaciones
 //  Eliminar conversaciones
 //  Eliminar mensajes
 //  Loader
-//  Menú de logout
 
 
 

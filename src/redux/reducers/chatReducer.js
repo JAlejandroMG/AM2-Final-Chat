@@ -1,20 +1,21 @@
 import * as actions from '../actionTypes';
 
 const INITIAL_STATE = {
-   conversations: [],
+   chatUser: [
+      {
+         photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg",
+         username: false
+      }
+   ],
    conversationId: false,
+   conversations: [],
    messages: [
       {
          _id: false,
          messages: []
       }
    ],
-   chatUser: [
-      {
-         photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg",
-         username: false
-      }
-   ]
+   scrollChatBody: true
 };
 
 
@@ -49,8 +50,10 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
             return true
          });
          return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
+
       case actions.CONVERSATION_ID:
          return {...transState, conversationId: action.payload}; //Conversation's id
+
       case actions.GET_MESSAGES:
          const addedPropertyMessages = [];
          const addedPropertyMessage = {messageSelected: false};
@@ -61,8 +64,17 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          });
          messagesObj[0].messages = addedPropertyMessages
          return {...transState, messages: messagesObj}; //Messages from a conversation
+
       case actions.CHAT_USER:
          return {...transState, chatUser: action.payload}; //User chatting with the userApp
+
+      case actions.SCROLL_TO_LAST_MESSAGE:
+         return {...transState, scrollChatBody: false};
+
+      case actions.SELECT_MESSAGE:
+         transState.messages[0].messages[action.payload].messageSelected = !transState.messages[0].messages[action.payload].messageSelected
+         return transState;
+
       default:
          return prevState;
    }
