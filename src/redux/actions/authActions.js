@@ -4,6 +4,8 @@ import {auth} from '../../firebase/config';
 import { resetChatReducer } from './chatActions';
 import { resetContactsReducer } from './contactsActions';
 
+
+
 const setUser = (user) => {
    return {
       type: actions.SET_USER,
