@@ -116,7 +116,7 @@ const Chat = memo(() => {
         
         (
           loader ?
-            <div id="startup" >
+            <div className="startup loader-chat" >
                 <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
                   <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
                 </svg>
