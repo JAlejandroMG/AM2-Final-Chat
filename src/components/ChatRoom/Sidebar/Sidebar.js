@@ -47,7 +47,7 @@ const Sidebar = memo(() => {
     //*-------------------------------- Contacts --------------------------------*//
     (async function() {
       try{
-        console.log("Sidebar: useEffect: contacts"); //! SOLO PARA PRUEBAS
+        // console.log("Sidebar: useEffect: contacts"); //! SOLO PARA PRUEBAS
         const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
         await dispatch(fetchContacts(baseURL, user.uid));
         // const message = await dispatch(fetchContacts(baseURL, user.uid));
