@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage} from '../../../redux/actions/chatActions';
-=======
-import React, { useEffect, useRef, memo } from "react";
-import "./Chat.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage } from '../../../redux/actions/chatActions';
->>>>>>> 1d9005a (modifications chat messages)
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -28,17 +21,10 @@ const Chat = memo(() => {
   const messageRef = useRef("");
   const scrollRef = useRef();
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const { loader } = useSelector(state => state.loader);
   const { userApp } = useSelector(state => state.contacts);
   const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
 /* 
-=======
-  const { userApp } = useSelector(state => state.contacts);
-  const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
-
-
->>>>>>> 1d9005a (modifications chat messages)
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
   useEffect(() => {
@@ -63,11 +49,7 @@ const Chat = memo(() => {
   const sendMessage = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       // console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
-=======
-      console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
->>>>>>> 1d9005a (modifications chat messages)
       // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
       await dispatch(addMessage(messageRef.current.value));
       messageRef.current.value = "";
@@ -85,7 +67,6 @@ const Chat = memo(() => {
     dispatch(isAtLeastOneMessageSelected());
   };
 
-<<<<<<< HEAD
   const removeMessage = () => {
     messages[0].messages.forEach( async(message) =>{
       try{
@@ -102,28 +83,6 @@ const Chat = memo(() => {
         alert(`Chat: removeMessage er => ${error.message}`);
       }
     });
-=======
-  const removeMessage = async() => {
-    try{      
-      const idMessagesSelected = []; //Se va a reunir los IDS de los mensajes seleccionados a eliminar
-      messages[0].messages.forEach( message =>{
-          if(message.messageSelected === true){
-            idMessagesSelected.push(message._id)
-          }
-      });
-      await dispatch(deleteMessage(idMessagesSelected));
-      // const message = await dispatch(deleteMessage(idMessagesSelected)); //! SOLO PARA PRUEBAS
-
-      const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
-      // console.log("INICIO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
-      await dispatch(fetchMessages(baseURL, conversationId));
-      // console.log("TERMINO FETCH DE MENSAJES!!!") //! SOLO PARA PRUEBAS
-
-      // alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS
-    }catch(error){
-      alert(`Chat: removeMessage er => ${error.message}`);
-    }
->>>>>>> 1d9005a (modifications chat messages)
   };
 
 
