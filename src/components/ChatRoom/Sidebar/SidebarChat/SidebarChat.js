@@ -2,6 +2,7 @@ import React, { /* useEffect, useRef, */ memo } from "react";
 import "./SidebarChat.css";
 import { useDispatch } from 'react-redux';
 import { fetchMessages, isAtLeastOneConversationSelected, selectConversation } from '../../../../redux/actions/chatActions';
+import { toggleLoader } from '../../../../redux/actions/loaderActions';
 //* Material
 import { Avatar } from "@material-ui/core";
 
@@ -10,6 +11,7 @@ import { Avatar } from "@material-ui/core";
 //{ Called from Sidebar.js
 const SidebarChat = memo(({ photo, userName, conversationId, conversationSelected}) => {
   const dispatch = useDispatch();
+  
 /* 
   //! SOLO PARA PRUEBAS
   const refContador = useRef(1);
@@ -29,7 +31,9 @@ const SidebarChat = memo(({ photo, userName, conversationId, conversationSelecte
         try{
           // console.log("SidebarChat: getMessages"); //! SOLO PARA PRUEBAS
           const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
+          dispatch(toggleLoader());
           await dispatch(fetchMessages(baseURL, conversationId));
+          dispatch(toggleLoader());
           // alert(`SidebarChat: getMessages => ${message}`); //! SOLO PARA PRUEBAS
         }catch(error){
           alert(`SidebarChat: getMessages er => ${error.message}`); //! MENSAJE ERROR

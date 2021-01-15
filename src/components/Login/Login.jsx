@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, checkActiveSession, resetPassword } from '../../redux/actions/authActions';
-
+import { toggleLoader } from '../../redux/actions/loaderActions';
 
 
 //{ Called from App.js, ProtectedRoute.jsx
@@ -12,6 +12,7 @@ function Login() {
    const passwordRef = useRef("");
    const history = useHistory();
    const dispatch = useDispatch();
+   const { loader } = useSelector(state => state.loader);
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
@@ -39,16 +40,20 @@ function Login() {
       })();
       // eslint-disable-next-line
    }, []);
-
+//LOADER REGISTER
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
          // console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
+         dispatch(toggleLoader());
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
+         dispatch(toggleLoader());
          emailRef.current.value = "";
          passwordRef.current.value = "";
          alert(`Login: loginUser => ${message}`); //! BIENVENIDA
+         dispatch(toggleLoader());
          history.push("/chat");
+         dispatch(toggleLoader());
       }catch(error) {
          // passwordRef.current.value = ""; //!Cannot set property 'value' of null
          alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
@@ -70,7 +75,15 @@ function Login() {
 
 
    //* Componente Login
-   return (
+   return (//Aquí debo colocar toggleLoader
+      (
+         loader ?
+         <div id="startup" >
+             <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+               <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+             </svg>
+         </div>
+      :
       <div>
          <form className="formLogin" onSubmit={(e) => loginUser(e, "")} >
             <h2 className="titleLogin">Login</h2>
@@ -93,8 +106,11 @@ function Login() {
             </Link>
          </form>
       </div>
+      )
    );
+   
 }
+
 
 
 

@@ -7,11 +7,9 @@ import PrivateChatRoom from './components/ChatRoom/PrivateChatRoom';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './components/Register/Register';
 
-
-
 function App() {
-  const notFound = () => ( <h2>404 Not Found</h2> )
-
+  const notFound = () => ( <h2 className="error_404">404 Not Found</h2> )
+  
   return (
     <div className="app">
       <Router>
@@ -26,7 +24,7 @@ function App() {
             <ChatRoom />
           </ProtectedRoute>
           <Route path="/chat/:id">
-            <PrivateChatRoom />
+           <PrivateChatRoom />
           </Route>
           <Route path="*" exact component={notFound} />
         </Switch>
@@ -38,3 +36,6 @@ function App() {
 
 
 export default App;
+
+
+
