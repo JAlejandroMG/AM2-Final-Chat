@@ -104,6 +104,10 @@
 //* Added clear messages after deleting conversation(s)
 //* Reviewing and cleaning up code
 //  commit
+//} 20210114
+//* Added style to page 404 and loader on Login.jsx
+//  commit
+
 
 //[ Marcar visto
 //] Pendientes
