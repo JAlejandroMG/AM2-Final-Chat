@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage } from '../../../redux/actions/chatActions';
+import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage} from '../../../redux/actions/chatActions';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -9,7 +9,8 @@ import {
   InsertEmoticon,
   /* MoreVert,
   SearchOutlined, */
-  DeleteOutline
+  DeleteOutline,
+  Shop
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
@@ -20,6 +21,7 @@ const Chat = memo(() => {
   const messageRef = useRef("");
   const scrollRef = useRef();
   const dispatch = useDispatch();
+  const { loader } = useSelector(state => state.loader);
   const { userApp } = useSelector(state => state.contacts);
   const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
 /* 
@@ -33,7 +35,7 @@ const Chat = memo(() => {
 
 
   useEffect(() => {
-    if(scrollChatBody) {
+    if(scrollChatBody & !loader) {
       if(messages[0].messages[0]){
         // console.log("Chat=>useEffect Dentro del if")
         const scroll = scrollRef.current;
@@ -111,47 +113,59 @@ const Chat = memo(() => {
       </div>
       {
         messages[0]._id ?
-
-        <div ref={scrollRef} className="chat__body">
-          {
-            messages[0].messages[0] ?
-
-            messages[0].messages.map((message, i) => {
-              return (
-                  <p
-                    key={i}
-                    className={
-                      `chat__message
-                      ${ message.userId === userApp[0]._id && "own-chat__message"}
-                      ${ (message.userId === userApp[0]._id & message.messageSelected) && "own-chat__message-selected" }
-                      ${ (message.userId !== userApp[0]._id & message.messageSelected) && "chat__message-selected" }
-                      ${ message.received && "chat__reciever" }`
-                    }               
-                    onClick={() => handleDeleteMessageShow(i)}
-                  >
-                    <span className="chat__name">{message.name}</span>
-                    {message.message}
-                    <span className="chat__timestamp">{message.timestamp}</span>
-                    <br/>
-                  </p>
-              );
-            })
-
-            :
-            <div>
-              <h2>{`Estas por iniciar una conversación con`}</h2>
-              <h2>{`${chatUser[0].username}`}</h2>
-            </div>
-          }
-        </div>
         
-        :
+        (
+          loader ?
+            <div id="startup" >
+                <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+                  <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+                </svg>
+            </div>
+          
+          :
+        
+          <div ref={scrollRef} className="chat__body">
+            {
+              messages[0].messages[0] ?
+            
+              messages[0].messages.map((message, i) => {
+                  return (
+                    <p
+                      key={i}
+                      className={
+                        `chat__message
+                        ${ message.userId === userApp[0]._id && "own-chat__message"}
+                        ${ (message.userId === userApp[0]._id & message.messageSelected) && "own-chat__message-selected" }
+                        ${ (message.userId !== userApp[0]._id & message.messageSelected) && "chat__message-selected" }
+                        ${ message.received && "chat__reciever" }`
+                      }               
+                      onClick={() => handleDeleteMessageShow(i)}
+                    >
+                      <span className="chat__name">{message.name}</span>
+                      {message.message}
+                      <span className="chat__timestamp">{message.timestamp}</span>
+                      <br/>
+                    </p>
+                );
+              })
+            
+              :
+              <div>
+                <h2>{`Estas por iniciar una conversación con`}</h2>
+                <h2>{`${chatUser[0].username}`}</h2>
+              </div>
+            }
+          </div>
+         )
+      :
         <div className="chat__body">          
           <h2>Hola!</h2>
           <h1>{`${userApp[0].username}`}</h1>
           <h2>Te damos una cordial bienvenida al Chat.</h2>
         </div>
+            
       }
+          
       <div className="chat__footer">
         <InsertEmoticon />
         <form onSubmit={sendMessage}>

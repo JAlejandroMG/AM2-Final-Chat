@@ -9,8 +9,6 @@ const INITIAL_STATE = {
    ]
 };
 
-
-
 export const contactsReducer = (prevState = INITIAL_STATE, action) => {
    const transState = JSON.parse(JSON.stringify(prevState));
 

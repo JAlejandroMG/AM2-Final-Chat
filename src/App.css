@@ -13,3 +13,9 @@
   width: 90vw;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
+
+.error_404{
+  color: #fff;
+  font-family: Nunito, Roboto, Arial, sans-serif;
+  font-size: 80px;
+}

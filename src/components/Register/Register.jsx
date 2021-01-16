@@ -1,9 +1,9 @@
 import React, { /* useEffect, */ useRef } from "react";
 import './Register.css';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
-
+import { toggleLoader } from '../../redux/actions/loaderActions';
 
 
 //{ Called from App.js
@@ -15,6 +15,8 @@ function Register() {
    const confirmPasswordRef = useRef("");
    const history = useHistory();
    const dispatch = useDispatch();
+   const { loader } = useSelector(state => state.loader);
+  
    //[Pendiente...
    // const wellcomeRef = useRef("Esto es una prueba");
    // const showWellcomeRef = useRef(true);
@@ -27,21 +29,25 @@ function Register() {
    })
     */
 
-
+//LOADER REGISTER
 //*---------------- Registers user in Firebas and in the App ----------------*//
    const registerUser = async (e) => {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
          e.preventDefault();
          try{
             // console.log("Register: registerUser"); //! SOLO PARA PRUEBAS
+            dispatch(toggleLoader());
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
+            dispatch(toggleLoader());
             firstNameRef.current.value = "";
             lastNameRef.current.value = "";
             emailRef.current.value = "";
             passwordRef.current.value = "";
             confirmPasswordRef.current.value = "";
             alert(`Register: registerUser => ${message}`); //! EL USUARIO HA SIDO REGISTRADO
+            dispatch(toggleLoader());
             history.push("/chat");
+            dispatch(toggleLoader());
          }catch(error){
             // passwordRef.current.value = ""; //!Cannot set property 'value' of null
             // confirmPasswordRef.current.value = ""; //!Cannot set property 'value' of null
@@ -57,7 +63,15 @@ function Register() {
 
 
    //* Componente Register
-   return (
+   return (//Aquí debo colocar toggleLoader
+      (
+         loader ?
+         <div id="startup" >
+             <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+               <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+             </svg>
+         </div>
+      :
       <div>
          <form className="formRegister" onSubmit={registerUser} >
             <h2 className="titleRegister">Register</h2>
@@ -80,6 +94,7 @@ function Register() {
             <button className="buttonRegister" type="submit">Register</button>
          </form>
       </div>
+      )
    );
 }
 

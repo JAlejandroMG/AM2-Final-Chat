@@ -6,6 +6,10 @@ import Sidebar from "./Sidebar/Sidebar";
 
 //{ Called from ProtectedRoute.jsx
 const ChatRoom = () => {
+
+
+
+
 /* 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
@@ -21,9 +25,12 @@ const ChatRoom = () => {
             <Sidebar />
             <Chat />
       </div>
+     
    )
 };
 
 
 
 export default ChatRoom;
+
+
