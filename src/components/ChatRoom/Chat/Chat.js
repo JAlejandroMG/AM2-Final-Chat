@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { /* useState, */ useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage} from '../../../redux/actions/chatActions';
@@ -10,7 +10,7 @@ import {
   /* MoreVert,
   SearchOutlined, */
   DeleteOutline,
-  Shop
+  // Shop
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
@@ -118,7 +118,7 @@ const Chat = memo(() => {
           loader ?
             <div id="startup" >
                 <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
-                  <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+                  <circle className="path" cx="26px" cy="26px" r="20px" fill="none" strokeWidth="4px"></circle>
                 </svg>
             </div>
           
@@ -156,7 +156,7 @@ const Chat = memo(() => {
               </div>
             }
           </div>
-         )
+        )
       :
         <div className="chat__body">          
           <h2>Hola!</h2>

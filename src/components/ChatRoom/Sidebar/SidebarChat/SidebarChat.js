@@ -1,6 +1,6 @@
 import React, { /* useEffect, useRef, */ memo } from "react";
 import "./SidebarChat.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, isAtLeastOneConversationSelected, selectConversation } from '../../../../redux/actions/chatActions';
 import { toggleLoader } from '../../../../redux/actions/loaderActions';
 //* Material
@@ -10,6 +10,7 @@ import { Avatar } from "@material-ui/core";
 
 //{ Called from Sidebar.js
 const SidebarChat = memo(({ photo, userName, conversationId, conversationSelected}) => {
+  const { messages }  = useSelector(state => state.chat);
   const dispatch = useDispatch();
   
 /* 
@@ -42,10 +43,12 @@ const SidebarChat = memo(({ photo, userName, conversationId, conversationSelecte
   };
 
   const handleDeleteConversationShow = (conversationPosition) => { //! FALTA FUNCIONALIDAD
-    clearTimeout(incomingMessages);
-    // Toggle para seleccionar conversación
-    dispatch(selectConversation(conversationPosition));
-    dispatch(isAtLeastOneConversationSelected());
+    if(messages[0]._id) {
+      clearTimeout(incomingMessages);
+      // Toggle para seleccionar conversación
+      dispatch(selectConversation(conversationPosition));
+      dispatch(isAtLeastOneConversationSelected());
+    };
   };
 
 

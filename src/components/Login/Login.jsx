@@ -47,15 +47,13 @@ function Login() {
          // console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
          dispatch(toggleLoader());
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
-         dispatch(toggleLoader());
          emailRef.current.value = "";
          passwordRef.current.value = "";
          alert(`Login: loginUser => ${message}`); //! BIENVENIDA
          dispatch(toggleLoader());
          history.push("/chat");
-         dispatch(toggleLoader());
       }catch(error) {
-         // passwordRef.current.value = ""; //!Cannot set property 'value' of null
+         // passwordRef.current.value = ""; //! Cannot set property 'value' of null
          alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
       }
    };
@@ -79,9 +77,9 @@ function Login() {
       (
          loader ?
          <div id="startup" >
-             <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+            <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
                <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
-             </svg>
+            </svg>
          </div>
       :
       <div>

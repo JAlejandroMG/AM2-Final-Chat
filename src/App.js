@@ -24,7 +24,7 @@ function App() {
             <ChatRoom />
           </ProtectedRoute>
           <Route path="/chat/:id">
-           <PrivateChatRoom />
+            <PrivateChatRoom />
           </Route>
           <Route path="*" exact component={notFound} />
         </Switch>

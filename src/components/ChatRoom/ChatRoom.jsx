@@ -6,18 +6,14 @@ import Sidebar from "./Sidebar/Sidebar";
 
 //{ Called from ProtectedRoute.jsx
 const ChatRoom = () => {
-
-
-
-
-/* 
+   /* 
    //! SOLO PARA PRUEBAS
    const refContador = useRef(1);
    useEffect(() => {
       console.log(`ChatRoom: render => ${refContador.current}`);
       refContador.current++;
    })
-    */
+   */
 
 
    return (
@@ -25,7 +21,6 @@ const ChatRoom = () => {
             <Sidebar />
             <Chat />
       </div>
-     
    )
 };
 
