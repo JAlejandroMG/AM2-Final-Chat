@@ -40,7 +40,7 @@ function Login() {
       })();
       // eslint-disable-next-line
    }, []);
-//LOADER REGISTER
+
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
@@ -73,7 +73,7 @@ function Login() {
 
 
    //* Componente Login
-   return (//Aquí debo colocar toggleLoader
+   return (
       (
          loader ?
          <div id="startup" >

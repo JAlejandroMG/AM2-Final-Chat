@@ -1,4 +1,4 @@
-import React, { /* useEffect, useRef, */ memo } from "react";
+import React, { memo } from "react";
 import "./SidebarChat.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, isAtLeastOneConversationSelected, selectConversation } from '../../../../redux/actions/chatActions';
@@ -57,7 +57,7 @@ const SidebarChat = memo(({ photo, userName, conversationId, conversationSelecte
       <Avatar src={photo} />
       <div className="sidebarChat__info">
         <h2>{userName}</h2>
-        <p>Último mensaje</p> {/* REVISAR */}
+        <p>Último mensaje</p>
       </div>
     </div>
   );

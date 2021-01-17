@@ -1,4 +1,4 @@
-import React, { /* useEffect, */ useRef } from "react";
+import React, { useRef } from "react";
 import './Register.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,6 @@ function Register() {
    })
     */
 
-//LOADER REGISTER
 //*---------------- Registers user in Firebas and in the App ----------------*//
    const registerUser = async (e) => {
       if(confirmPasswordRef.current.value === passwordRef.current.value) {
@@ -38,7 +37,6 @@ function Register() {
             // console.log("Register: registerUser"); //! SOLO PARA PRUEBAS
             dispatch(toggleLoader());
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
-            dispatch(toggleLoader());
             firstNameRef.current.value = "";
             lastNameRef.current.value = "";
             emailRef.current.value = "";
@@ -47,7 +45,6 @@ function Register() {
             alert(`Register: registerUser => ${message}`); //! EL USUARIO HA SIDO REGISTRADO
             dispatch(toggleLoader());
             history.push("/chat");
-            dispatch(toggleLoader());
          }catch(error){
             // passwordRef.current.value = ""; //!Cannot set property 'value' of null
             // confirmPasswordRef.current.value = ""; //!Cannot set property 'value' of null
@@ -63,7 +60,7 @@ function Register() {
 
 
    //* Componente Register
-   return (//Aquí debo colocar toggleLoader
+   return (
       (
          loader ?
          <div id="startup" >
