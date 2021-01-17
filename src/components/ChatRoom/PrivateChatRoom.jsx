@@ -1,4 +1,4 @@
-import React/* , { useEffect, useRef } */ from "react";
+import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
 
