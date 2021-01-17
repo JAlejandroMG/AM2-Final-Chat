@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, scrollToLastMessage, selectMessage} from '../../../redux/actions/chatActions';
 //* Material
 import { Avatar, IconButton } from "@material-ui/core";
 import {
-  /* AttachFile, */
   InsertEmoticon,
-  /* MoreVert,
-  SearchOutlined, */
   DeleteOutline,
-  Shop
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
@@ -100,32 +96,26 @@ const Chat = memo(() => {
               <DeleteOutline/>
             </IconButton>
           } 
-          {/* <IconButton>
-            <SearchOutlined/>
-          </IconButton>
-          <IconButton>
-            <AttachFile/>
-          </IconButton>
-          <IconButton>
-            <MoreVert />
-          </IconButton> */}
         </div>
       </div>
       {
         messages[0]._id ?
         
-        (
-          loader ?
-            <div id="startup" >
-                <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
-                  <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
-                </svg>
-            </div>
-          
-          :
         
-          <div ref={scrollRef} className="chat__body">
-            {
+        <div ref={scrollRef} className={`chat__body ${ loader === true && "chat_body_loader"}`}>
+          
+          {
+            loader ?
+            <div className="loader-container">
+              <div className="startup">
+                  <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
+                    <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+                  </svg>
+              </div>
+            </div>
+          :
+          
+            (
               messages[0].messages[0] ?
             
               messages[0].messages.map((message, i) => {
@@ -148,16 +138,16 @@ const Chat = memo(() => {
                     </p>
                 );
               })
-            
               :
               <div>
                 <h2>{`Estas por iniciar una conversación con`}</h2>
                 <h2>{`${chatUser[0].username}`}</h2>
               </div>
-            }
-          </div>
-         )
-      :
+              
+            )
+          }
+        </div>
+        :
         <div className="chat__body">          
           <h2>Hola!</h2>
           <h1>{`${userApp[0].username}`}</h1>
@@ -165,7 +155,7 @@ const Chat = memo(() => {
         </div>
             
       }
-          
+           
       <div className="chat__footer">
         <InsertEmoticon />
         <form onSubmit={sendMessage}>

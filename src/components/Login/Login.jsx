@@ -40,20 +40,18 @@ function Login() {
       })();
       // eslint-disable-next-line
    }, []);
-//LOADER REGISTER
+
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
          // console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
          dispatch(toggleLoader());
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
-         dispatch(toggleLoader());
          emailRef.current.value = "";
          passwordRef.current.value = "";
          alert(`Login: loginUser => ${message}`); //! BIENVENIDA
          dispatch(toggleLoader());
          history.push("/chat");
-         dispatch(toggleLoader());
       }catch(error) {
          // passwordRef.current.value = ""; //!Cannot set property 'value' of null
          alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
@@ -75,7 +73,7 @@ function Login() {
 
 
    //* Componente Login
-   return (//Aquí debo colocar toggleLoader
+   return (
       (
          loader ?
          <div id="startup" >
