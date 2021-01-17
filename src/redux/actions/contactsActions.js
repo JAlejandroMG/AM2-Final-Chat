@@ -39,7 +39,7 @@ export const fetchContacts = (baseURL, uid) => {
             dispatch(getContacts(contacts));
             // From contactsArray (users), the user connected to the App is the only one left
             const userApp = await contactsArray.filter(contact => contact.uid === uid);
-            console.log(userApp);
+            // console.log(userApp);
             dispatch(getUserApp(userApp));
             resolve("Se han recibido los contactos correctamente.");
          } catch (error) {

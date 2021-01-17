@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../redux/actions/authActions';
 import { fetchContacts } from '../../../redux/actions/contactsActions';
-import { deleteConversation, fetchConversations, resetChatMessages } from '../../../redux/actions/chatActions';
+import { deleteConversation, fetchConversations, resetConversations } from '../../../redux/actions/chatActions';
 import SidebarChat from "./SidebarChat/SidebarChat";
 import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 //* Material
@@ -101,7 +101,7 @@ const Sidebar = memo(() => {
   const removeConversation = () => {
     ownConversations.forEach( async(conversation) =>{
       try{
-        console.log(conversation.conversationSelected);
+        // console.log(conversation.conversationSelected);
         const conversationsLastPosition = ownConversations.length - 1;
         if(conversation.conversationSelected === true){
           await dispatch(deleteConversation(conversation._id));
@@ -110,7 +110,7 @@ const Sidebar = memo(() => {
           const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${userApp[0].uid}/conversations`;
           await dispatch(fetchConversations(baseURL));
         };
-        dispatch(resetChatMessages());
+        dispatch(resetConversations());
       }catch(error){
         alert(`Chat: removeConversation er => ${error.message}`);
       }

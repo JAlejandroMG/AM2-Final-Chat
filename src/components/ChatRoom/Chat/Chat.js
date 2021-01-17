@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +7,7 @@ import { addMessage, deleteMessage, fetchMessages, isAtLeastOneMessageSelected, 
 import { Avatar, IconButton } from "@material-ui/core";
 import {
   InsertEmoticon,
-  DeleteOutline,
+  DeleteOutline
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
 
@@ -100,7 +101,7 @@ const Chat = memo(() => {
       </div>
       {
         messages[0]._id ?
-        
+
         
         <div ref={scrollRef} className={`chat__body ${ loader === true && "chat_body_loader"}`}>
           
@@ -143,7 +144,7 @@ const Chat = memo(() => {
                 <h2>{`Estas por iniciar una conversación con`}</h2>
                 <h2>{`${chatUser[0].username}`}</h2>
               </div>
-              
+            
             )
           }
         </div>

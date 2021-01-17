@@ -172,8 +172,8 @@ const update = (firstName, lastName) => {
                });
             user = await firebase.auth().currentUser;
             dispatch(setUser(user));
-            // const message = await dispatch(appRegister(firstName, lastName)); //! CAMBIAR PARA PRODUCCION
-            const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
+            const message = await dispatch(appRegister(firstName, lastName)); //! CAMBIAR PARA PRODUCCION
+            // const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
             resolve(message);
          }catch(error){
             reject(error);

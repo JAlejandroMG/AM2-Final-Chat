@@ -47,14 +47,16 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          return {...transState, conversations: addedPropertyConversations}; //Conversations in existance
 
       case actions.GET_MESSAGES:
-         const addedPropertyMessages = [];
-         const addedPropertyMessage = {messageSelected: false};
-         const messagesObj = action.payload;
+         const addedPropertyMessageSelected = [];
+         const addPropertyMessageSelected = {messageSelected: false};
+         let messagesObj = action.payload;
          messagesObj[0].messages.forEach(message => {
-            const addingPropertyMessage = Object.assign(message, addedPropertyMessage);
-            addedPropertyMessages.push(addingPropertyMessage);
+            const addingPropertyMessage = Object.assign(message, addPropertyMessageSelected);
+            addedPropertyMessageSelected.push(addingPropertyMessage);
          });
-         messagesObj[0].messages = addedPropertyMessages
+         messagesObj[0].messages = addedPropertyMessageSelected;
+         const addPropertyAtLeastOneMessageSelected = { atLeastOneMessageSelected: false };
+         Object.assign(messagesObj[0], addPropertyAtLeastOneMessageSelected);
          return {...transState, messages: messagesObj}; //Messages from a conversation
 
       case actions.GET_OWN_CONVERSATIONS:
@@ -86,9 +88,11 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          transState.messages[0].atLeastOneMessageSelected = false;
          return transState;
 
-      case actions.RESET_CHAT_MESSAGES:
-         return {...transState, messages: [{ _id: false, atLeastOneMessageSelected: false, messages: [] }]};
-         // return {...transState, scrollChatBody: false};
+      case actions.RESET_CONVERSATIONS:
+         transState.messages = [{_id: false, atLeastOneMessageSelected: false, messages: []}];
+         transState.atLeastOneConversationSelected = false;
+         transState.chatUser = [{photoUrl: "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg", username: false}];
+         return transState;
 
       case actions.RESET_CHAT_REDUCER:
          return {

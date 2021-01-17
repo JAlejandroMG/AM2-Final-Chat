@@ -100,15 +100,28 @@
 //* Fixed not showing messages when deleting in bulk
 //* Added conversationSelected functionality
 //* Added showing Delete icon for delete conversation functionality
-//* Added delete conversations5ffb69710622870017ecffb9
+//* Added delete conversations
 //* Added clear messages after deleting conversation(s)
 //* Reviewing and cleaning up code
 //  commit
+//} 20210114
+//* Added style to page 404 and loader on Login.jsx
+//  commit
+//} 20210116
+//* Added loader to Chat, and cleaning up Code
+//  commit
+//* Fixed atLeastOneMessageSelected and atLeastOneConversationSelected properties
+//* Fixed reseting values after deleting conversations
 
-//[ Marcar visto
+
+
 //] Pendientes
-//  Opcional homologar la imágen de todas las páginas 404
-//  Loader
+//[ Register
+//[ :chat
+//[ Poner última conversación arriba
+//[ Mensaje succes y error
+//[ Proteger salida
+//[ Marcar visto
 
 
 

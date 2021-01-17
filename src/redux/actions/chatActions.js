@@ -52,15 +52,15 @@ export const isAtLeastOneMessageSelected = () => {
    };
 };
 
-export const resetChatMessages = () => {
-   return {
-      type: actions.RESET_CHAT_MESSAGES
-   };
-};
-
 export const resetChatReducer = () => {
    return {
       type: actions.RESET_CHAT_REDUCER
+   };
+};
+
+export const resetConversations = () => {
+   return {
+      type: actions.RESET_CONVERSATIONS
    };
 };
 
@@ -159,7 +159,7 @@ export const deleteConversation = (id) => {
 
 
          // https://academlo-whats.herokuapp.com/api/v1/conversations/5ffb5b190622870017ecffb4
-            console.log(id);
+            // console.log(id);
 
             const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/conversations/${id}`;
             fetch(urlDelete, {
@@ -200,7 +200,7 @@ export const fetchConversations = (baseURL) => {
             const userAppId = getState().contacts.userApp[0]._id;
             const response = await fetch(baseURL);
             const conversations = await response.json();
-            console.log(conversations);
+            // console.log(conversations);
             dispatch(getConversations(conversations));
             dispatch(getOwnConversations(conversations, userAppId));
             // alert("Consiguió conversaciones en fetchConversations");
