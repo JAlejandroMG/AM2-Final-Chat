@@ -24,8 +24,7 @@
 //* Login fixed a warning
 //* Enlace de Login a Register
 //* Redireccionamiento después de reestablecer la contraseña
-//! Mensaje de correo enviado al solicitar reestablecer la contraseña (alert temporalmente)
-//! useCallback al momento de hacer fetch a BD de aplicación
+//* Mensaje de correo enviado al solicitar reestablecer la contraseña (alert temporalmente)
 //* Captura del nombre separando firstName lastName
 //* Consumo de API para enviar datos de usuario con método POST
 //* Cambio de sintaxis para enlazar el componente Chat y poder pasarle props //BUSCAR OPCIONES PARA HACERLO DINAMICO
@@ -112,16 +111,18 @@
 //  commit
 //* Fixed atLeastOneMessageSelected and atLeastOneConversationSelected properties
 //* Fixed reseting values after deleting conversations
+//} 20210117
+//* Added: last conversation on top
+//* Added: message received
+//* Added: move own messages.
+//* Code clean up
+// commit
 
 
 
 //] Pendientes
-//[ Register
-//[ :chat
-//[ Poner última conversación arriba
-//[ Mensaje succes y error
+//[ Mensajes Bienvenida y Despedida
 //[ Proteger salida
-//[ Marcar visto
 
 
 
@@ -148,7 +149,7 @@
 //* /login
 //* /register
 //* /chat (protegida)
-//! /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
+//* /chat/:id (protegida) Protegida como consecuencia de proteger /chat ya que se accede a través de éste último
 //[ Logout
 
 //+ Firebase
@@ -198,81 +199,3 @@
 
 
 //! Este documento se actualizará pronto...
-
-
-
-
-//! LOADER
-//{HTML
-/* 
-<div id="startup">
-   <svg class="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
-      <circle class="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
-   </svg>
-</div>
-*/
-//{CSS
-/* 
-#startup {
-              width: 100%;
-              height: 100%;
-              position: fixed;
-              background-color: #EEEEEE;
-              -moz-user-select: none;
-              -webkit-user-select: none;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              display: -webkit-box;
-              display: -webkit-flex;
-              -webkit-align-items: center;
-              -webkit-justify-content: center;
-          }
-          .spinner-container {
-              -webkit-animation: rotate 2s linear infinite;
-                      animation: rotate 2s linear infinite;
-              z-index: 2;
-          }
-          .spinner-container .path {
-              stroke-dasharray: 1,150; // 1%, 101% circumference
-              stroke-dashoffset: 0;
-              stroke: rgba(27, 154, 89, 0.7);
-              stroke-linecap: round;
-              -webkit-animation: dash 1.5s ease-in-out infinite;
-                      animation: dash 1.5s ease-in-out infinite;
-          }
-          @keyframes rotate {
-              100% { transform: rotate(360deg); }
-          }
-          @-webkit-keyframes rotate{
-              100% { -webkit-transform: rotate(360deg); }
-          }
-          @keyframes dash {
-              0% {
-                  stroke-dasharray: 1,150;  // 1%, 101% circumference
-                  stroke-dashoffset: 0;
-              }
-              50% {
-                  stroke-dasharray: 90,150; // 70%, 101% circumference
-                  stroke-dashoffset: -35;   // 25% circumference
-              }
-              100% {
-                  stroke-dasharray: 90,150; // 70%, 101% circumference
-                  stroke-dashoffset: -124;  // -99% circumference
-              }
-          }
-          @-webkit-keyframes dash {
-              0% {
-                  stroke-dasharray: 1,150;  // 1%, 101% circumference
-                  stroke-dashoffset: 0;
-              }
-              50% {
-                  stroke-dasharray: 90,150; // 70%, 101% circumference
-                  stroke-dashoffset: -35;   // 25% circumference
-              }
-              100% {
-                  stroke-dasharray: 90,150; // 70%, 101% circumference
-                  stroke-dashoffset: -124;  // -99% circumference
-              }
-          }
-*/

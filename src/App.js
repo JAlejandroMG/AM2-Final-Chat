@@ -7,6 +7,8 @@ import PrivateChatRoom from './components/ChatRoom/PrivateChatRoom';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './components/Register/Register';
 
+
+
 function App() {
   const notFound = () => ( <h2 className="error_404">404 Not Found</h2> )
   
@@ -36,6 +38,3 @@ function App() {
 
 
 export default App;
-
-
-

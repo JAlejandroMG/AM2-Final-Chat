@@ -6,6 +6,7 @@ import { login, checkActiveSession, resetPassword } from '../../redux/actions/au
 import { toggleLoader } from '../../redux/actions/loaderActions';
 
 
+
 //{ Called from App.js, ProtectedRoute.jsx
 function Login() {
    const emailRef = useRef("");
@@ -13,29 +14,17 @@ function Login() {
    const history = useHistory();
    const dispatch = useDispatch();
    const { loader } = useSelector(state => state.loader);
-   //[Pendiente...
-   // const wellcomeRef = useRef("Esto es una prueba");
-   // const showWellcomeRef = useRef(true);
-/* 
-   //! SOLO PARA PRUEBAS
-   const refContador = useRef(1);
-   useEffect(() => {
-      console.log(`Login: render => ${refContador.current}`);
-      refContador.current++;
-   })
-    */
 
 
 //*----------------- Checks on Firebase if user is connected ----------------*//
    useEffect(() => {
       (async function() {
          try{
-            // console.log("Login: useEffect: checkActiveSession"); //! SOLO PARA PRUEBAS
             const message = await dispatch(checkActiveSession());
             alert(`Login: useEffect: checkActiveSession => ${message}`); //! BIENVENIDA
             history.push("/chat");
          }catch(error){
-            alert(`Login: useEffect: checkActiveSession er => ${error}`); //! MENSAJE ERROR
+            // alert(`Login: useEffect: checkActiveSession er => ${error}`); //! MENSAJE ERROR
          }
       })();
       // eslint-disable-next-line
@@ -44,23 +33,21 @@ function Login() {
    const loginUser = async (e, provider) => {
       e.preventDefault();
       try{
-         // console.log("Login: loginUser"); //! SOLO PARA PRUEBAS
          dispatch(toggleLoader());
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
-         emailRef.current.value = "";
-         passwordRef.current.value = "";
          alert(`Login: loginUser => ${message}`); //! BIENVENIDA
          dispatch(toggleLoader());
          history.push("/chat");
+         emailRef.current.value = "";
+         passwordRef.current.value = "";
       }catch(error) {
          // passwordRef.current.value = ""; //! Cannot set property 'value' of null
-         alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
+         // alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
       }
    };
    
    const resetUserPassword = async() => {
       try{
-         // console.log("Login: resetUserPassword"); //! SOLO PARA PRUEBAS
          const actionCodeSettings = { url: `http://localhost:3000/` };
          const message = await dispatch(resetPassword(emailRef.current.value, actionCodeSettings));
          emailRef.current.value = "";
@@ -78,7 +65,7 @@ function Login() {
          loader ?
          <div id="startup" >
             <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
-               <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+               <circle className="path" cx="26px" cy="26px" r="20px" fill="none" strokeWidth="4px"></circle>
             </svg>
          </div>
       :
@@ -108,7 +95,6 @@ function Login() {
    );
    
 }
-
 
 
 

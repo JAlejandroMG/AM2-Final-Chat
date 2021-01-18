@@ -61,6 +61,7 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
 
       case actions.GET_OWN_CONVERSATIONS:
          const myConversations = [];
+         action.payload.ownConversations.reverse();
          action.payload.ownConversations.forEach(conversation => {
             conversation.members.forEach( member => {
                member === action.payload.userAppId && myConversations.push(conversation);
@@ -87,6 +88,15 @@ export const chatReducer = (prevState = INITIAL_STATE, action) => {
          transState.messages[0].atLeastOneMessageSelected = true :
          transState.messages[0].atLeastOneMessageSelected = false;
          return transState;
+
+      /* case actions.MESSAGE_RECEIVED:
+         transState.messages[0].messages.forEach(message => {
+            if(message.userId === action.payload) {
+               message.received = true;
+            };
+         })
+         console.log(action.payload);
+         return transState; */
 
       case actions.RESET_CONVERSATIONS:
          transState.messages = [{_id: false, atLeastOneMessageSelected: false, messages: []}];

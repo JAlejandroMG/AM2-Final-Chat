@@ -3,8 +3,8 @@ import "./Sidebar.css";
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../redux/actions/authActions';
-import { fetchContacts } from '../../../redux/actions/contactsActions';
 import { deleteConversation, fetchConversations, resetConversations } from '../../../redux/actions/chatActions';
+import { fetchContacts } from '../../../redux/actions/contactsActions';
 import SidebarChat from "./SidebarChat/SidebarChat";
 import SidebarDropdown from './SidebarDropdown/SidebarDropdown';
 //* Material
@@ -26,30 +26,15 @@ const Sidebar = memo(() => {
   const { contacts, userApp } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
   const history = useHistory();
-  /* 
-  //! SOLO PARA PRUEBAS
-  const refContador = useRef(1);
-  useEffect(() => {
-    console.log(`Sidebar: render => ${refContador.current}`);
-    refContador.current++;
-  })
-  //! SOLO PARA PRUEBAS
-  useEffect(() => {
-    console.log(searchUser);
-  }, [searchUser])
-   */
 
 
   useEffect(() => {
     //*-------------------------------- Contacts --------------------------------*//
     (async function() {
       try{
-        // console.log("Sidebar: useEffect: contacts"); //! SOLO PARA PRUEBAS
         const baseURL = 'https://academlo-whats.herokuapp.com/api/v1/users';
         await dispatch(fetchContacts(baseURL, user.uid));
-        // const message = await dispatch(fetchContacts(baseURL, user.uid));
         getConversations();
-        // alert(`Sidebar: useEffect: contacts => ${message}`);//! SOLO PARA PRUEBAS
       }catch(error){
         alert(`Sidebar: useEffect: contacts er => ${error.message}`);
       }
@@ -57,11 +42,8 @@ const Sidebar = memo(() => {
     //*------------------------------ Conversations -----------------------------*//
     const getConversations = async() => {
       try{
-        // console.log("Sidebar: useEffect: getConversations"); //! SOLO PARA PRUEBAS
         const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${user.uid}/conversations`;
         await dispatch(fetchConversations(baseURL));
-        // const message = await dispatch(fetchConversations(baseURL));
-        // alert(`Sidebar: useEffect: getConversations => ${message}`); //! SOLO PARA PRUEBAS
       }catch(error){
         alert(`Sidebar: useEffect: getConversations er => ${error.message}`);
       }
@@ -71,7 +53,6 @@ const Sidebar = memo(() => {
 
   const logoutUser = async () => {
     try {
-      // console.log("Sidebar: logoutUser"); //! SOLO PARA PRUEBAS
       const message = await dispatch(logout()); //authActions.js
       alert(`Sidebar: logoutUser => ${message}`); //! DESPEDIDA
       history.push("/");
@@ -101,7 +82,6 @@ const Sidebar = memo(() => {
   const removeConversation = () => {
     ownConversations.forEach( async(conversation) =>{
       try{
-        // console.log(conversation.conversationSelected);
         const conversationsLastPosition = ownConversations.length - 1;
         if(conversation.conversationSelected === true){
           await dispatch(deleteConversation(conversation._id));
@@ -164,7 +144,7 @@ const Sidebar = memo(() => {
                   if(myconversation) {
                     const chatUser = conversation.membersObj.find(member => member._id !== userApp[0]._id);
                     return (
-                      <Link key={i} to={`/chat/${conversation._id}`}>
+                      <Link key={i} style={{textDecoration: 'none', color: 'black'}} to={`/chat/${conversation._id}`}>
                         <SidebarChat key={i} photo={chatUser.photoUrl} userName={chatUser.username} conversationId={conversation._id} conversationSelected={conversation.conversationSelected} />
                       </Link>
                     )
