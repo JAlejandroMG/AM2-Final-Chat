@@ -167,10 +167,7 @@ export const deleteConversation = (id) => {
             fetch(urlDelete, {
                method: `DELETE`,
             })
-            .then(response => {
-               alert("Borró conversación chatActions")
-               resolve(response)
-            })
+            .then(response => resolve(response))
             .catch(error => reject(error))
       });
    }
@@ -222,8 +219,7 @@ export const fetchMessages = (baseURL, id) => {
             dispatch(conversationId(id));
             const response = await fetch(baseURL);
             const messages = await response.json();
-            console.log(messages);
-            const userId = messages[0].members.filter( member => member !== getState().contacts.userApp[0]._id)
+            const userId = await messages[0].members.filter( member => member !== getState().contacts.userApp[0]._id)
             const user = getState().contacts.contacts.filter(contact => contact._id === userId[0]);
             dispatch(chatUser(user));
             dispatch(getMessages(messages));

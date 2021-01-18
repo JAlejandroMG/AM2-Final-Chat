@@ -36,7 +36,7 @@ const Sidebar = memo(() => {
         await dispatch(fetchContacts(baseURL, user.uid));
         getConversations();
       }catch(error){
-        alert(`Sidebar: useEffect: contacts er => ${error.message}`);
+        alert(error.message);
       }
     })();
     //*------------------------------ Conversations -----------------------------*//
@@ -45,7 +45,7 @@ const Sidebar = memo(() => {
         const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${user.uid}/conversations`;
         await dispatch(fetchConversations(baseURL));
       }catch(error){
-        alert(`Sidebar: useEffect: getConversations er => ${error.message}`);
+        alert(error.message);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,10 +54,10 @@ const Sidebar = memo(() => {
   const logoutUser = async () => {
     try {
       const message = await dispatch(logout()); //authActions.js
-      alert(`Sidebar: logoutUser => ${message}`); //! DESPEDIDA
+      alert(message); //! DESPEDIDA
       history.push("/");
     } catch(error) {
-      alert(`Sidebar: logoutUser er => ${error.message}`);
+      alert(error.message);
     }
   };
 
