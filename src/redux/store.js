@@ -7,8 +7,10 @@ import { loaderReducer } from './reducers/loaderReducer';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
+
 const rootReducer = combineReducers({ auth: authReducer, chat: chatReducer, contacts: contactsReducer, loader: loaderReducer });
 
 const store = createStore( rootReducer, composeWithDevTools( applyMiddleware(logger, thunk) ) );
+
 
 export default store;

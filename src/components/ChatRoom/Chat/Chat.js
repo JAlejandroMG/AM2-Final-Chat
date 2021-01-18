@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, memo } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,20 +20,11 @@ const Chat = memo(() => {
   const { loader } = useSelector(state => state.loader);
   const { userApp } = useSelector(state => state.contacts);
   const { chatUser, conversationId, messages, scrollChatBody }  = useSelector(state => state.chat);
-/* 
-  //! SOLO PARA PRUEBAS
-  const refContador = useRef(1);
-  useEffect(() => {
-    console.log(`Chat: render => ${refContador.current}`);
-    refContador.current++;
-  });
- */
 
 
   useEffect(() => {
     if(scrollChatBody & !loader) {
       if(messages[0].messages[0]){
-        // console.log("Chat=>useEffect Dentro del if")
         const scroll = scrollRef.current;
         scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
         dispatch(scrollToLastMessage());
@@ -46,13 +36,10 @@ const Chat = memo(() => {
   const sendMessage = async (e) => {
     e.preventDefault();
     try {
-      // console.log("Chat: sendMessage"); //! SOLO PARA PRUEBAS
-      // const message = await dispatch(addMessage(messageRef.current.value)); //! SOLO PARA PRUEBAS
       await dispatch(addMessage(messageRef.current.value));
-      messageRef.current.value = "";
       const scroll = scrollRef.current;
       scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
-      // alert(`Chat: sendMessage => ${message}`); //! SOLO PARA PRUEBAS
+      messageRef.current.value = "";
     } catch(error) {
       alert(`Chat: sendMessage er => ${error.message}`); //! MENSAJE ERROR
     }
@@ -75,7 +62,6 @@ const Chat = memo(() => {
           const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${conversationId}/messages`;
           await dispatch(fetchMessages(baseURL, conversationId));
         };
-        // alert(`Chat: removeMessage => ${message}`); //! SOLO PARA PRUEBAS    
       }catch(error){
         alert(`Chat: removeMessage er => ${error.message}`);
       }
@@ -110,7 +96,7 @@ const Chat = memo(() => {
             <div className="loader-container">
               <div className="startup">
                   <svg className="spinner-container" width="65px" height="65px" viewBox="0 0 52 52">
-                    <circle className="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"></circle>
+                    <circle className="path" cx="26px" cy="26px" r="20px" fill="none" strokeWidth="4px"></circle>
                   </svg>
               </div>
             </div>
@@ -141,8 +127,8 @@ const Chat = memo(() => {
               })
               :
               <div>
-                <h2>{`Estas por iniciar una conversación con`}</h2>
-                <h2>{`${chatUser[0].username}`}</h2>
+                <h2 style={{textAlign: 'center'}}>{`Estas por iniciar una conversación con`}</h2>
+                <h1 style={{textAlign: 'center'}}>{`${chatUser[0].username}`}</h1>
               </div>
             
             )
@@ -150,13 +136,13 @@ const Chat = memo(() => {
         </div>
         :
         <div className="chat__body">          
-          <h2>Hola!</h2>
-          <h1>{`${userApp[0].username}`}</h1>
-          <h2>Te damos una cordial bienvenida al Chat.</h2>
+          <h2 style={{textAlign: 'center'}}>Hola!</h2>
+          <h1 style={{textAlign: 'center'}}>{`${userApp[0].username}`}</h1>
+          <h2 style={{textAlign: 'center'}}>Te damos una cordial bienvenida al Chat.</h2>
         </div>
-            
+
       }
-           
+
       <div className="chat__footer">
         <InsertEmoticon />
         <form onSubmit={sendMessage}>

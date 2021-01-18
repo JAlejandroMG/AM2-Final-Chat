@@ -31,7 +31,6 @@ export const fetchContacts = (baseURL, uid) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("contactsActions: fetchContacts"); //! SOLO PARA PRUEBAS
             const response = await fetch(baseURL);
             const contactsArray = await response.json();
             // From contactsArray (users), the user connected to the App is taken off
@@ -39,7 +38,6 @@ export const fetchContacts = (baseURL, uid) => {
             dispatch(getContacts(contacts));
             // From contactsArray (users), the user connected to the App is the only one left
             const userApp = await contactsArray.filter(contact => contact.uid === uid);
-            // console.log(userApp);
             dispatch(getUserApp(userApp));
             resolve("Se han recibido los contactos correctamente.");
          } catch (error) {

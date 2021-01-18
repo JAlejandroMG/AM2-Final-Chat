@@ -52,6 +52,13 @@ export const isAtLeastOneMessageSelected = () => {
    };
 };
 
+/* export const messageReceived = (userApp) => {
+   return {
+      type: actions.MESSAGE_RECEIVED,
+      payload: userApp
+   };
+}; */
+
 export const resetChatReducer = () => {
    return {
       type: actions.RESET_CHAT_REDUCER
@@ -84,6 +91,12 @@ export const selectMessage = (position) => {
    };
 };
 
+// export const showMessageReceived = () => {
+//    return {
+//       type: actions.SHOW_MESSAGE_RECEIVED
+//    };
+// };
+
 
 
 //{ Called from SidebarDropdown.js => sendConversation()
@@ -92,20 +105,16 @@ export const  addConversation = (id) =>{
    return (dispatch, getState) => {
       return new Promise (async(resolve, reject) => {
          try {
-            console.log("chatActions: addConversation"); //! SOLO PARA PRUEBAS
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/conversations`;
             const headers = {'Content-Type': 'application/json'};
             const body = {
                "members": [getState().contacts.userApp[0]._id, id]
             };
-            const newConversation = await fetch(urlRegister, {
+            await fetch(urlRegister, {
                method: `POST`,
                headers,
                body: JSON.stringify(body)
             });
-            console.log(newConversation);
-            // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${5fed3094794c290017d822b0}/conversations`;
-
             const baseURL = `https://academlo-whats.herokuapp.com/api/v1/users/${getState().contacts.userApp[0].uid}/conversations`;
             await dispatch(fetchConversations(baseURL));
             resolve("Se ha agregado una conversación");
@@ -124,7 +133,6 @@ export const addMessage = (newMessage) => {
 
       return new Promise (async(resolve, reject) => {
          try {
-            console.log("chatActions: addMessage"); //! SOLO PARA PRUEBAS
             const urlRegister = `https://academlo-whats.herokuapp.com/api/v1/messages`;
             const headers = {'Content-Type': 'application/json'};
             const body = {
@@ -140,7 +148,6 @@ export const addMessage = (newMessage) => {
                body: JSON.stringify(body)
             });
             const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/${getState().chat.conversationId}/messages`;
-            // const baseURL = `https://academlo-whats.herokuapp.com/api/v1/conversations/5fed3094794c290017d822b0/messages`;
             await dispatch(fetchMessages(baseURL, getState().chat.conversationId));
             resolve("Se ha agregado un nuevo mensaje");
          }catch(error){
@@ -156,12 +163,7 @@ export const addMessage = (newMessage) => {
 export const deleteConversation = (id) => {
    return() =>{
       return new Promise ((resolve, reject) =>{
-
-
-         // https://academlo-whats.herokuapp.com/api/v1/conversations/5ffb5b190622870017ecffb4
-            // console.log(id);
-
-            const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/conversations/${id}`;
+         const urlDelete = `https://academlo-whats.herokuapp.com/api/v1/conversations/${id}`;
             fetch(urlDelete, {
                method: `DELETE`,
             })
@@ -196,14 +198,11 @@ export const fetchConversations = (baseURL) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("chatActions: fetchConversations"); //! SOLO PARA PRUEBAS
             const userAppId = getState().contacts.userApp[0]._id;
             const response = await fetch(baseURL);
             const conversations = await response.json();
-            // console.log(conversations);
             dispatch(getConversations(conversations));
             dispatch(getOwnConversations(conversations, userAppId));
-            // alert("Consiguió conversaciones en fetchConversations");
             resolve("Se han recibido las conversaciones.");
          } catch (error) {
             reject(error);
@@ -220,7 +219,6 @@ export const fetchMessages = (baseURL, id) => {
 
       return new Promise (async(resolve, reject) => {
          try{
-            console.log("chatActions: fetchMessages"); //! SOLO PARA PRUEBAS
             dispatch(conversationId(id));
             const response = await fetch(baseURL);
             const messages = await response.json();
@@ -237,3 +235,11 @@ export const fetchMessages = (baseURL, id) => {
 
    };
 };
+
+//{ Called from SidebarChat.js => messageReceived()
+//*------------------------ Mark message as received ------------------------*//
+/* export const showMessageReceived = () => {
+   return (dispatch, getState) => {
+      dispatch(messageReceived(getState().contacts.userApp[0]._id))
+   };
+}; */
