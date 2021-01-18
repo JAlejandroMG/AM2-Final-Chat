@@ -41,7 +41,7 @@ const Chat = memo(() => {
       scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
       messageRef.current.value = "";
     } catch(error) {
-      alert(`Chat: sendMessage er => ${error.message}`); //! MENSAJE ERROR
+      alert(error.message); //! MENSAJE ERROR
     }
   };
 
@@ -63,7 +63,7 @@ const Chat = memo(() => {
           await dispatch(fetchMessages(baseURL, conversationId));
         };
       }catch(error){
-        alert(`Chat: removeMessage er => ${error.message}`);
+        alert(error.message);
       }
     });
   };

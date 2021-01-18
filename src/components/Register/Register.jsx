@@ -26,24 +26,22 @@ function Register() {
          try{
             dispatch(toggleLoader());
             const message = await dispatch(register(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value));
-            alert(`Register: registerUser => ${message}`); //! EL USUARIO HA SIDO REGISTRADO
+            alert(message); //! EL USUARIO HA SIDO REGISTRADO
             dispatch(toggleLoader());
             history.push("/chat");
-            firstNameRef.current.value = "";
-            lastNameRef.current.value = "";
-            emailRef.current.value = "";
-            passwordRef.current.value = "";
-            confirmPasswordRef.current.value = "";
+            // firstNameRef.current.value = ""; //!Cannot set property 'value' of null
+            // lastNameRef.current.value = "";
+            // emailRef.current.value = "";
+            // passwordRef.current.value = "";
+            // confirmPasswordRef.current.value = "";
          }catch(error){
             // passwordRef.current.value = ""; //!Cannot set property 'value' of null
-            // confirmPasswordRef.current.value = ""; //!Cannot set property 'value' of null
-            alert(`Register: registerUser er1 => ${error.message}`); //! MENSAJE ERROR
+            // confirmPasswordRef.current.value = "";
+            alert(error.message); //! MENSAJE ERROR
          };
       } else {
          e.preventDefault();
-         passwordRef.current.value = "";
-         confirmPasswordRef.current.value = "";
-         alert(`Register: registerUser er2 => The confirmation of your password doesn't match your password`);
+         alert(`La confirmación de tu contraseña no coincide con tu contraseña`); //! MENSAJE ERROR
       }
    };
 

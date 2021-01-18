@@ -21,10 +21,10 @@ function Login() {
       (async function() {
          try{
             const message = await dispatch(checkActiveSession());
-            alert(`Login: useEffect: checkActiveSession => ${message}`); //! BIENVENIDA
+            alert(message); //! BIENVENIDA
             history.push("/chat");
          }catch(error){
-            // alert(`Login: useEffect: checkActiveSession er => ${error}`); //! MENSAJE ERROR
+            alert(error.message); //! MENSAJE ERROR
          }
       })();
       // eslint-disable-next-line
@@ -35,14 +35,11 @@ function Login() {
       try{
          dispatch(toggleLoader());
          const message = await dispatch(login(provider, emailRef.current.value, passwordRef.current.value));
-         alert(`Login: loginUser => ${message}`); //! BIENVENIDA
+         alert(message); //! BIENVENIDA
          dispatch(toggleLoader());
          history.push("/chat");
-         emailRef.current.value = "";
-         passwordRef.current.value = "";
       }catch(error) {
-         // passwordRef.current.value = ""; //! Cannot set property 'value' of null
-         // alert(`Login: loginUser er => ${error.message}`); //! MENSAJE ERROR
+         alert(error.message); //! MENSAJE ERROR
       }
    };
    
@@ -50,11 +47,10 @@ function Login() {
       try{
          const actionCodeSettings = { url: `http://localhost:3000/` };
          const message = await dispatch(resetPassword(emailRef.current.value, actionCodeSettings));
+         alert(message);
          emailRef.current.value = "";
-         passwordRef.current.value = "";
-         alert(`Login: resetUserPassword => ${message}`); //! CORREO ENVIADO PARA REESTABLECER CONTRASEÑA
       }catch(error){
-         alert(`Login: resetUserPassword er => ${error.message}`); //! MENSAJE ERROR
+         alert(error.message); //! MENSAJE ERROR
       }
    };
 
@@ -69,8 +65,8 @@ function Login() {
             </svg>
          </div>
       :
-      <div>
-         <form className="formLogin" onSubmit={(e) => loginUser(e, "")} >
+      <div className="formLogin">
+         <form onSubmit={(e) => loginUser(e, "")} >
             <h2 className="titleLogin">Login</h2>
                <br/>
             <label>Email</label>
@@ -78,11 +74,8 @@ function Login() {
                <br/>
             <label>Password</label>
             <input className="inputLogin" type="password" name="password" ref={passwordRef} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Password must have 6 or more characters with at least 1 lowercase, 1 uppercase and 1 number." placeholder="Password"/>
-               <br/>
+            <br/>
             <button className="buttonLogin" type="submit">Login</button>
-            <br />
-            <button className="buttonResetPassword" onClick={resetUserPassword}>Reset Password</button>
-               
             <br />
             <button className="buttonLogin"onClick={(e) => loginUser(e, "google")}>Login with Google</button>
                <br />
@@ -90,6 +83,8 @@ function Login() {
                <button className="buttonRegister">Register</button>
             </Link>
          </form>
+            <br />
+            <button className="buttonResetPassword" onClick={resetUserPassword}>Reset Password</button>
       </div>
       )
    );
