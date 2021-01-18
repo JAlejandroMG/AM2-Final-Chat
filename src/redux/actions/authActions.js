@@ -82,8 +82,8 @@ export const login = (provider, email, password) => {
                let {user} = await firebase.auth().signInWithPopup(googleProvider);
                dispatch(setUser(user));
                // Aunque user.displayName puede ser accesado desde appRegister() se pasa como argumento para poder reutilizar esa función desde aquí y desde update()
-               //const message = await dispatch(appRegister(user.displayName, "Firebase")); //! CAMBIAR PARA PRODUCCION
-               const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
+               const message = await dispatch(appRegister(user.displayName, "Firebase")); //! CAMBIAR PARA PRODUCCION
+               // const message = "Bienvenido a la aplicación de Chat"; //! CAMBIAR PARA PRODUCCION
                resolve(message);
             }
          }catch(error){
