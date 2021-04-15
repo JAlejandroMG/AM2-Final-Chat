@@ -24,7 +24,7 @@ function Login() {
             alert(message); //! BIENVENIDA
             history.push("/chat");
          }catch(error){
-            alert(error.message); //! MENSAJE ERROR
+            // alert(error.message); //! MENSAJE ERROR
          }
       })();
       // eslint-disable-next-line
